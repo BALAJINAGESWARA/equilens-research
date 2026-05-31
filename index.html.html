@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EquiLens Research | US Market Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Frank+Ruhl+Libre:wght@400;700;900&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════
+   CNBC DESIGN SYSTEM — Red · Black · White
+═══════════════════════════════════════════ */
+:root{
+  --red:#1B4F8A; --red2:#2563B0; --red-d:rgba(27,79,138,0.12);
+  --blk:#0A0A0A; --blk2:#111111; --blk3:#1A1A1A; --blk4:#222222; --blk5:#2A2A2A;
+  --wht:#FFFFFF; --off:#F5F5F5; --g1:#DDDDDD; --g2:#999999; --g3:#555555; --g4:#333333;
+  --gold:#F0B429; --grn:#00A878; --bdr:rgba(255,255,255,0.07); --bdr2:rgba(255,255,255,0.14);
+  --fh:'Frank Ruhl Libre',Georgia,serif;
+  --fb:'IBM Plex Sans',system-ui,sans-serif;
+  --fm:'IBM Plex Mono',monospace;
+  --fd:'Bebas Neue',sans-serif;
+  --nav:60px;
+
+  /* Earnings intelligence colors (skill spec) */
+  --ei-bg:#0a0e14; --ei-panel:#121821; --ei-panel2:#1a2230; --ei-border:#243042;
+  --ei-text:#e6edf3; --ei-muted:#8b98a9; --ei-faint:#5a6675;
+  --ei-accent:#4da3ff; --ei-pos:#3ad29f; --ei-neg:#ff6b6b; --ei-neu:#f5c451;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--fb);background:var(--blk);color:var(--wht);line-height:1.6;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;font-family:var(--fb);}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px;}
+.c{max-width:1280px;margin:0 auto;padding:0 24px;}
+.up{color:var(--grn);} .dn{color:var(--red2);} .flat{color:var(--g2);}
+
+/* ── TOP BAR ── */
+.topbar{background:var(--red);padding:5px 0;font-size:11px;font-weight:600;letter-spacing:.8px;}
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:white;animation:blink 1.5s ease-in-out infinite;display:inline-block;margin-right:5px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── NAV ── */
+.nav{background:var(--blk2);border-bottom:3px solid var(--red);position:sticky;top:0;z-index:100;height:var(--nav);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;gap:20px;}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.logo-box{background:var(--red);width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:20px;letter-spacing:1px;}
+.logo-name{font-family:var(--fd);font-size:22px;letter-spacing:2px;line-height:1;}
+.logo-sub{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--g2);}
+.nav-links{display:flex;align-items:center;gap:0;flex:1;justify-content:center;}
+.nl{padding:8px 15px;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--g1);background:transparent;border:none;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .15s;}
+.nl:hover{color:white;}
+.nl.active{color:white;border-bottom-color:var(--red);}
+.btn-sub{background:var(--red);color:white;border:none;padding:8px 18px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:background .15s;}
+.btn-sub:hover{background:var(--red2);}
+
+/* ── PAGES ── */
+.page{display:none;padding:28px 0 80px;}
+.page.active{display:block;}
+
+/* ── BREAKING ── */
+
+
+/* ── SECTION HEADS ── */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:11px;border-bottom:2px solid var(--red);}
+.sh-title{font-family:var(--fd);font-size:20px;letter-spacing:2px;display:flex;align-items:center;gap:10px;}
+.sh-tag{background:var(--red);color:white;font-size:9px;font-weight:700;letter-spacing:2px;padding:3px 8px;}
+.sh-link{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--red);border:1px solid var(--red);padding:5px 12px;background:none;transition:all .15s;}
+.sh-link:hover{background:var(--red);color:white;}
+
+/* ── HERO ── */
+.hero-grid{display:grid;grid-template-columns:1.6fr 1fr;border:1px solid var(--bdr);margin-bottom:28px;}
+.hero-main{min-height:460px;background:var(--blk3);cursor:pointer;position:relative;overflow:hidden;border-right:1px solid var(--bdr);}
+.hero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:100px;opacity:.15;transition:transform .5s;}
+.hero-main:hover .hero-bg{transform:scale(1.05);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.95) 40%,rgba(0,0,0,.1));}
+.hero-content{position:absolute;bottom:0;left:0;right:0;padding:24px;}
+.hero-cat{background:var(--red);color:white;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;display:inline-block;margin-bottom:10px;}
+.hero-title{font-family:var(--fh);font-size:clamp(18px,2.5vw,26px);font-weight:700;line-height:1.25;margin-bottom:8px;}
+.hero-excerpt{font-size:13px;color:var(--g1);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.hero-meta{font-size:11px;color:var(--g2);}
+.hero-side{display:flex;flex-direction:column;}
+.ss{flex:1;padding:16px 18px;border-bottom:1px solid var(--bdr);cursor:pointer;transition:background .15s;position:relative;}
+.ss:last-child{border-bottom:none;}
+.ss:hover{background:var(--blk3);}
+.ss::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background .15s;}
+.ss:hover::before{background:var(--red);}
+.ss-cat{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:5px;}
+.ss-title{font-family:var(--fh);font-size:14px;font-weight:700;line-height:1.35;color:white;}
+.ss-meta{font-size:10px;color:var(--g2);margin-top:4px;}
+
+/* ── ECON STRIP ── */
+.econ-strip{background:var(--blk2);border:1px solid var(--bdr);border-top:3px solid var(--red);padding:18px;margin-bottom:28px;}
+.es-label{font-family:var(--fd);font-size:14px;letter-spacing:2px;color:var(--red);margin-bottom:14px;}
+.es-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;}
+.ei{} .ei-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--g2);margin-bottom:3px;}
+.ei-val{font-family:var(--fm);font-size:17px;font-weight:500;}
+.ei-chg{font-size:11px;margin-top:1px;}
+
+/* ── NEWS GRID ── */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:32px;}
+.nc{background:var(--blk2);padding:18px;cursor:pointer;transition:background .15s;}
+.nc:hover{background:var(--blk3);}
+.nc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.nc-tag{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;border:1px solid;}
+.tg-eco{color:var(--gold);border-color:var(--gold);}
+.tg-geo{color:#7CB9E8;border-color:#7CB9E8;}
+.tg-fed{color:var(--red);border-color:var(--red);}
+.tg-mkt{color:var(--grn);border-color:var(--grn);}
+.tg-trd{color:#C8A2C8;border-color:#C8A2C8;}
+.nc-ico{font-size:22px;}
+.nc-title{font-family:var(--fh);font-size:15px;font-weight:700;line-height:1.35;margin-bottom:7px;}
+.nc-body{font-size:12px;color:var(--g2);line-height:1.6;margin-bottom:10px;}
+.nc-meta{font-size:10px;color:var(--g3);}
+
+/* ── OPINION ── */
+.opinion-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:32px;}
+.oc{background:var(--blk2);padding:22px;cursor:pointer;transition:all .15s;border-left:4px solid transparent;}
+.oc:hover{background:var(--blk3);border-left-color:var(--red);}
+.oc-type{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:7px;}
+.oc-title{font-family:var(--fh);font-size:17px;font-weight:700;line-height:1.3;margin-bottom:7px;}
+.oc-body{font-size:12.5px;color:var(--g2);line-height:1.65;}
+
+/* ── ARTICLES ── */
+.art-layout{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start;}
+.art-featured{background:var(--blk2);border:1px solid var(--bdr);border-top:3px solid var(--red);cursor:pointer;transition:border-color .2s;margin-bottom:20px;}
+.art-featured:hover{border-color:var(--red);}
+.af-img{height:280px;background:linear-gradient(135deg,var(--blk3),var(--blk4));display:flex;align-items:center;justify-content:center;font-size:80px;}
+.af-body{padding:22px;}
+.af-cat{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:9px;}
+.af-title{font-family:var(--fh);font-size:22px;font-weight:700;line-height:1.3;margin-bottom:9px;}
+.af-excerpt{font-size:13px;color:var(--g2);line-height:1.7;margin-bottom:12px;}
+.af-meta{font-size:11px;color:var(--g3);display:flex;gap:10px;}
+.ali{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--bdr);cursor:pointer;}
+.ali:last-child{border-bottom:none;}
+.ali:hover .ali-title{color:var(--red);}
+.ali-thumb{height:58px;background:var(--blk3);display:flex;align-items:center;justify-content:center;font-size:22px;}
+.ali-cat{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:3px;}
+.ali-title{font-family:var(--fh);font-size:14px;font-weight:700;line-height:1.35;color:white;transition:color .15s;}
+.ali-meta{font-size:10px;color:var(--g3);margin-top:3px;}
+
+/* Archive */
+.archive-box{background:var(--blk2);border:1px solid var(--bdr);border-top:3px solid var(--red);padding:18px;position:sticky;top:80px;}
+.archive-title{font-family:var(--fd);font-size:15px;letter-spacing:2px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--bdr);}
+.archi{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--bdr);cursor:pointer;}
+.archi:last-child{border-bottom:none;}
+.archi:hover .archi-title{color:var(--red);}
+.archi-num{font-family:var(--fm);font-size:11px;color:var(--red);font-weight:600;flex-shrink:0;width:22px;margin-top:2px;}
+.archi-title{font-size:12px;font-weight:600;line-height:1.4;color:var(--g1);transition:color .15s;}
+
+/* ── EARNINGS PAGE ── */
+.earn-filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.fbtn{padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border:1px solid var(--bdr2);background:transparent;color:var(--g2);transition:all .15s;}
+.fbtn:hover,.fbtn.active{background:var(--red);border-color:var(--red);color:white;}
+
+/* Earnings featured card */
+.earn-featured{background:var(--blk2);border:1px solid var(--bdr);border-top:3px solid var(--red);margin-bottom:20px;cursor:pointer;}
+.ef-head{background:linear-gradient(135deg,#1a0505,#0d0d1a);padding:24px;border-bottom:1px solid var(--bdr);}
+.ef-pills{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.ef-co{font-family:var(--fh);font-size:26px;font-weight:700;margin-bottom:3px;}
+.ef-sub{font-size:12px;color:var(--g2);margin-bottom:16px;}
+.ef-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.efm-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--g2);margin-bottom:3px;}
+.efm-val{font-family:var(--fm);font-size:20px;font-weight:600;}
+.efm-chg{font-size:11px;margin-top:2px;}
+.ef-body{padding:18px 22px;}
+.ef-summary{font-size:13.5px;color:var(--g1);line-height:1.7;margin-bottom:14px;}
+.ef-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+
+/* Earnings cards */
+.earn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:20px;}
+.ecard{background:var(--blk2);padding:18px;cursor:pointer;transition:all .15s;border-left:3px solid transparent;}
+.ecard:hover{background:var(--blk3);border-left-color:var(--red);}
+.ecard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.ecard-co{font-family:var(--fh);font-size:15px;font-weight:700;}
+.ecard-sub{font-size:10px;color:var(--g2);margin-top:2px;}
+.ecard-ico{font-size:26px;}
+.ecard-mets{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.ecm-lbl{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--g2);}
+.ecm-val{font-family:var(--fm);font-size:14px;font-weight:600;margin-top:2px;}
+.ecm-chg{font-size:10px;margin-top:1px;}
+.ecard-foot{display:flex;justify-content:space-between;align-items:center;}
+.read-link{font-size:11px;color:var(--red);font-weight:700;}
+
+/* Badges */
+.badge{display:inline-block;padding:3px 9px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;}
+.b-beat{background:rgba(0,168,120,.15);color:var(--grn);border:1px solid rgba(0,168,120,.3);}
+.b-miss{background:rgba(27,79,138,.15);color:var(--red2);border:1px solid rgba(27,79,138,.3);}
+.b-line{background:rgba(240,180,41,.15);color:var(--gold);border:1px solid rgba(240,180,41,.3);}
+.b-buy{background:rgba(0,168,120,.15);color:var(--grn);border:1px solid rgba(0,168,120,.3);}
+.b-sbuy{background:rgba(0,168,120,.2);color:var(--grn);border:1px solid rgba(0,168,120,.4);font-size:9px;}
+.b-gray{background:var(--blk4);color:var(--g2);border:1px solid var(--bdr2);}
+
+/* ════════════════════════════════════════
+   FULL EARNINGS REPORT (Skill Design)
+════════════════════════════════════════ */
+.full-rpt{display:none;position:fixed;inset:0;z-index:500;background:var(--ei-bg);overflow-y:auto;}
+.full-rpt.open{display:block;}
+.frp-bar{background:var(--ei-panel);border-bottom:2px solid var(--red);padding:11px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.frp-back{background:var(--red);color:white;border:none;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;}
+.frp-back:hover{background:var(--red2);}
+.frp-id{font-size:12px;color:var(--ei-muted);font-family:var(--fm);}
+.frp-act{display:flex;gap:8px;}
+.frp-btn{background:var(--ei-panel2);border:1px solid var(--ei-border);color:var(--ei-muted);padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
+.frp-btn:hover{border-color:var(--red);color:white;}
+
+/* Report inner — EXACT skill design system */
+.rpt{max-width:1040px;margin:0 auto;padding:32px 20px 80px;color:var(--ei-text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.55;}
+.panel{background:var(--ei-panel);border:1px solid var(--ei-border);border-radius:14px;padding:24px;margin:18px 0;}
+.rpt h1{font-size:28px;font-weight:700;letter-spacing:-.02em;margin:0 0 4px;line-height:1.2;}
+.rpt h2{font-size:18px;font-weight:700;margin:0 0 16px;display:flex;align-items:center;gap:10px;color:var(--ei-text);}
+.rpt h2::before{content:'';width:4px;height:18px;background:var(--ei-accent);border-radius:2px;flex-shrink:0;}
+.rpt h3{font-size:14px;font-weight:700;margin:0 0 8px;}
+.rpt p{margin-bottom:10px;color:var(--ei-muted);line-height:1.75;}
+.rpt p:last-child{margin-bottom:0;}
+.rpt strong{color:var(--ei-text);font-weight:600;}
+.rpt .muted{color:var(--ei-muted);}
+.rpt .mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;}
+.rpt .pos{color:var(--ei-pos);}
+.rpt .neg{color:var(--ei-neg);}
+.rpt .neu{color:var(--ei-neu);}
+.rpt table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.rpt th,.rpt td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--ei-border);}
+.rpt th:first-child,.rpt td:first-child{text-align:left;}
+.rpt th{color:var(--ei-muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;}
+.rpt tr:last-child td{border-bottom:none;}
+.rpt tbody tr:hover{background:rgba(255,255,255,.025);}
+.rpt .beat{color:var(--ei-pos);font-weight:600;}
+.rpt .miss{color:var(--ei-neg);font-weight:600;}
+.rpt .inline{color:var(--ei-neu);font-weight:600;}
+.rpt .pill{display:inline-block;padding:3px 11px;border-radius:999px;font-size:12px;font-weight:700;}
+.rpt .pill-bull{background:rgba(58,210,159,.15);color:var(--ei-pos);border:1px solid rgba(58,210,159,.3);}
+.rpt .pill-bear{background:rgba(255,107,107,.15);color:var(--ei-neg);border:1px solid rgba(255,107,107,.3);}
+.rpt .pill-blue{background:rgba(77,163,255,.13);color:var(--ei-accent);border:1px solid rgba(77,163,255,.3);}
+.rpt .pill-neu{background:rgba(245,196,81,.15);color:var(--ei-neu);border:1px solid rgba(245,196,81,.3);}
+.rpt .pill-gray{background:var(--ei-panel2);color:var(--ei-muted);border:1px solid var(--ei-border);}
+.grid-2r{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid-3r{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.grid-4r{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.kpi-r{background:var(--ei-panel2);border:1px solid var(--ei-border);border-radius:12px;padding:16px 18px;}
+.kpi-r .label{font-size:11px;color:var(--ei-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.kpi-r .value{font-size:23px;font-weight:700;margin-bottom:4px;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;}
+.kpi-r .delta{font-size:12.5px;color:var(--ei-muted);}
+.kpi-r .note{font-size:11px;color:var(--ei-faint);margin-top:3px;}
+.bullbear{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.bull-box{background:rgba(58,210,159,.06);border:1px solid rgba(58,210,159,.22);border-radius:12px;padding:18px;}
+.bear-box{background:rgba(255,107,107,.06);border:1px solid rgba(255,107,107,.22);border-radius:12px;padding:18px;}
+.bull-box h3{color:var(--ei-pos);}
+.bear-box h3{color:var(--ei-neg);}
+.sig-list{list-style:none;padding:0;}
+.sig-list li{padding:5px 0;border-bottom:1px solid var(--ei-border);font-size:13px;color:var(--ei-muted);display:flex;gap:8px;line-height:1.5;}
+.sig-list li:last-child{border-bottom:none;}
+.risk-list{list-style:none;padding:0;}
+.risk-list li{font-size:13px;color:var(--ei-muted);padding:6px 0;border-bottom:1px solid var(--ei-border);display:flex;gap:8px;line-height:1.5;}
+.risk-list li:last-child{border-bottom:none;}
+.pt-bull{background:rgba(58,210,159,.07);border:1px solid rgba(58,210,159,.2);border-radius:10px;padding:14px;margin-bottom:10px;}
+.pt-base{background:rgba(77,163,255,.07);border:1px solid rgba(77,163,255,.2);border-radius:10px;padding:14px;margin-bottom:10px;}
+.pt-bear{background:rgba(255,107,107,.07);border:1px solid rgba(255,107,107,.2);border-radius:10px;padding:14px;margin-bottom:10px;}
+.pt-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.pt-price{font-size:26px;font-weight:800;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;}
+.pt-assume{font-size:12px;color:var(--ei-muted);margin-top:5px;line-height:1.6;}
+.pt-prob{font-size:11px;margin-top:5px;}
+.section-note{font-size:12px;color:var(--ei-faint);border-left:2px solid var(--ei-border);padding-left:10px;margin-bottom:14px;line-height:1.6;}
+.verdict-r{font-size:22px;font-weight:800;padding:8px 22px;border-radius:12px;display:inline-block;letter-spacing:.02em;}
+.rpt-disc{color:var(--ei-faint);font-size:11.5px;margin-top:44px;border-top:1px solid var(--ei-border);padding-top:16px;line-height:1.7;}
+@media(max-width:720px){.grid-2r,.grid-3r,.grid-4r,.bullbear{grid-template-columns:1fr!important;}}
+
+/* ── ECONOMIC PAGE ── */
+.econ-tabs{display:flex;border-bottom:2px solid var(--bdr);margin-bottom:20px;}
+.etab{padding:10px 22px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--g2);background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;transition:all .15s;}
+.etab.active{color:var(--red);border-bottom-color:var(--red);}
+.etab:hover{color:white;}
+.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.ind-card{background:var(--blk2);border:1px solid var(--bdr);border-top:2px solid var(--red);padding:16px;}
+.ind-flag{font-size:15px;margin-bottom:5px;}
+.ind-lbl{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--g2);margin-bottom:5px;}
+.ind-val{font-family:var(--fm);font-size:24px;font-weight:500;}
+.ind-row{display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(--g2);}
+.chart-box{background:var(--blk2);border:1px solid var(--bdr);padding:18px;margin-bottom:14px;}
+.cb-title{font-size:13px;font-weight:700;margin-bottom:2px;color:white;}
+.cb-sub{font-size:11px;color:var(--g2);margin-bottom:14px;}
+.releases-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;}
+.rel-card{background:var(--blk2);border:1px solid var(--bdr);padding:13px 16px;}
+.rel-top{display:flex;justify-content:space-between;margin-bottom:7px;}
+.rel-name{font-size:13px;font-weight:700;}
+.rel-date{font-size:10px;color:var(--g2);}
+.rel-data{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:7px;}
+.rd-lbl{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--g2);}
+.rd-val{font-family:var(--fm);font-size:13px;font-weight:600;}
+.rel-impact{font-size:11px;color:var(--g2);line-height:1.5;}
+
+/* ── TECHNICAL ANALYSIS PAGE ── */
+.ta-layout{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start;}
+.ta-sidebar{position:sticky;top:80px;}
+
+/* Form base */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.flabel{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g2);display:block;margin-bottom:5px;}
+.finput{width:100%;background:var(--blk3);border:1px solid var(--g3);border-bottom:2px solid var(--g3);padding:9px 12px;font-family:var(--fb);font-size:13px;color:white;outline:none;transition:border-color .2s;display:block;}
+.finput:focus{border-bottom-color:var(--red);}
+.finput::placeholder{color:var(--g3);}
+.fselect{width:100%;background:var(--blk3);border:1px solid var(--g3);border-bottom:2px solid var(--g3);padding:9px 12px;font-family:var(--fb);font-size:13px;color:white;outline:none;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236B7A8D'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;}
+.ftextarea{width:100%;background:var(--blk3);border:1px solid var(--g3);border-bottom:2px solid var(--g3);padding:9px 12px;font-family:var(--fb);font-size:13px;color:white;outline:none;resize:vertical;min-height:90px;transition:border-color .2s;line-height:1.6;}
+.ftextarea:focus{border-bottom-color:var(--red);}
+.ftextarea::placeholder{color:var(--g3);font-size:11px;}
+
+/* Entry form container */
+.ta-form-box{background:var(--blk2);border:1px solid var(--bdr);border-top:3px solid var(--red);padding:20px;margin-bottom:20px;}
+.ta-form-title{font-family:var(--fd);font-size:16px;letter-spacing:2px;color:var(--red);margin-bottom:14px;}
+.ta-form-section{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g3);margin:14px 0 10px;display:flex;align-items:center;gap:8px;}
+.ta-form-section::after{content:'';flex:1;height:1px;background:var(--bdr);}
+
+/* Signal buttons */
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;}
+.sig-btn{padding:8px 10px;border:1px solid var(--g3);background:transparent;font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--g2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px;}
+.sig-btn.s-buy  {border-color:var(--grn);color:var(--grn);background:rgba(0,168,120,.1);}
+.sig-btn.s-sell {border-color:var(--red2);color:var(--red2);background:rgba(27,79,138,.1);}
+.sig-btn.s-watch{border-color:var(--gold);color:var(--gold);background:rgba(240,180,41,.1);}
+.sig-btn.s-hold {border-color:var(--g2);color:var(--g1);background:rgba(107,122,141,.1);}
+
+/* Level grid */
+.level-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.lv-item label{font-size:8px;letter-spacing:1.5px;}
+.lv-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:3px;}
+
+/* Media tabs */
+.mt-strip{display:flex;border-bottom:1px solid var(--bdr);margin-bottom:10px;}
+.mt-btn{padding:5px 14px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;background:transparent;border:none;color:var(--g2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--fb);transition:all .15s;}
+.mt-btn.active{color:var(--red);border-bottom-color:var(--red);}
+.mpane{display:none;} .mpane.active{display:block;}
+
+/* Drop zone */
+.dropzone{border:1px dashed var(--g3);padding:16px;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
+.dropzone:hover,.dropzone.drag-over{border-color:var(--red);background:rgba(27,79,138,.04);}
+.dropzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.dz-preview{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.dz-thumb{position:relative;width:56px;height:56px;background:var(--blk3);overflow:hidden;flex-shrink:0;}
+.dz-thumb img{width:100%;height:100%;object-fit:cover;}
+.dz-thumb-del{position:absolute;top:1px;right:1px;background:var(--red);border:none;color:white;width:15px;height:15px;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+/* Tags input */
+.tags-wrap{display:flex;flex-wrap:wrap;gap:4px;background:var(--blk3);border:1px solid var(--g3);border-bottom:2px solid var(--g3);padding:6px 10px;min-height:36px;align-items:center;cursor:text;transition:border-color .2s;}
+.tags-wrap:focus-within{border-bottom-color:var(--red);}
+.tag-chip{display:flex;align-items:center;gap:3px;background:var(--blk5);border:1px solid var(--bdr2);padding:2px 7px;font-size:10px;font-family:var(--fm);color:var(--g1);}
+.tag-chip button{background:none;border:none;color:var(--g2);cursor:pointer;font-size:11px;line-height:1;padding:0;}
+.tag-chip button:hover{color:var(--red2);}
+.tags-text{border:none;outline:none;background:transparent;font-family:var(--fm);font-size:11px;color:white;min-width:60px;flex:1;}
+.tags-text::placeholder{color:var(--g3);}
+
+/* Publish button */
+.btn-publish{width:100%;background:var(--red);color:white;border:none;padding:12px;font-family:var(--fd);font-size:17px;letter-spacing:2px;cursor:pointer;transition:background .15s;margin-top:14px;}
+.btn-publish:hover{background:var(--red2);}
+.btn-reset-form{padding:8px 14px;background:transparent;border:1px solid var(--bdr2);color:var(--g2);font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .15s;float:right;margin-top:-8px;}
+.btn-reset-form:hover{border-color:var(--bdr3);color:var(--wht);}
+
+/* Filter bar */
+.ta-filter-bar{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
+.ta-stats-strip{display:flex;gap:0;background:var(--blk2);border:1px solid var(--bdr);margin-bottom:16px;}
+.tss-item{flex:1;padding:12px 16px;text-align:center;border-right:1px solid var(--bdr);}
+.tss-item:last-child{border-right:none;}
+.tss-val{font-family:var(--fm);font-size:22px;font-weight:500;margin-bottom:2px;}
+.tss-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--g2);}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.tfbtn{padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border:1px solid var(--bdr);background:transparent;color:var(--g2);cursor:pointer;transition:all .15s;font-family:var(--fb);}
+.tfbtn.active{background:var(--red);border-color:var(--red);color:white;}
+.ta-search{background:var(--blk2);border:1px solid var(--bdr);padding:4px 10px;font-family:var(--fm);font-size:11px;color:white;outline:none;margin-left:auto;width:140px;transition:border-color .2s;}
+.ta-search:focus{border-color:var(--red);}
+.ta-search::placeholder{color:var(--g3);}
+
+/* TA Post Cards */
+.ta-post{background:var(--blk2);border:1px solid var(--bdr);border-left:4px solid transparent;margin-bottom:16px;transition:border-color .2s;animation:fadeUp .3s ease;}
+.ta-post:hover{border-color:var(--bdr2);}
+.ta-post.sp-buy  {border-left-color:var(--grn);}
+.ta-post.sp-sell {border-left-color:var(--red);}
+.ta-post.sp-watch{border-left-color:var(--gold);}
+.ta-post.sp-hold {border-left-color:var(--g2);}
+
+.tap-head{padding:14px 18px 12px;border-bottom:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.tap-ticker{font-family:var(--fh);font-size:20px;font-weight:700;line-height:1;margin-bottom:4px;}
+.tap-company{font-size:11px;color:var(--g2);margin-bottom:6px;}
+.tap-meta-row{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--g2);font-family:var(--fm);}
+.tap-badges{display:flex;gap:6px;align-items:center;flex-shrink:0;flex-wrap:wrap;}
+.ta-signal{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border:1px solid;}
+.sig-buy  {color:var(--grn);border-color:var(--grn);background:rgba(0,168,120,.1);}
+.sig-sell {color:var(--red2);border-color:var(--red2);background:rgba(27,79,138,.1);}
+.sig-watch{color:var(--gold);border-color:var(--gold);background:rgba(240,180,41,.1);}
+.sig-hold {color:var(--g2);border-color:var(--g2);background:rgba(153,153,153,.1);}
+.tap-del{background:transparent;border:1px solid var(--bdr);color:var(--g3);width:26px;height:26px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.tap-del:hover{border-color:var(--red2);color:var(--red2);}
+
+/* Levels strip */
+.tap-levels{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--bdr);}
+.tap-lv{padding:9px 16px;border-right:1px solid var(--bdr);min-width:100px;}
+.tap-lv:last-child{border-right:none;}
+.tlv-label{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--g2);margin-bottom:3px;display:flex;align-items:center;gap:4px;}
+.tlv-dot{width:6px;height:6px;border-radius:50%;}
+.tlv-val{font-family:var(--fm);font-size:14px;font-weight:500;}
+
+/* Quote block */
+.tap-quote{padding:12px 18px;border-bottom:1px solid var(--bdr);display:flex;gap:10px;background:rgba(255,255,255,.02);}
+.tq-bar{width:3px;background:var(--red);flex-shrink:0;border-radius:2px;}
+.tq-text{font-size:14px;font-style:italic;color:var(--g1);line-height:1.7;}
+
+/* Body sections */
+.tap-body{padding:14px 18px;}
+.tap-section-hdr{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g3);margin:12px 0 7px;display:flex;align-items:center;gap:8px;}
+.tap-section-hdr::after{content:'';flex:1;height:1px;background:var(--bdr);}
+.tap-section-hdr:first-child{margin-top:0;}
+.tap-analysis{font-size:13px;color:var(--g1);line-height:1.8;white-space:pre-wrap;word-break:break-word;}
+.tap-reason-list{list-style:none;padding:0;}
+.tap-reason-list li{font-size:13px;color:var(--g1);padding:5px 0;border-bottom:1px solid var(--bdr);display:flex;gap:8px;line-height:1.5;}
+.tap-reason-list li:last-child{border-bottom:none;}
+
+/* Media */
+.tap-imgs{display:grid;gap:8px;margin-bottom:10px;}
+.tap-imgs.n1{grid-template-columns:1fr;}
+.tap-imgs.n2{grid-template-columns:1fr 1fr;}
+.tap-imgs.n3{grid-template-columns:1fr 1fr 1fr;}
+.tap-img-wrap{position:relative;background:var(--blk3);overflow:hidden;cursor:zoom-in;}
+.tap-img-wrap img{width:100%;display:block;max-height:420px;object-fit:contain;transition:transform .3s;}
+.tap-img-wrap:hover img{transform:scale(1.02);}
+.tap-img-label{position:absolute;top:5px;left:5px;background:rgba(0,0,0,.7);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;color:var(--g1);}
+.tap-video-wrap{position:relative;aspect-ratio:16/9;background:var(--blk3);margin-bottom:10px;}
+.tap-video-wrap iframe{width:100%;height:100%;border:none;}
+
+/* Tags */
+.tap-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
+.tap-tag{font-size:10px;font-family:var(--fm);color:var(--g2);background:var(--blk3);border:1px solid var(--bdr);padding:2px 7px;}
+
+/* Footer */
+.tap-foot{padding:8px 18px;border-top:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.15);}
+.tap-date{font-size:10px;color:var(--g3);font-family:var(--fm);}
+
+/* Lightbox */
+.ta-lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);align-items:center;justify-content:center;cursor:zoom-out;}
+.ta-lightbox.open{display:flex;}
+.ta-lightbox img{max-width:94vw;max-height:92vh;object-fit:contain;}
+.ta-lb-close{position:fixed;top:14px;right:18px;background:var(--red);border:none;color:white;width:34px;height:34px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+/* TA Sidebar */
+.ta-sb-box{background:var(--blk2);border:1px solid var(--bdr);border-top:3px solid var(--red);padding:16px;margin-bottom:14px;}
+.ta-sb-title{font-family:var(--fd);font-size:14px;letter-spacing:2px;color:var(--red);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bdr);}
+.ta-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ta-stat{background:var(--blk3);padding:10px;text-align:center;}
+.ta-stat-val{font-family:var(--fm);font-size:20px;font-weight:500;}
+.ta-stat-lbl{font-size:10px;color:var(--g2);margin-top:3px;}
+.ta-quick-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bdr);font-size:12px;}
+.ta-quick-item:last-child{border-bottom:none;}
+
+/* ── ABOUT ── */
+.about-hero{background:linear-gradient(135deg,var(--blk2),#1a0505);border:1px solid var(--bdr);border-top:4px solid var(--red);padding:44px;margin-bottom:28px;display:grid;grid-template-columns:1fr 240px;gap:44px;align-items:center;}
+.ah-eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.ah-name{font-family:var(--fd);font-size:48px;letter-spacing:3px;line-height:1;margin-bottom:5px;}
+.ah-title{font-size:13px;color:var(--g2);letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;}
+.ah-text{font-size:14.5px;line-height:1.8;color:var(--g1);}
+.ah-text p{margin-bottom:12px;}
+.ah-text strong{color:white;}
+.ah-avatar{width:160px;height:160px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:58px;letter-spacing:2px;margin:0 auto 18px;}
+.cred-list{list-style:none;}
+.cred-list li{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--bdr);font-size:12px;color:var(--g1);}
+.cred-list li:last-child{border-bottom:none;}
+.cred-dot{width:5px;height:5px;background:var(--red);flex-shrink:0;}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-bottom:28px;}
+.svc{background:var(--blk2);padding:22px;transition:all .15s;border-top:3px solid transparent;}
+.svc:hover{background:var(--blk3);border-top-color:var(--red);}
+.svc-icon{font-size:28px;margin-bottom:10px;}
+.svc-title{font-family:var(--fd);font-size:17px;letter-spacing:1px;margin-bottom:9px;}
+.svc-list{list-style:none;}
+.svc-list li{font-size:12px;color:var(--g2);padding:4px 0;border-bottom:1px solid var(--bdr);display:flex;gap:5px;}
+.svc-list li:last-child{border-bottom:none;}
+.svc-list li::before{content:'▸';color:var(--red);font-size:10px;flex-shrink:0;margin-top:2px;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bdr);border:1px solid var(--bdr);}
+.contact-pane{background:var(--blk2);padding:28px;}
+.frow{margin-bottom:12px;}
+.finput-c{width:100%;background:var(--blk3);border:1px solid var(--bdr2);border-bottom:2px solid var(--bdr2);padding:10px 13px;font-family:var(--fb);font-size:13px;color:white;outline:none;transition:border-color .2s;display:block;margin-top:5px;}
+.finput-c:focus{border-bottom-color:var(--red);}
+.finput-c::placeholder{color:var(--g3);}
+.btn-submit{background:var(--red);color:white;border:none;padding:11px 0;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;width:100%;transition:background .15s;}
+.btn-submit:hover{background:var(--red2);}
+.cinfo-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cinfo-icon{width:42px;height:42px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+
+/* ── FOOTER ── */
+footer{background:var(--blk2);border-top:3px solid var(--red);padding:36px 0 20px;margin-top:64px;}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:28px;}
+.ft-brand p{font-size:12px;color:var(--g2);line-height:1.7;margin-top:10px;}
+.ft-col h4{font-family:var(--fd);font-size:14px;letter-spacing:2px;color:var(--red);margin-bottom:12px;}
+.ft-col ul{list-style:none;}
+.ft-col li{margin-bottom:7px;}
+.ft-col a{font-size:12px;color:var(--g2);cursor:pointer;transition:color .15s;}
+.ft-col a:hover{color:white;}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:18px;border-top:1px solid var(--bdr);font-size:11px;color:var(--g3);flex-wrap:wrap;gap:8px;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:22px;right:22px;z-index:999;background:var(--blk2);border:1px solid var(--bdr2);border-left:3px solid var(--red);padding:11px 16px;font-size:13px;box-shadow:0 8px 32px rgba(0,0,0,.6);transform:translateY(80px);opacity:0;transition:all .3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){.hero-grid{grid-template-columns:1fr;}.es-grid{grid-template-columns:repeat(3,1fr);}.news-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .art-layout,.ta-layout{grid-template-columns:1fr;}
+  .ta-sidebar{position:static;}
+  .about-hero{grid-template-columns:1fr;}
+  .ft-grid{grid-template-columns:1fr 1fr;}
+  .earn-grid,.bullbear,.grid-2r,.grid-3r,.grid-4r{grid-template-columns:1fr!important;}
+  .ef-metrics,.ind-grid{grid-template-columns:repeat(2,1fr);}
+  .services-grid,.contact-grid,.releases-grid,.opinion-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .news-grid,.es-grid,.ind-grid{grid-template-columns:1fr;}
+  .ft-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="c">
+    <div class="topbar-inner">
+      <div id="topdate" style="opacity:.85"></div>
+      <div><span class="live-dot"></span>EquiLens Research · US Market Intelligence</div>
+      <div>research@equilens.in</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="c">
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-box">EL</div>
+        <div>
+          <div class="logo-name">EQUILENS</div>
+          <div class="logo-sub">Research · Intelligence</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <button class="nl active" onclick="go('home',this)">Home</button>
+        <button class="nl" onclick="go('articles',this)">Articles</button>
+        <button class="nl" onclick="go('earnings',this)">Earnings Analysis</button>
+        <button class="nl" onclick="go('economic',this)">Economic Indicators</button>
+        <button class="nl" onclick="go('technical',this)">Technical Analysis</button>
+        <button class="nl" onclick="go('about',this)">About Us</button>
+      </div>
+      <button class="btn-sub" onclick="toast('Newsletter coming soon!')">Subscribe</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════ HOME ══════════════════════════ -->
+<div class="page active" id="pg-home">
+  <div class="c">
+    <!-- Hero -->
+    <div class="hero-grid" style="margin-top:24px">
+      <div class="hero-main" onclick="toast('Opening full story...')">
+        <div class="hero-bg">🏛️</div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-cat">US Economy · Breaking</div>
+          <div class="hero-title">Fed Holds Rates at 4.375% — Powell Signals Two Cuts Possible in H2 2026 as Inflation Progress Continues</div>
+          <div class="hero-excerpt">Federal Reserve Chairman Jerome Powell confirmed the committee held rates steady at 4.25–4.50% and said inflation progress is "encouraging" but more data is needed before cutting. Markets now price September as the first cut window, with a second cut in December.</div>
+          <div class="hero-meta">⏱ 2 hours ago · Balaji N, CFP · 8 min read</div>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="ss"><div class="ss-cat">Trade Policy</div><div class="ss-title">US-China Tariff Escalation: New 25% Duty on Semiconductor Equipment Exports Announced</div><div class="ss-meta">4 hrs ago · 5 min</div></div>
+        <div class="ss"><div class="ss-cat">US Economy</div><div class="ss-title">GDP Q1 2026 Final: 2.5% Growth — Consumer Spending Surprise Drives Upward Revision</div><div class="ss-meta">6 hrs ago · 5 min</div></div>
+        <div class="ss"><div class="ss-cat">Geopolitical</div><div class="ss-title">Middle East Tensions Push Crude Above $65 — Energy Sector Rallies 3.2% on Supply Fears</div><div class="ss-meta">8 hrs ago · 4 min</div></div>
+        <div class="ss"><div class="ss-cat">Labor Market</div><div class="ss-title">April Jobs Report: 177K Added, Unemployment Steady at 4.1%, Wages Rise 3.9% YoY</div><div class="ss-meta">Yesterday · 7 min</div></div>
+      </div>
+    </div>
+
+    <!-- Econ strip -->
+    <div class="econ-strip" style="margin-top:24px">
+      <div class="es-label">KEY US ECONOMIC INDICATORS</div>
+      <div class="es-grid" id="es-grid"></div>
+    </div>
+
+    <!-- US Economy News -->
+    <div class="sh"><div class="sh-title"><span class="sh-tag">US</span>ECONOMY & POLICY</div><button class="sh-link" onclick="go('economic',document.querySelectorAll('.nl')[3])">Dashboard →</button></div>
+    <div class="news-grid" id="eco-news"></div>
+
+    <!-- Geopolitical -->
+    <div class="sh" style="margin-top:8px"><div class="sh-title"><span class="sh-tag">GEO</span>GEOPOLITICAL INTELLIGENCE</div></div>
+    <div class="news-grid" id="geo-news"></div>
+
+    <!-- Analysis -->
+    <div class="sh" style="margin-top:8px"><div class="sh-title"><span class="sh-tag">ANALYSIS</span>MARKET INTELLIGENCE</div><button class="sh-link" onclick="go('articles',document.querySelectorAll('.nl')[1])">All Articles →</button></div>
+    <div class="opinion-grid" id="opinion"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════ ARTICLES ══════════════════════ -->
+<div class="page" id="pg-articles">
+  <div class="c">
+    <div class="sh"><div class="sh-title"><span class="sh-tag">ALL</span>US MARKET RESEARCH</div><div style="font-size:11px;color:var(--g2)">20 article max · US Focus</div></div>
+    <div class="art-layout">
+      <div>
+        <div id="art-featured"></div>
+        <div id="art-list"></div>
+      </div>
+      <div class="archive-box">
+        <div class="archive-title">ARTICLE ARCHIVE</div>
+        <div id="archive-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ EARNINGS ══════════════════════ -->
+<div class="page" id="pg-earnings">
+  <div class="c">
+    <div class="sh"><div class="sh-title"><span class="sh-tag">LIVE</span>EARNINGS INTELLIGENCE</div><div style="font-size:11px;color:var(--g2)" id="earn-count"></div></div>
+    <div class="earn-filters">
+      <button class="fbtn active" onclick="filterE('all',this)">All Reports</button>
+      <button class="fbtn" onclick="filterE('tech',this)">Technology</button>
+      <button class="fbtn" onclick="filterE('semi',this)">Semiconductors</button>
+      <button class="fbtn" onclick="filterE('cloud',this)">Cloud & AI</button>
+      <button class="fbtn" onclick="filterE('fin',this)">Financials</button>
+      <button class="fbtn" onclick="filterE('con',this)">Consumer</button>
+    </div>
+    <div id="earn-featured"></div>
+    <div class="earn-grid" id="earn-cards"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════ ECONOMIC ══════════════════════ -->
+<div class="page" id="pg-economic">
+  <div class="c">
+    <div class="sh"><div class="sh-title"><span class="sh-tag">LIVE</span>ECONOMIC INDICATORS</div><div style="font-size:11px;color:var(--g2)">United States Focus · May 2026</div></div>
+    <div class="econ-tabs">
+      <button class="etab active" onclick="eTab('macro',this)">📊 Macro</button>
+      <button class="etab" onclick="eTab('labor',this)">👷 Labor & Prices</button>
+      <button class="etab" onclick="eTab('fed',this)">🏛️ Fed & Rates</button>
+      <button class="etab" onclick="eTab('global',this)">🌐 Global Compare</button>
+    </div>
+    <div id="econ-content"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════ TECHNICAL ANALYSIS ═════════════ -->
+<!-- READ-ONLY PUBLIC PAGE — Data fed via Google Sheets -->
+<div class="page" id="pg-technical">
+  <div class="c">
+    <div class="sh">
+      <div class="sh-title"><span class="sh-tag">TA</span>TECHNICAL ANALYSIS</div>
+      <div style="font-size:11px;color:var(--g2)" id="ta-last-updated">Loading…</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start">
+
+      <!-- ══ MAIN COLUMN ══ -->
+      <div>
+        <!-- Filter bar -->
+        <div class="ta-filter-bar" id="ta-filter-bar">
+          <button class="tfbtn active" onclick="taFilter('all',this)">All</button>
+          <button class="tfbtn" onclick="taFilter('buy',this)">🟢 Buy</button>
+          <button class="tfbtn" onclick="taFilter('sell',this)">🔴 Sell</button>
+          <button class="tfbtn" onclick="taFilter('watch',this)">📍 Watch</button>
+          <button class="tfbtn" onclick="taFilter('hold',this)">⏸ Hold</button>
+          <input class="ta-search" id="ta-search" placeholder="Search ticker…" oninput="taSearch(this.value)">
+        </div>
+
+        <!-- Stats strip -->
+        <div class="ta-stats-strip" id="ta-stats-strip" style="display:none">
+          <div class="tss-item"><div class="tss-val" id="stat-total">0</div><div class="tss-lbl">Total</div></div>
+          <div class="tss-item"><div class="tss-val up" id="stat-buy">0</div><div class="tss-lbl">Buys</div></div>
+          <div class="tss-item"><div class="tss-val dn" id="stat-sell">0</div><div class="tss-lbl">Sells</div></div>
+          <div class="tss-item"><div class="tss-val" style="color:var(--gold)" id="stat-watch">0</div><div class="tss-lbl">Watch</div></div>
+          <div class="tss-item"><div class="tss-val" style="color:var(--g2)" id="stat-hold">0</div><div class="tss-lbl">Hold</div></div>
+        </div>
+
+        <!-- Loading -->
+        <div id="ta-loading" style="background:var(--blk2);border:1px solid var(--bdr);padding:60px;text-align:center;">
+          <div style="font-size:36px;margin-bottom:12px;animation:spin 1.5s linear infinite;display:inline-block">⟳</div>
+          <div style="font-size:14px;color:var(--g2)">Loading analyses from Google Sheets…</div>
+        </div>
+
+        <!-- Error -->
+        <div id="ta-error" style="display:none;background:var(--blk2);border:1px solid rgba(27,79,138,.3);border-left:4px solid var(--red);padding:20px 24px;">
+          <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:var(--red2)">⚠ Could not load analyses</div>
+          <div style="font-size:12px;color:var(--g2)" id="ta-error-msg">Check Google Sheets connection.</div>
+        </div>
+
+        <!-- Empty -->
+        <div id="ta-empty-state" style="display:none;background:var(--blk2);border:1px solid var(--bdr);padding:50px;text-align:center;">
+          <div style="font-size:36px;margin-bottom:10px">📉</div>
+          <div style="font-size:15px;font-weight:600;margin-bottom:5px">No analyses published yet</div>
+          <div style="font-size:13px;color:var(--g2)">Add rows to the Google Sheet to display analyses here.</div>
+        </div>
+
+        <!-- Posts -->
+        <div id="ta-posts"></div>
+      </div>
+
+      <!-- ══ SIDEBAR ══ -->
+      <div style="position:sticky;top:80px">
+
+        <!-- Stats -->
+        <div class="ta-sb-box">
+          <div class="ta-sb-title">ANALYSIS STATS</div>
+          <div class="ta-stats-grid">
+            <div class="ta-stat"><div class="ta-stat-val" id="sb-total">0</div><div class="ta-stat-lbl">Total</div></div>
+            <div class="ta-stat"><div class="ta-stat-val up" id="sb-buy">0</div><div class="ta-stat-lbl">Buys</div></div>
+            <div class="ta-stat"><div class="ta-stat-val dn" id="sb-sell">0</div><div class="ta-stat-lbl">Sells</div></div>
+            <div class="ta-stat"><div class="ta-stat-val" style="color:var(--gold)" id="sb-watch">0</div><div class="ta-stat-lbl">Watch</div></div>
+          </div>
+        </div>
+
+        <!-- Recent tickers -->
+        <div class="ta-sb-box">
+          <div class="ta-sb-title">RECENT TICKERS</div>
+          <div id="ta-recent-tickers" style="font-size:12px;color:var(--g2)">Loading…</div>
+        </div>
+
+        <!-- Quick reference -->
+        <div class="ta-sb-box">
+          <div class="ta-sb-title">QUICK REFERENCE</div>
+          <div class="ta-quick-item"><span>RSI Overbought</span><span style="font-family:var(--fm)">70+</span></div>
+          <div class="ta-quick-item"><span>RSI Oversold</span><span style="font-family:var(--fm)">30−</span></div>
+          <div class="ta-quick-item"><span>MACD Bull</span><span class="up">Cross ↑</span></div>
+          <div class="ta-quick-item"><span>MACD Bear</span><span class="dn">Cross ↓</span></div>
+          <div class="ta-quick-item"><span>Volume Confirm</span><span style="color:var(--gold)">2× avg</span></div>
+          <div class="ta-quick-item"><span>Golden Cross</span><span class="up">50 > 200</span></div>
+          <div class="ta-quick-item"><span>Death Cross</span><span class="dn">50 < 200</span></div>
+          <div class="ta-quick-item"><span>Bollinger Squeeze</span><span style="color:var(--gold)">Breakout near</span></div>
+          <div class="ta-quick-item"><span>Min Risk/Reward</span><span style="font-family:var(--fm)">1:2</span></div>
+          <div class="ta-quick-item"><span>ATR Stop (mult)</span><span style="font-family:var(--fm)">2×</span></div>
+        </div>
+
+        <!-- Market context -->
+        <div class="ta-sb-box">
+          <div class="ta-sb-title">MARKET CONTEXT</div>
+          <div id="ta-mkt-ctx"></div>
+        </div>
+
+        <!-- Data source note -->
+        <div class="ta-sb-box" style="border-color:rgba(27,79,138,.3)">
+          <div class="ta-sb-title">DATA SOURCE</div>
+          <div style="font-size:12px;color:var(--g2);line-height:1.7">
+            Analyses published via<br>
+            <strong style="color:var(--wht)">Google Sheets</strong><br>
+            <span style="font-size:10px;color:var(--g3)">Auto-refreshes on page load</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="ta-lightbox" id="ta-lightbox" onclick="taCloseLb()">
+  <button class="ta-lb-close" onclick="taCloseLb()">✕</button>
+  <img id="ta-lb-img" src="" alt="Chart">
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="c">
+    <div class="ft-grid">
+      <div>
+        <div class="logo"><div class="logo-box">EL</div><div><div class="logo-name">EQUILENS</div><div class="logo-sub">US Market Intelligence</div></div></div>
+        <p>Institutional-grade US financial research, earnings intelligence and technical analysis. Founded by Balaji N, CFP — 19 years of market experience.</p>
+      </div>
+      <div class="ft-col"><h4>RESEARCH</h4><ul>
+        <li><a onclick="go('articles',document.querySelectorAll('.nl')[1])">Articles</a></li>
+        <li><a onclick="go('earnings',document.querySelectorAll('.nl')[2])">Earnings Analysis</a></li>
+        <li><a onclick="go('economic',document.querySelectorAll('.nl')[3])">Economic Indicators</a></li>
+        <li><a onclick="go('technical',document.querySelectorAll('.nl')[4])">Technical Analysis</a></li>
+
+      </ul></div>
+      <div class="ft-col"><h4>COMPANY</h4><ul>
+        <li><a onclick="go('about',document.querySelectorAll('.nl')[5])">About Balaji N</a></li>
+        <li><a onclick="go('about',document.querySelectorAll('.nl')[5])">Our Mission</a></li>
+        <li><a onclick="go('about',document.querySelectorAll('.nl')[5])">Services</a></li>
+        <li><a onclick="go('about',document.querySelectorAll('.nl')[5])">Contact</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>LEGAL</h4><ul>
+        <li><a onclick="toast('Privacy Policy')">Privacy Policy</a></li>
+        <li><a onclick="toast('Terms of Use')">Terms of Use</a></li>
+        <li><a onclick="toast('Disclaimer')">Disclaimer</a></li>
+        <li><a onclick="toast('Disclosures')">Disclosures</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bottom">
+      <div>© 2026 EquiLens Research. All rights reserved. Founded by Balaji N, CFP.</div>
+      <div>For informational purposes only. Not investment advice.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- FULL EARNINGS REPORT PAGE (Skill Design System) -->
+<div class="full-rpt" id="full-rpt">
+  <div class="frp-bar">
+    <button class="frp-back" onclick="closeRpt()">← Back to Earnings</button>
+    <div class="frp-id" id="frp-id">EquiLens Research · Earnings Intelligence</div>
+    <div class="frp-act">
+      <button class="frp-btn" onclick="window.print()">🖨 Print</button>
+      <button class="frp-btn" onclick="closeRpt()">✕ Close</button>
+    </div>
+  </div>
+  <div class="rpt" id="rpt-body"></div>
+</div>
+
+<div class="toast" id="toast-el"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════
+
+const econStrip = [
+  {lbl:'GDP Growth', val:'2.5%', chg:'+0.4%', up:true},
+  {lbl:'CPI Inflation', val:'2.7%', chg:'-0.2%', up:false},
+  {lbl:'Fed Funds', val:'4.375%', chg:'Hold', up:false},
+  {lbl:'Unemployment', val:'4.1%', chg:'-0.1%', up:false},
+  {lbl:'10Y Treasury', val:'4.38%', chg:'+2bps', up:false},
+  {lbl:'Core PCE', val:'2.5%', chg:'-0.1%', up:false},
+];
+
+const usEcoNews = [
+  {tag:'ECONOMY',tagC:'tg-eco',ico:'📊',title:'PCE Inflation Cools to 2.6% in April — Fed Preferred Gauge Shows Continued Progress Toward 2% Target',body:'Personal consumption expenditures inflation retreated in April. Core PCE at 2.9% remains above target but the downward trend is intact. Markets boosted September rate-cut probability to 78% on the data.',time:'3 hours ago'},
+  {tag:'FED POLICY',tagC:'tg-fed',ico:'🏛️',title:'FOMC Minutes Reveal Three Members Favoured Earlier Rate Cut — Debate Heating Up for June Meeting',body:'Federal Reserve meeting minutes showed more division than the unanimous vote suggested. Three governors cited risk of over-tightening given labor market data. The June meeting is now viewed as "live" by bond markets.',time:'5 hours ago'},
+  {tag:'ECONOMY',tagC:'tg-eco',ico:'💼',title:'Retail Sales +0.6% in April: Consumer Resilience Defies Recession Fears Despite High Rates',body:'Strong across restaurants, electronics and building materials. Upward revision to prior month. Economists raised Q2 GDP tracking to 2.3% annualised, suggesting soft landing remains the base case.',time:'Yesterday'},
+];
+const geoNews = [
+  {tag:'TRADE',tagC:'tg-trd',ico:'⚡',title:"US Imposes 25% Tariff on Chinese Semiconductor Equipment — Beijing Vows Retaliation on Agricultural Exports",body:"Washington expanded the semiconductor tariff regime targeting advanced manufacturing equipment from China. Officials called it 'strategic decoupling.' Chinese officials announced preparation of counter-tariffs on US soy and wheat.",time:'1 hour ago'},
+  {tag:'GEOPOLITICAL',tagC:'tg-geo',ico:'🌍',title:'Middle East Supply Route Disruptions: OPEC+ Surprise Cut of 500K Barrels Sends Oil Surging 4%',body:'Saudi Arabia led a surprise output reduction citing market stabilisation. WTI crude jumped to $65.40, its largest single-session gain in three months. Energy stocks rallied and airline stocks fell sharply.',time:'4 hours ago'},
+  {tag:'MARKETS',tagC:'tg-mkt',ico:'📈',title:"Dollar Index Falls to 103.2 on Softer CPI — Emerging Market Currencies Rally as Rate Differential Narrows",body:'The DXY fell 0.6% as softer US CPI data reduced rate-differential support for the dollar. Gold gained 1.1% to $3,310/oz. Bitcoin rose above $107,000. The rate-sensitive sectors led equity gains.',time:'6 hours ago'},
+];
+const opinions = [
+  {type:'SECTOR ANALYSIS',title:'Why the AI Semiconductor Capex Cycle Has Years Left to Run',body:'The combined $470B+ hyperscaler capex commitment for 2026 is not a bubble — it is a structural infrastructure shift driven by genuine AI inference demand at scale. NVIDIA, Marvell, and Broadcom remain primary beneficiaries with years of runway remaining.'},
+  {type:'MACRO STRATEGY',title:"The Fed's September Dilemma: Cut Into Resilience or Hold Into Slowdown?",body:'With core PCE at 2.9% and unemployment at 4.1%, the Fed faces a textbook stagflation-lite setup. September cut expectations at 78% seem aggressive. The risk is a delay to December, which markets are not pricing.'},
+  {type:'MARKET ANALYSIS',title:'Dollar Index at 103: Why USD Weakness Could Be the 2026 Trade of the Year',body:'As the Fed moves closer to cuts while the ECB and others hold, the interest rate differential supporting the dollar is narrowing. Emerging market currencies, gold, and commodities stand to benefit most from sustained dollar weakness.'},
+  {type:'EARNINGS PREVIEW',title:'Q2 2026 Earnings Season Preview: AI Revenue Recognition Will Be the Story',body:"As hyperscalers begin reporting Q2 results in July, the key question is whether AI services are showing up in revenue. Microsoft Copilot at 30M paid seats and AWS Bedrock growth are the metrics to watch. Estimate revision risk is to the upside."},
+];
+
+const articles = [
+  {emoji:'🤖',cat:'EQUITY RESEARCH',title:'AI Semiconductor Wars: NVDA, AMD, INTC — Who Wins Long Term?',excerpt:'The semiconductor industry is witnessing a once-in-a-generation transformation. CUDA software ecosystem moat, not chip specs, will determine the ultimate winner in the AI compute race.',date:'May 27, 2026',time:'18 min'},
+  {emoji:'🏛️',cat:'MACRO ANALYSIS',title:'Fed Rate Path 2026: September Cut or December? The Data Scorecard',excerpt:'With core PCE at 2.9% and labor market remaining resilient, we analyse exactly what data the Fed needs to see before pulling the trigger on the first rate cut of the cycle.',date:'May 23, 2026',time:'14 min'},
+  {emoji:'📊',cat:'MARKET STRATEGY',title:'S&P 500 Valuation Analysis: Forward P/E at 21x — Expensive or Justified?',excerpt:'At 21x forward earnings, the S&P 500 prices in a soft landing, multiple Fed cuts, and continued AI-driven earnings growth. We stress-test all three assumptions.',date:'May 20, 2026',time:'16 min'},
+  {emoji:'🛢️',cat:'SECTOR ANALYSIS',title:'Energy Sector: OPEC+ Cuts, Geopolitical Risk & the Oil Price Outlook for H2 2026',excerpt:'With crude at $65 and OPEC+ surprising with a 500K barrel cut, we analyse the supply-demand balance and identify the best-positioned energy companies for the next cycle.',date:'May 17, 2026',time:'12 min'},
+  {emoji:'🏦',cat:'FINANCIALS',title:'JPMorgan Q1 2026: Net Interest Income Trajectory & Credit Quality Deep-Dive',excerpt:'JPM delivered a strong quarter but the real story is the NII outlook for H2 2026 as the rate cycle turns. We model three rate-cut scenarios and their EPS impact.',date:'May 14, 2026',time:'15 min'},
+];
+const archive = [
+  "Apple WWDC 2026: AI Features & Services Monetization Analysis",
+  "Understanding P/E Expansion in US Bull Markets",
+  "Amazon AWS Q1: Cloud Reacceleration — Real or Restocking?",
+  "Meta Platforms: AI Capex ROI — When Does It Monetize?",
+  "Tesla Q1 2026: Margin Recovery vs Volume Dilemma",
+  "Nvidia CUDA Moat: Why It's Deeper Than You Think",
+  "US Yield Curve: What Inversion Duration Tells Us About Recession Risk",
+  "Alphabet vs Microsoft: Who Wins the AI Cloud War?",
+  "US Consumer Credit: Warning Signs in the Delinquency Data",
+  "Broadcom's AI Custom Silicon: The Google TPU Story",
+  "S&P 500 Sector Rotation: Where Capital Is Flowing in 2026",
+  "Berkshire Hathaway Q1: Cash Pile Strategy & Buffett's Market View",
+  "US Housing Market: Rates, Inventory & the Builder Opportunity",
+  "Risk-Free Rate at 4.4%: Rethinking Equity Risk Premium",
+  "The Dollar Smile Theory: Why USD Weakness Creates Opportunity",
+];
+
+const earningsData = [
+  {
+    id:'mrvl', co:'Marvell Technology Inc', sym:'MRVL', q:'Q1 FY2027', flag:'🇺🇸', sector:'Semiconductors', cat:'semi', emoji:'⚡',
+    rev:'$2.418B', revGr:'+28%', revVsCons:'Beat +$18M', eps:'$0.80', epsGr:'+29%', epsVsCons:'Beat +$0.01',
+    gm:'58.9%', gmN:'Non-GAAP', ocf:'$638.8M', ocfN:'Record high', cash:'$3.84B',
+    ebitda:'~$900M', netInc:'$718M', date:'May 27, 2026', beatMiss:'Beat', rating:'Buy', pt:'$270', ptBull:'$360', ptBear:'$130',
+    summary:'Marvell delivered record Q1 FY2027 revenue of $2.418B (+28% YoY), beating the guidance midpoint by $18M. Non-GAAP EPS of $0.80 beat consensus by $0.01. The quarter was solid, but the headline story was a dramatic guidance raise: FY2027 lifted to ~$11.5B (from ~$6.5B prior) and FY2028 to ~$16.5B. CEO Matt Murphy described the data center business as "on fire" with bookings at record pace. Operating cash flow hit a record $638.8M. Stock rose 5% in after-hours trading.',
+    execSummary:'Marvell reported a clean beat on both revenue and EPS in Q1 FY2027. The more significant news was a massive guidance raise anchored in already-won design commitments: FY2027 to $11.5B and FY2028 to $16.5B. Three AI businesses accelerate simultaneously — optical interconnect (>70% FY27 growth), custom XPU silicon (doubles in FY28), and Ethernet switching. The NVIDIA NVLink Fusion partnership and Polariton acquisition extend the competitive moat further. Rating: BUY, PT $270.',
+    revenueGrowthAnalysis:'Data Center drove the quarter at $1.833B (76% of revenue, +27% YoY). Optical interconnect is the largest DC sub-segment and the fastest-growing — demand for 800G products strengthening while 1.6T PAM4 solutions ramp quickly this fiscal year. Custom XPU silicon is growing as hyperscalers lock in multi-year co-design commitments. Ethernet switching benefits from Marvell\'s Switzerland positioning — it supplies AI scale-out networks regardless of whether hyperscalers use NVIDIA or proprietary silicon. Communications & other was $585M (+29% YoY from a low base), but this segment remains soft in the core carrier/enterprise business.',
+    segmentAnalysis:'Data Center (76%): $1.833B, +27% YoY — Optical interconnect largest sub-segment (est. ~$730M, >70% FY27 growth guided); Custom XPU silicon est. ~$605M; Ethernet switching est. ~$290M; NICs/CXL est. ~$208M. Communications & Other (24%): $585M, +29% YoY from low base — carrier infrastructure and enterprise networking remain soft. Three acquisitions in Q1 (Celestial AI Feb 2, XConn Feb 10, Polariton Q1) add photonic fabric technology, CXL/PCIe switching, and plasmonics to the portfolio.',
+    industryAnalysis:'Marvell occupies a unique position: primary custom silicon designer for hyperscalers wanting proprietary AI accelerators, AND the broadest optical interconnect portfolio (scale-out PAM, scale-up CPO, DCI, coherent). No other company outside NVIDIA has both positions at scale. Hyperscaler combined capex for 2026 is $470-490B — a sustained super-cycle driven by genuine AI inference demand. The CUDA/GPU paradigm requires high-speed interconnect fabric, directly benefiting Marvell. Agentic AI adds an unexpected tailwind: more CPUs in AI infra = more NICs, PCIe switches, and retimers — all Marvell products.',
+    guidanceAnalysis:'Q2 FY2027 guidance: Revenue $2.7B ±5% (beats prior consensus $2.598B by $102M, implies +35% YoY and +12% QoQ). Non-GAAP EPS $0.93 ±$0.05 (beats consensus $0.91 by $0.02). Gross margin guided ~59%. Full-year FY2027 raised to ~$11.5B (+40% YoY). FY2028 raised to ~$16.5B (+43% YoY). Data Center guided +50% in FY27 and +55% in FY28. Optical interconnect FY27 growth guidance raised from 50% to >70%. Management committed to revenue "continuing to accelerate each quarter" through FY27 — an unusually explicit forward commitment.',
+    mgmtPositive:['CEO Murphy: data center "on fire" — bookings at record pace across all product families simultaneously','Interconnect FY27 growth raised to >70% (from 50%): "demand strengthening for 800G products while 1.6T solutions ramp quickly"','Confirmed $10B+ FY29 custom silicon target: "based on design wins already in hand — not pipeline assumptions"','NVIDIA partnership expanded into optical connectivity, NVLink Fusion, and AI RAN — new revenue stream not in prior consensus','Celestial AI integration "ahead of schedule" — combined team now offers end-to-end optical solutions backed by 15B+ field reliability hours','Record OCF $638.8M — demonstrating operating leverage and providing balance sheet flexibility','Murphy on breadth: "We are in all of them. Everything\'s got an upward bias."'],
+    mgmtNegative:['Non-GAAP gross margin guided at 58.25-59.25% for Q2 — still compressing vs FY25 highs (~61%) due to custom ASIC mix-shift','GAAP EPS of $0.04 vs $0.80 non-GAAP — significant amortisation from Celestial AI and XConn acquisitions inflating the GAAP gap','Carrier and enterprise segments remain soft with no near-term recovery catalyst cited','Three acquisitions in one quarter (Celestial AI, XConn, Polariton) — integration complexity elevated over next 12-18 months','Supply chain dependency on advanced packaging (CoWoS-equivalent) — managed via prepayment arrangements but real risk'],
+    bullPoints:['Design-win backed $10B+ FY29 custom silicon — rarest form of semiconductor revenue visibility: already-won, multi-year commitments','Optical interconnect >70% FY27: 1.6T PAM4 ramp earlier than modeled as hyperscaler AI clusters scale to 100K+ GPU density','NVIDIA NVLink Fusion partnership: embedded exposure to every NVIDIA AI rack sale — royalty-like revenue not in prior consensus','Polariton plasmonics: 1THz+ modulator bandwidth secures 3.2T optical leadership through FY29, no competitor can catch up near-term','PEG ratio ~0.7x on 40-50% growth rate — inexpensive relative to growth despite headline 35x P/E','Three AI product lines compounding simultaneously — rare setup not dependent on a single product winning'],
+    bearPoints:['Hyperscaler concentration: top 4 US cloud companies dominate DC revenue — single programme cut or delay materially impairs $16.5B FY28 target','AI capex ROI risk: if AI infrastructure monetisation disappoints in 2026-27, hyperscaler capex could decelerate sharply','Gross margin structural compression: custom ASIC is lower-margin than DSPs; as XPU scales to 40%+ of revenue, blended GMs settle below FY25 peaks','Valuation at 35x+ forward P/E prices near-perfection — any guidance miss could trigger violent de-rating','Broadcom competition: AVGO designs Google TPU, has larger balance sheet, aggressively expanding AI networking','Three simultaneous acquisitions — Celestial AI, XConn, Polariton all closed within months: engineering integration and talent retention risk'],
+    nearRisks:['Hyperscaler capex reduction guidance: any public cut from Microsoft, Amazon, or Google would immediately pressure MRVL bookings','Gross margin below 58% guided range would signal worse-than-expected custom silicon dilution','Stock reaction asymmetry — MRVL has historically declined post-earnings despite beating; high bar after 100%+ YTD rally','Three acquisitions simultaneously closed — near-term engineering complexity and talent retention elevated'],
+    longRisks:['Hyperscaler vertical integration — if cloud providers build full in-house chip teams, outsourced XPU demand could compress over 5-7 years','Broadcom dual-sourcing — hyperscalers pursuing multi-vendor strategies could cap Marvell custom silicon share','Export controls / geopolitics — further US semiconductor restrictions could limit TSMC access or affect carrier segments','AI ROI disappointment cycle — sustained capex pullback from 2027 would be Marvell\'s most severe downside scenario'],
+    valuation:'MRVL at ~$219 trades at ~35x FY27E non-GAAP EPS ~$3.90. NTM EV/Revenue ~14x. PEG ~0.7x on 40-50% growth — inexpensive relative to growth. Comparable: NVDA at 11.7x NTM EV/Revenue despite similar/higher growth makes MRVL\'s premium look modest. Broadcom (AVGO) at 28x P/E and 25% growth trades at 1.12x PEG — MRVL at 0.7x PEG is a meaningful discount adjusted for growth.',
+    ptBullCase:'$360. Assumes FY28 revenue $18B+ (vs guide $16.5B). NVIDIA partnership generates $2B+ standalone. Non-GAAP op. margin 40%+. EPS ~$7.20. 40x FY28E EPS discounted to FY27 = $288-$360 range. Trigger: New tier-1 XPU programme accelerates; NVLink Fusion revenue materialises.',
+    ptBaseCase:'$270. FY27 revenue ~$11.5B on guide. Non-GAAP EPS ~$3.90. FY28 $16.5B. 35-38x blended FY27/FY28E P/E. Wall Street post-earnings: Benchmark $275 (Buy), BofA $200 (Buy), Oppenheimer $200 (Outperform), Stifel $210 (Buy).',
+    ptBearCase:'$130. Hyperscaler AI capex decelerates H2 2026. Marvell cuts FY27 to $9B. Non-GAAP EPS ~$2.80. Multiple compresses to 25x on growth disappointment. Trigger: Amazon or Microsoft cuts AI capex guidance >20%; gross margin falls below 57%.',
+    thesis:'Marvell has completed its transformation into a pure-play AI infrastructure platform. It is the only company outside NVIDIA with credible, multi-billion-dollar franchises across three AI infrastructure layers simultaneously — custom accelerator silicon (XPU), optical interconnect fabric (800G/1.6T/3.2T), and AI network switching. The Q1 print confirmed execution; the guidance raise confirmed acceleration. The $10B+ FY29 custom silicon target is backed by already-won design contracts — the rarest form of semiconductor revenue visibility. BUY with PT $270.',
+    segments:[{n:'Data Center',v:'$1,833M',g:'+27% YoY'},{n:'Optical Interconnect (est.)',v:'~$730M',g:'>70% FY27'},{n:'Custom XPU Silicon (est.)',v:'~$605M',g:'2× in FY28'},{n:'Ethernet Switching (est.)',v:'~$290M',g:'Accelerating'},{n:'Comm. & Enterprise',v:'$585M',g:'+29% YoY'}],
+    revHistory:[1157,1516,1895,1675,1516,1516,2219,2418],
+    revLabels:['Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26','Q4 FY26','Q1 FY27'],
+    epsHistory:[0.45,0.43,0.60,0.62,0.54,0.43,0.80,0.80],
+  },
+  {
+    id:'nvda', co:'NVIDIA Corporation', sym:'NVDA', q:'Q1 FY2026', flag:'🇺🇸', sector:'Technology', cat:'tech', emoji:'🎮',
+    rev:'$44.1B', revGr:'+69%', revVsCons:'Beat +$1.3B', eps:'$0.96', epsGr:'+72%', epsVsCons:'Beat +$0.05',
+    gm:'78.4%', gmN:'Non-GAAP (+180bps YoY)', ocf:'$26.1B', ocfN:'+84% YoY', cash:'$34.8B',
+    ebitda:'$26.8B', netInc:'$18.8B', date:'May 22, 2026', beatMiss:'Beat', rating:'Strong Buy', pt:'$1,400', ptBull:'$1,800', ptBear:'$700',
+    summary:'NVIDIA delivered another blockbuster quarter. Data Center revenue hit $39.1B (+73% YoY). Blackwell GPU ramps faster than anticipated. Non-GAAP gross margin expanded 180bps YoY to 78.4%. Q2 guidance of $45.0B beat consensus $43.8B by $1.2B. CEO Jensen Huang described Blackwell demand as "insane." Stock was up 6% in after-hours.',
+    execSummary:"NVIDIA reported a near-perfect Q1 FY2026 — every metric beat consensus, guidance exceeded expectations, and management's tone was unmistakably bullish. Data Center at $39.1B (+73% YoY) confirms the AI super-cycle is intact and broadening. Blackwell GPU shipments are ahead of schedule. The CUDA software moat — 4M+ developers — creates switching costs that hardware competition alone cannot overcome. Rating: STRONG BUY, PT $1,400.",
+    revHistory:[13.5,18.1,22.1,26.0,30.0,35.1,44.1],
+    revLabels:['Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY25','Q3 FY25','Q4 FY25','Q1 FY26'],
+    epsHistory:[0.45,0.68,0.78,0.60,0.72,0.84,0.96],
+    segments:[{n:'Data Center',v:'$39.1B',g:'+73% YoY'},{n:'Gaming',v:'$3.8B',g:'+18% YoY'},{n:'Professional Viz',v:'$0.5B',g:'+45% YoY'},{n:'Automotive',v:'$0.6B',g:'+72% YoY'}],
+    revenueGrowthAnalysis:'Data Center at $39.1B (+73% YoY) dominates the story — 89% of total revenue. The Blackwell architecture is ramping across all hyperscalers simultaneously. Gaming at $3.8B (+18%) benefited from PC refresh cycle. Automotive at $0.6B (+72%) reflects DRIVE platform adoption. Non-GAAP gross margin at 78.4% (+180bps YoY) confirms extraordinary pricing power — NVIDIA can charge premium prices because the hardware ecosystem is irreplaceable in the near term.',
+    segmentAnalysis:'Data Center (89%): $39.1B, +73% YoY — Blackwell H200, H100 and NVLink-connected systems driving hyperscaler demand. Gaming (9%): $3.8B, +18% YoY — Ada Lovelace refresh cycle. Professional Viz (1%): $0.5B, +45% — enterprise AI workstation adoption. Automotive (1%): $0.6B, +72% — DRIVE Orin platform volume ramp. Networking (InfiniBand/Ethernet) growing alongside GPU revenue as hyperscalers build complete AI fabric.',
+    industryAnalysis:"NVIDIA's Data Center TAM is expanding, not contracting — hyperscaler capex for 2026 is $470B+ combined across Microsoft, Amazon, Google, and Meta. The AI inference market is growing faster than training as models are deployed at scale. Nvidia's CUDA ecosystem — 4M+ developers, 650+ applications — creates switching costs that take years to overcome. Custom silicon (Google TPU, AWS Trainium, Meta MTIA) is gaining ground but serves as a complement, not a full substitute, for 80%+ of AI workloads in the near term.",
+    guidanceAnalysis:'Q2 FY2026 guidance: Revenue $45.0B (±2%) — beats consensus $43.8B by $1.2B (3%). Non-GAAP gross margin ~78.5%. Non-GAAP OpEx ~$4.0B. Guidance beat reflects continued Blackwell ramp and no signs of demand saturation. Management noted supply, not demand, remains the constraint. FY2026 annualised revenue run-rate approaching $175B+ based on Q2 guide.',
+    mgmtPositive:['Huang: Blackwell demand is "insane" — every major cloud provider scaling simultaneously at unprecedented pace','Blackwell supply constraint noted — demand exceeds production capacity, not a demand problem','CUDA ecosystem with 4M+ developers creates deep switching costs: "software is eating AI infrastructure"','Q2 guidance beat consensus by 3% — management signalling demand visibility beyond current quarter','Networking (InfiniBand/Spectrum-X) growing alongside GPU sales — full AI factory concept gaining traction','Automotive DRIVE platform: Huang said next 12 months will see significant OEM wins'],
+    mgmtNegative:['China export restrictions limit TAM — Huawei Ascend gaining share in Chinese market, a permanently lost TAM portion','Gross margin sustainability questioned by analysts — 78.4% may be a peak as mix shifts toward lower-margin Ethernet networking','Custom silicon risk acknowledged: "We see custom chips as our customer validation" — diplomatic but the threat is real','Supply chain risk: TSMC CoWoS packaging remains tight; any yield issue at foundry would disrupt shipment schedule'],
+    bullPoints:['Data Center TAM expanding — hyperscaler combined 2026 capex $470B+, every dollar flowing through NVIDIA first','Blackwell ahead of schedule — supply constraint means demand is real, not pull-forward; backlog extends into FY2027','Gross margin at 78.4% — highest in company history, demonstrating pricing power that commoditised GPU makers cannot match','CUDA ecosystem: 4M+ developers, 650+ applications, 500+ AI models optimised — multi-year switching cost moat','Software monetisation beginning: NVIDIA AI Enterprise growing, creating recurring revenue from the same hardware install base','Automotive DRIVE: $14B design win pipeline provides long-duration visibility beyond the current AI training cycle'],
+    bearPoints:['China export restrictions permanently limit ~10% of TAM; Huawei Ascend 910C gaining — not reversible under current policy','Valuation at 35x+ forward P/E and 11.7x NTM EV/Revenue prices significant perfection — any miss violent','Custom silicon threat: Google, Amazon, Meta all investing heavily in proprietary AI accelerators, slowly reducing NVIDIA dependency','Customer concentration: top 5 hyperscalers represent ~87% of Data Center revenue — capex cycle sensitivity is extreme','DeepSeek-style efficiency improvements in AI models could reduce GPU intensity per unit of compute, compressing demand per model parameter'],
+    nearRisks:['Hyperscaler capex guidance reduction — any public cut from top 5 customers directly pressures revenue and causes multiple compression','Export control escalation — further US restrictions on advanced GPU exports, particularly Blackwell architecture, would impair TAM','Supply chain: TSMC CoWoS packaging yield issues or capacity reduction would delay Blackwell shipments and miss revenue guidance'],
+    longRisks:['Custom silicon proliferation — as Google TPU, AWS Trainium, and Meta MTIA mature, NVIDIA\'s share of AI training could structurally decline from 80%+ over 5 years','AI model efficiency improvements — if models require fewer FLOPs per capability unit (DeepSeek-style), total GPU demand per AI product could plateau','Software competition — AMD ROCm, Intel oneAPI gaining developer adoption; in 3-5 years CUDA moat may be less impenetrable'],
+    valuation:'NVDA at ~$1,124 trades at ~35x FY2026E non-GAAP EPS $3.68. NTM EV/Revenue ~11.7x. PEG ~0.7x on 50%+ growth — inexpensive vs growth rate. Wall Street consensus: $1,350 average PT, 22 buys, 4 holds, 0 sells. Comparable: MRVL at similar growth but lower absolute revenue trades at 14x EV/Revenue — suggesting NVDA at 11.7x is if anything modestly cheap for its market position.',
+    ptBullCase:'$1,800. FY2026 revenue $180B+. Gross margin expands to 80%+ on software mix. Non-GAAP EPS $4.80. 40x FY2026E EPS = $192, or 45x FY2027E EPS $4.80 = $1,800 discounted to FY2026. Trigger: New sovereign AI deals; automotive DRIVE wins accelerate; CUDA software monetisation begins.',
+    ptBaseCase:'$1,400. FY2026 revenue $170B+ on guide trajectory. Non-GAAP EPS $4.20. 38x FY2027E EPS = $159, or sustained 12x EV/Revenue on $175B revenue = $1,400 equity value. Wall Street consensus average PT: ~$1,350.',
+    ptBearCase:'$700. AI capex cycle inflects in late 2026. Revenue growth decelerates to 20%. Non-GAAP EPS $3.00. Multiple compresses to 25x on lower growth = $750 NTM. Or EV/Revenue compresses to 6x on $120B revenue = ~$700 equity. Trigger: Major hyperscaler capex cut; custom silicon materially displaces GPU in training.',
+    thesis:"NVIDIA is not a semiconductor company — it is the operating system of AI infrastructure. CUDA's network effects, Blackwell's performance leadership, and the NVLink ecosystem create a platform moat that takes years to erode. The stock is not cheap on headline multiples but is inexpensive on a growth-adjusted basis (PEG 0.7x). The primary risk is a capex cycle inflection that is not visible in current bookings or guidance. STRONG BUY with PT $1,400.",
+  },
+  {
+    id:'msft', co:'Microsoft Corporation', sym:'MSFT', q:'Q3 FY2026', flag:'🇺🇸', sector:'Cloud & AI', cat:'cloud', emoji:'🪟',
+    rev:'$61.9B', revGr:'+15%', revVsCons:'Beat +$500M', eps:'$3.46', epsGr:'+18%', epsVsCons:'Beat +$0.15',
+    gm:'70.1%', gmN:'GAAP Gross Margin', ocf:'$24.1B', ocfN:'+22% YoY', cash:'$78.4B',
+    ebitda:'$29.4B', netInc:'$25.8B', date:'Apr 30, 2026', beatMiss:'Beat', rating:'Strong Buy', pt:'$510', ptBull:'$620', ptBear:'$340',
+    summary:'Microsoft crushed estimates with Azure accelerating to 35% CC growth — the fastest since 2022. Copilot M365 reached 30M paid seats. Operating margin of 47.1% expanded despite heavy AI investment. Q4 guidance of $68.1-69.1B exceeded consensus $67.4B. CEO Satya Nadella noted Azure OpenAI is used by 65% of Fortune 500.',
+    execSummary:'Microsoft delivered a strong beat across all segments. Azure reacceleration to 35% CC growth is the key positive surprise — this is not just AI tailwind but genuine enterprise cloud migration momentum. Copilot M365 at 30M paid seats demonstrates real commercial adoption. Operating margin of 47.1% expanding despite $18B/quarter AI capex is extraordinary. Rating: STRONG BUY, PT $510.',
+    revHistory:[56.5,57.4,61.0,65.6,68.0,60.0,61.9,],
+    revLabels:['Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26 E','Q2 FY26','Q3 FY26'],
+    epsHistory:[2.94,2.95,3.30,3.23,3.10,3.10,3.46],
+    segments:[{n:'Cloud (Azure)',v:'$26.8B',g:'+21% reported'},{n:'Productivity (M365)',v:'$20.4B',g:'+12% YoY'},{n:'Gaming (Xbox)',v:'$6.4B',g:'+8% YoY'},{n:'Devices & Other',v:'$8.3B',g:'+4% YoY'}],
+    revenueGrowthAnalysis:'Azure growth reaccelerated to 35% CC (from 31% in Q2) — the key positive surprise. AI services contributed ~12pp of Azure growth, up from 9pp last quarter, showing that AI workloads are a growing share of cloud demand. M365 Commercial revenue grew 13% driven by E3/E5 suite upgrades and Copilot attachment. Gaming was solid post-Activision integration. The overall revenue beat was driven by Azure strength.',
+    segmentAnalysis:'Intelligent Cloud (Azure): $26.8B, +21% reported (+35% CC) — AI services now contributing 12pp of growth. Productivity (M365): $20.4B, +12% — E5 security and Copilot driving ASP expansion. More Personal Computing (Gaming): $6.4B, +8% — Activision synergies beginning to show. LinkedIn: $4.2B, +9% — professional network monetisation intact.',
+    industryAnalysis:'Enterprise cloud migration is accelerating, not decelerating. AI is incremental to base cloud spend — enterprises running Azure OpenAI also need more compute, storage, and networking. The hyperscaler capex cycle (Microsoft guiding $80B+ for 2026) is building the infrastructure that will monetise over 3-5 years. Copilot and GitHub Copilot are the early monetisation vehicles. The total enterprise AI software market is estimated at $150B+ by 2030, and Microsoft is best positioned to capture it through its existing seat base.',
+    guidanceAnalysis:'Q4 FY2026 guidance: Revenue $68.1-69.1B (vs consensus $67.4B — beat by $700M-$1.7B). Azure growth guided at 34-35% CC — sustaining current trajectory. Non-GAAP operating margin guided ~47%. Management explicitly noted they are "not seeing demand saturation in Azure" and called out AI as an "incremental workload" rather than displacement.',
+    mgmtPositive:['Nadella: "Every layer of the stack is being transformed by AI. Azure OpenAI used by 65% of Fortune 500"','Azure reacceleration to 35% CC — "We expect this pace to continue" — rare explicit guidance sustain','Copilot M365 at 30M paid seats in Q3 vs 0 a year ago — fastest enterprise software ramp in company history','GitHub Copilot at 2M+ enterprise subscribers — developer tools monetisation proving out','Operating margin 47.1% expanding despite $18B/quarter AI capex — demonstrates operating leverage','FCF $24.1B — self-funding entire AI capex programme internally without dilution'],
+    mgmtNegative:['OpenAI dependency and relationship complexity — Microsoft is both investor and competitor in the AI model space','EU antitrust scrutiny on M365/Teams bundling — potential forced unbundling could pressure commercial cloud ARPU','Gaming margin still suppressed post-Activision — integration costs continue to drag personal computing segment','China revenue declining — geopolitical exposure in government and defence-adjacent enterprise accounts'],
+    bullPoints:['Azure at 35% CC with AI contributing 12pp — reacceleration is structural, not temporary','Copilot M365 30M paid seats at $30/seat/month = $10.8B ARR run-rate — and penetration is <4% of total M365 base','Operating leverage at 47.1% margin despite $18B/quarter AI investment — pricing power and cost discipline','65% Fortune 500 on Azure OpenAI — switching costs compound as enterprise workflows are rebuilt on MSFT AI stack','FCF yield at ~3.5% provides cushion; $60B buyback programme supports per-share metrics'],
+    bearPoints:['Valuation at 31x FY26E P/E with 15% revenue growth implies high expectations — re-rating risk if Azure growth slows','OpenAI partnership complexity — billions invested in a company that may compete with Azure on AI model hosting','Satya Nadella recently noted the biggest risk is "AI infrastructure not proving its ROI" — self-identified key bear case','EU and DOJ regulatory scrutiny of cloud bundling practices could force changes to the M365 Teams bundle'],
+    nearRisks:['Azure growth below 30% CC in Q4 would signal AI momentum fading and trigger estimate cuts','Copilot churn rate — 30M seats but we lack retention data; if churn is high, the ARR number is misleading','Capex escalation — Microsoft guiding $80B+ for 2026; if AI revenue doesn\'t materialise, this becomes a P&L problem'],
+    longRisks:['Custom model proliferation reduces Azure OpenAI moat — open-source models (Llama, Mistral) could reduce enterprise dependency on Azure AI','Amazon AWS rebound eating into Azure market share gains','EU regulatory risk on bundled M365 suite — forced unbundling could pressure ARPU and reduce switching costs'],
+    valuation:'MSFT at $442 trades at 31x FY26E non-GAAP EPS $13.86. NTM EV/Revenue ~12x. FCF yield ~3.5%. At 31x P/E on 15% revenue growth, the multiple is justified by: (1) Azure reacceleration story, (2) Copilot monetisation just beginning, (3) margin expansion despite heavy AI investment. Consensus: $510 average PT, 30+ buys, 3 holds, 0 sells.',
+    ptBullCase:'$620. Azure sustains 35%+ growth through FY27. Copilot penetration reaches 20% of M365 base (vs 4% today). Operating margin expands to 50%+. EPS $17.50 × 38x = $665, discounted = ~$620. Trigger: Copilot retention data shows <5% churn; Azure AI services contribution doubles.',
+    ptBaseCase:'$510. Azure sustains 32-35% CC growth. Copilot reaches 60M seats by FY27. Operating margin stays ~47-48%. FY27E EPS ~$15.80 × 34x = $537, rounded to $510 for valuation uncertainty.',
+    ptBearCase:'$340. Azure decelerates to 20% CC. Copilot churn proves high. Operating margin compresses to 44%. FY27E EPS $13.50 × 26x = $351 ≈ $340. Trigger: AWS rebound steals Azure enterprise deals; OpenAI relationship breaks down.',
+    thesis:"Microsoft is the only company with both the cloud infrastructure scale (Azure) and the AI application layer (M365 Copilot, GitHub Copilot) to monetise the AI wave from infrastructure to end-user workflow. The stock's premium multiple is increasingly justified by Copilot monetisation data — 30M paid seats in year one is extraordinary. Operating margin expansion despite $18B/quarter AI capex demonstrates the business model's durability. STRONG BUY, PT $510.",
+  },
+  {
+    id:'aapl', co:'Apple Inc.', sym:'AAPL', q:'Q1 FY2026', flag:'🇺🇸', sector:'Consumer Tech', cat:'con', emoji:'🍎',
+    rev:'$95.4B', revGr:'+4.1%', revVsCons:'Beat +$500M', eps:'$1.65', epsGr:'+8.9%', epsVsCons:'Beat +$0.08',
+    gm:'46.9%', gmN:'GAAP Gross Margin (+180bps YoY)', ocf:'$30.2B', ocfN:'+12% YoY', cash:'$145B',
+    ebitda:'$34.2B', netInc:'$24.8B', date:'May 2, 2026', beatMiss:'Beat', rating:'Buy', pt:'$248', ptBull:'$310', ptBear:'$160',
+    summary:'Apple beat on Services ($26.3B record) and iPhone outperformed in India (+22% YoY). Apple Intelligence features are accelerating the upgrade cycle. Gross margin at 46.9% is near all-time highs. $110B buyback announced. China revenue -8% YoY remains the key headwind.',
+    execSummary:'Apple delivered a clean beat driven by record Services revenue ($26.3B, 75%+ gross margin) and better-than-expected iPhone performance in emerging markets. Apple Intelligence is beginning to pull forward the upgrade cycle. Gross margin at 46.9% demonstrates platform pricing power. The China overhang persists (-8% YoY) but is becoming a smaller share of total revenue. Rating: BUY, PT $248.',
+    revHistory:[90.8,94.9,95.4,91.0,92.5,93.0,95.4],
+    revLabels:['Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY25','Q1 FY26'],
+    epsHistory:[1.46,1.53,1.52,1.40,1.42,1.53,1.65],
+    segments:[{n:'iPhone',v:'$69.1B',g:'+2.1% YoY'},{n:'Services',v:'$26.3B',g:'+13.8% YoY'},{n:'Mac',v:'$7.9B',g:'+6.2% YoY'},{n:'iPad',v:'$6.0B',g:'+8.1% YoY'},{n:'Wearables',v:'$12.1B',g:'-3.1% YoY'}],
+    revenueGrowthAnalysis:'Services at $26.3B (+13.8% YoY) is now approaching 28% of total revenue and carries 75%+ gross margins. This mix-shift is the structural reason Apple\'s blended gross margin can expand even as iPhone (hardware) growth remains modest. iPhone at $69.1B (+2.1%) outperformed expectations driven by India performance (+22%). China at -8% remains a drag but is geographically isolated. Apple Intelligence features are anecdotally driving upgrade interest — upgrade cycle pull-forward is the key FY2027 thesis.',
+    segmentAnalysis:'iPhone (72%): $69.1B, +2.1% — US and India strong, China -8%. Services (28%): $26.3B, +13.8% — App Store, Apple TV+, iCloud, Apple Pay, Apple Card — record revenue. Mac (8%): $7.9B, +6.2% — M4 Pro refresh driving upgrades. iPad (6%): $6.0B, +8.1% — OLED iPad Pro upgrade cycle. Wearables (13%): $12.1B, -3.1% — Apple Watch maturing, AirPods stable.',
+    industryAnalysis:'The global smartphone market is growing 3-5% annually in units but Apple is growing ASP through mix-shift to Pro models. Services is the structural growth driver — global installed base of 2.2B+ devices creates a recurring monetisation platform. Apple Intelligence (generative AI integration) is the key near-term catalyst for the next iPhone upgrade super-cycle, potentially beginning in FY2026 with iPhone 17. AI on-device differentiation is a meaningful moat against Android.',
+    guidanceAnalysis:'Q2 FY2026 guidance: Revenue $94-98B (vs consensus $96B — essentially in-line). Gross margin 46.5-47.5% (strong). OpEx ~$16.3B. Services growth guided at "similar to Q1" rate (~13-14% YoY). No explicit iPhone guidance as per usual. The $110B buyback announced — largest in company history — is a strong capital return signal.',
+    mgmtPositive:['CEO Cook: "Apple Intelligence is generating significant interest in iPhone upgrades — particularly for users on older devices"','Services at $26.3B record — "We\'ve never had a stronger engagement with the Apple ecosystem"','India iPhone +22% YoY — "India is now one of our fastest-growing markets globally, and we\'re just getting started"','Gross margin 46.9% at near all-time high — demonstrating Services mix-shift benefit','$110B buyback — largest single buyback announcement in Apple history','Cook on Apple Intelligence: "We\'re just at the beginning — the features coming this year are transformative"'],
+    mgmtNegative:['China revenue -8% YoY — Cook acknowledged "continued challenges in Greater China" without providing a recovery timeline','Vision Pro below sales trajectory — no specific numbers but described as "early adopter phase still"','Wearables -3.1% — Apple Watch plateau acknowledged; no major new form factor catalyst near-term','Antitrust risk on App Store — EU DMA compliance is ongoing; DOJ case in US progressing — existential risk to Services margin if forced to open'],
+    bullPoints:['Services at $26.3B record with 75%+ gross margin — mix-shift to Services is the structural gross margin expansion engine','Apple Intelligence upgrade cycle: 1.3B iPhone users on pre-AI models — even 10% upgrading in FY2026-27 = 130M unit tailwind','India: 1.4B population, <5% iPhone penetration, rapidly growing middle class — decade-long secular growth opportunity','$110B buyback + dividend: ~4% total capital return yield provides meaningful EPS accretion floor','Gross margin at 46.9% — structural improvement from Services mix; can reach 50% by 2028 if trajectory holds'],
+    bearPoints:['China -8% YoY and geopolitical risk: Huawei market share recovery in China is real and ongoing; this TAM may be structurally impaired','iPhone unit growth at +2.1% — hardware unit growth is near-zero; the bull case depends entirely on Services and ASP, not volume','App Store antitrust risk: EU DMA forced Apple to allow sideloading; US DOJ case could force similar changes — Services margin risk','Vision Pro investment without clear revenue path — $3,499 device with limited developer ecosystem is a capital allocation question','Valuation at 28x forward P/E for a 4% revenue growth company is expensive on growth-adjusted basis vs NVDA, MRVL, MSFT'],
+    nearRisks:['China recovery or further deterioration — any worsening of US-China relations directly impairs $15-20B annual revenue','Apple Intelligence feature adoption disappoints — if upgrade cycle pull-forward doesn\'t materialise, iPhone growth stays at 2%','App Store regulatory enforcement — EU DMA penalties or US settlement could reduce Services revenue margin by 100-200bps'],
+    longRisks:['Structural China challenge — Huawei\'s return to premium smartphones is a permanent share shift; Apple may never recover China revenue to peak','Services antitrust — forced App Store open access would reduce commissions from 30% to potentially 5-10%, cutting $8-10B in annual Services revenue','Apple Intelligence competitive parity — Google Gemini, Samsung Galaxy AI, and others catching up could eliminate the differentiation premium'],
+    valuation:'AAPL at $209 trades at 28x FY26E EPS $7.48. NTM P/E 28x. EV/Sales ~8x. FCF yield ~3.6%. The 28x multiple is justified primarily by Services (75%+ margins, recurring) and capital return programme ($110B buyback). The risk is that 28x for 4% revenue growth is expensive if Services growth decelerates or hardware upgrade cycle disappoints. Premium vs Alphabet (23x) and Meta (22x) is hard to justify on growth alone.',
+    ptBullCase:'$310. Apple Intelligence drives iPhone units to +12% in FY2027. Services grows 18%+. Gross margin reaches 49%+. EPS $9.50. 35x FY2027 EPS = $332, discounted to FY2026 = ~$310. Trigger: iPhone 17 with Apple Intelligence sells 250M+ units; India becomes top-3 market.',
+    ptBaseCase:'$248. Services continues 13-14% growth. iPhone +4-5% in FY2027 on AI upgrade cycle beginning. Gross margin stays ~47%. FY2027E EPS $8.20 × 30x premium = $246 ≈ $248. Capital return provides 4% floor.',
+    ptBearCase:'$160. China deteriorates further (-15%+ YoY). iPhone units flat. App Store forced open (EU and US). Services margin compresses to 65%. EPS drops to $6.50. 26x (growth-appropriate multiple) = $169 ≈ $160.',
+    thesis:"Apple's bull case rests on three pillars: (1) Services as a recurring, high-margin flywheel growing at 13%+, (2) Apple Intelligence as the catalyst for the next major iPhone upgrade cycle, and (3) India as a decade-long geographic expansion opportunity. The bear case is a China implosion and App Store antitrust. On balance, the quality of the franchise justifies a premium multiple. BUY, PT $248.",
+  },
+  {
+    id:'amzn', co:'Amazon.com Inc.', sym:'AMZN', q:'Q1 2026', flag:'🇺🇸', sector:'Cloud & E-Commerce', cat:'cloud', emoji:'📦',
+    rev:'$155.7B', revGr:'+13%', revVsCons:'Beat +$2B', eps:'$1.59', epsGr:'+61%', epsVsCons:'Beat +$0.12',
+    gm:'50.2%', gmN:'Consolidated Gross Margin', ocf:'$42.5B', ocfN:'+35% YoY', cash:'$88B',
+    ebitda:'$28.9B', netInc:'$17.1B', date:'May 1, 2026', beatMiss:'Beat', rating:'Buy', pt:'$245', ptBull:'$310', ptBear:'$145',
+    summary:'Amazon delivered a strong Q1 2026 with AWS reaccelerating to 21% growth. Operating income hit a record $18.4B (11.8% margin). Advertising (+19%) and AWS continue to drive profit growth. EPS of $1.59 grew 61% YoY as high-margin businesses scale. Q2 operating income guided $13.0-17.5B — below Street high expectations.',
+    execSummary:'Amazon Q1 2026 was strong across the board: AWS at 21% growth (reaccelerating), Advertising at +19%, and record operating margin of 11.8%. EPS grew 61% YoY. The slight cloud on the quarter was Q2 operating income guidance of $13.0-17.5B with a wide range, reflecting capex investment timing. The $105B+ capex plan for 2026 is the largest absolute commitment by any company in history. Rating: BUY, PT $245.',
+    revHistory:[143.3,148.0,155.7,158.0,143.3,148.0,155.7],
+    revLabels:['Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26E','Q3 FY25','Q4 FY25','Q1 FY26'],
+    epsHistory:[1.43,1.86,1.59,1.70,1.43,1.86,1.59],
+    segments:[{n:'AWS Cloud',v:'$29.3B',g:'+21% YoY'},{n:'Advertising',v:'$13.8B',g:'+19% YoY'},{n:'North America Retail',v:'$92.9B',g:'+10% YoY'},{n:'International',v:'$34.0B',g:'+9% YoY'}],
+    revenueGrowthAnalysis:'AWS reacceleration to 21% (from 18% in Q4 2025) is the key positive — this confirms Azure\'s Q1 strength is an industry trend, not share shift. Advertising at $13.8B (+19%) continues to be the highest-margin business at ~75%+ operating margins. North America retail margin improvement driven by fulfillment efficiency. The story is one of operational leverage: revenue growing 13% while operating income grew 21% and EPS grew 61%.',
+    segmentAnalysis:'AWS (19% of rev, majority of profit): $29.3B, +21% YoY — Bedrock, SageMaker, and Trainium custom chip adoption growing. Advertising (9%): $13.8B, +19% YoY — highest-margin segment, Prime Video ads just beginning. North America Retail (60%): $92.9B, +10% YoY — margin expansion from logistics automation. International (22%): $34.0B, +9% — Europe recovery, India growth.',
+    industryAnalysis:'Cloud hyperscaler market is growing 20-25% annually, with AI being incremental to base workloads. AWS has 31% market share (vs Azure 23%, GCP 10%). The AI inference market is directionally positive — every company building AI products needs cloud compute. Amazon Bedrock is the multi-model AI platform that provides a Switzerland positioning among AI model providers. Trainium custom chip reduces GPU dependency for training workloads, protecting margins as NVIDIA ASPs increase.',
+    guidanceAnalysis:'Q2 2026 guidance: Revenue $159-164B (vs consensus $160.4B — essentially in-line). Operating income $13.0-17.5B — the wide range reflects capex timing variability. AWS guidance not separately provided; management said "we see strong demand signals continuing." $105B capex planned for 2026 — reflects confidence in multi-year cloud and AI demand.',
+    mgmtPositive:['CEO Andy Jassy: "AWS demand remains strong and broad-based — every enterprise is now in some phase of AI adoption"','AWS reacceleration to 21% YoY — "We are seeing AI workloads becoming a meaningful contributor to growth"','Operating margin 11.8% — record for Amazon as a whole, demonstrating retail leverage and high-margin mix shift','Advertising at $13.8B growing 19% — Prime Video ads just launched, significant incremental opportunity','Trainium chip cost savings: "Our custom silicon is giving us meaningful cost advantages vs GPU-only architectures"'],
+    mgmtNegative:['Q2 operating income guided with a very wide range ($13-17.5B) — lack of precision is unusual and suggests uncertainty','$105B capex plan for 2026 — largest absolute dollar commitment by any company; FCF will be pressured for 2-3 years','Retail competition from Temu, Shein intensifying in value-oriented segments — ASP pressure building','International losses continue — despite improvement, international is still dilutive to operating margin'],
+    bullPoints:['AWS reacceleration at 21% growth with AI as incremental workload — not substituting existing cloud, adding to it','Advertising at 19% growth from a high base — Prime Video ads are year-one revenue with multi-year monetisation runway','Record operating margin 11.8% — if retail can sustain 8%+ margins, the operating income upside is enormous','Bedrock multi-model AI platform: Switzerland positioning among Claude, GPT, Llama — no bet on one model winner','Trainium cost advantage: reducing GPU cost by 30-40% for training enables competitive pricing without margin sacrifice'],
+    bearPoints:['$105B 2026 capex — returns won\'t materialise for 2-3 years; FCF will be substantially negative in 2026-27','AWS at 21% is strong but still below Azure (35% CC) — relative share question','Wide Q2 operating income guidance range ($13-17.5B) — low end implies significant Q1-to-Q2 margin compression','International segment still loss-making despite improvement — capital allocation to unprofitable geographies remains a question','Retail competitive pressure from Temu/Shein at low end; Walmart and Target improving logistics at mid-range'],
+    nearRisks:['Q2 operating income coming in below $13B would confirm margin investment is weighing on profitability more than guided','AWS growth deceleration back to 18% would signal AI workload contribution is one-time, not recurring','International losses widening if emerging markets macroeconomic conditions deteriorate'],
+    longRisks:['Regulatory risk: antitrust scrutiny on AWS bundling and marketplace practices in both US and EU','Retail margin ceiling: at 8-10% retail margin, Amazon has limited upside; future profitability growth must come from AWS and advertising','Custom chip commoditisation: if AWS Trainium success is replicated by Azure and GCP, the cost advantage disappears'],
+    valuation:'AMZN at $213 trades at ~34x FY2026E EPS $6.50. EV/EBITDA ~22x. FCF yield weak in 2026-27 due to capex cycle. The valuation case rests on: (1) AWS reaching $150B+ in revenue at 35%+ operating margins by 2028, implying $50B+ EBIT from AWS alone; (2) Advertising scaling to $60B+; (3) Retail sustaining 8-10% margins. Sum-of-parts PT $245.',
+    ptBullCase:'$310. AWS reaches 25%+ growth sustained. Advertising hits $20B by FY2027. Retail margins expand to 9%+. FY2028E EPS $11.00 × 30x = $330, discounted = ~$310.',
+    ptBaseCase:'$245. AWS sustains 20-22% growth. Advertising grows 15-18%. Total FY2027E EPS $8.50 × 30x = $255, adjusting for capex cycle = $245.',
+    ptBearCase:'$145. AWS decelerates to 15%. Retail margin fails to hold. Capex continues at elevated levels. EPS $4.50 × 32x = $144.',
+    thesis:'Amazon is a unique compounding business with three distinct high-quality engines: AWS (cloud infrastructure), Advertising (high-margin media), and Retail (logistics moat). The capex supercycle creates a near-term FCF headwind but positions AWS for sustained 20%+ growth. The valuation is reasonable if you accept that AWS and Advertising will scale to 60%+ of operating income by 2028. BUY with PT $245.',
+  },
+];
+
+const econData = {
+  macro: {
+    indicators:[
+      {flag:'🇺🇸',lbl:'GDP Growth Rate',val:'2.5%',prev:'2.1%',chg:'+0.4pp',up:true,freq:'Quarterly'},
+      {flag:'🇺🇸',lbl:'CPI Inflation (YoY)',val:'2.7%',prev:'2.9%',chg:'-0.2pp',up:false,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'Core CPI (YoY)',val:'2.9%',prev:'3.1%',chg:'-0.2pp',up:false,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'Core PCE (YoY)',val:'2.5%',prev:'2.6%',chg:'-0.1pp',up:false,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'PPI (YoY)',val:'2.1%',prev:'2.4%',chg:'-0.3pp',up:false,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'Retail Sales (MoM)',val:'+0.6%',prev:'+0.4%',chg:'+0.2pp',up:true,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'Consumer Confidence',val:'103.4',prev:'99.8',chg:'+3.6',up:true,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'ISM Manufacturing',val:'49.8',prev:'48.7',chg:'+1.1',up:true,freq:'Monthly'},
+    ],
+    releases:[
+      {name:'US GDP Q1 2026 (Final)',date:'May 29',actual:'2.5%',est:'2.2%',prev:'2.1%',impact:'Positive — Above forecast; growth resilience intact, reduces near-term recession risk.',type:'up'},
+      {name:'US CPI April 2026',date:'May 13',actual:'2.7%',est:'2.9%',prev:'2.9%',impact:'Positive — Below forecast; September rate cut probability jumps to 78%.',type:'up'},
+      {name:'US Retail Sales April',date:'May 16',actual:'+0.6%',est:'+0.4%',prev:'+0.4%',impact:'Positive — Consumer resilience; Q2 GDP tracking estimate raised to 2.3%.',type:'up'},
+      {name:'Core PCE April 2026',date:'May 30',actual:'2.5%',est:'2.6%',prev:'2.6%',impact:'Positive — Fed favourite gauge continues declining; bolsters September cut case.',type:'up'},
+      {name:'ISM Manufacturing May',date:'Jun 2',actual:'49.8',est:'49.5',prev:'48.7',impact:'Neutral — Slight miss on expansion boundary; services ISM (61.2) compensates.',type:'neutral'},
+      {name:'Fed FOMC Minutes',date:'May 21',actual:'Hold',est:'Hold',prev:'Hold',impact:'Neutral — Three members favoured earlier cut. June meeting now "live".',type:'neutral'},
+    ]
+  },
+  labor:{
+    indicators:[
+      {flag:'🇺🇸',lbl:'Unemployment Rate',val:'4.1%',prev:'4.2%',chg:'-0.1pp',up:false,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'NFP (Monthly Change)',val:'177K',prev:'151K',chg:'+26K',up:true,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'Wage Growth (YoY)',val:'3.9%',prev:'4.1%',chg:'-0.2pp',up:false,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'Labor Force Part. Rate',val:'62.7%',prev:'62.5%',chg:'+0.2pp',up:true,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'Jobless Claims (Weekly)',val:'218K',prev:'228K',chg:'-10K',up:false,freq:'Weekly'},
+      {flag:'🇺🇸',lbl:'Job Openings (JOLTS)',val:'8.1M',prev:'8.4M',chg:'-300K',up:false,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'ADP Employment',val:'192K',prev:'184K',chg:'+8K',up:true,freq:'Monthly'},
+      {flag:'🇺🇸',lbl:'U-6 Unemployment',val:'7.8%',prev:'8.0%',chg:'-0.2pp',up:false,freq:'Monthly'},
+    ],
+    releases:[
+      {name:'April Jobs Report (NFP)',date:'May 2',actual:'177K',est:'185K',prev:'151K',impact:'Mixed — Slight miss vs forecast but upward revision to prior. Labor resilience intact.',type:'neutral'},
+      {name:'Jobless Claims May 2',date:'May 2',actual:'218K',est:'225K',prev:'228K',impact:'Positive — Falling initial claims suggest layoff pace is slowing.',type:'up'},
+      {name:'ADP Employment April',date:'May 1',actual:'192K',est:'180K',prev:'184K',impact:'Positive — Private sector hiring beating expectations; small business hiring recovering.',type:'up'},
+      {name:'JOLTS Job Openings March',date:'May 7',actual:'8.1M',est:'8.3M',prev:'8.4M',impact:'Slightly negative — Openings declining gradually toward pre-COVID levels of 7M.',type:'down'},
+      {name:'April CPI (Labor Cost Impact)',date:'May 13',actual:'2.7%',est:'2.9%',prev:'2.9%',impact:'Positive for Fed — Wage growth not pushing inflation higher. Labor market cooling gently.',type:'up'},
+      {name:'Q1 Productivity Final',date:'Jun 5',actual:'+2.8%',est:'+2.5%',prev:'+2.5%',impact:'Positive — Rising productivity means wage growth of 3.9% is non-inflationary.',type:'up'},
+    ]
+  },
+  fed:{
+    indicators:[
+      {flag:'🏛️',lbl:'Fed Funds Rate',val:'4.375%',prev:'4.375%',chg:'Hold',up:false,freq:'FOMC (8/yr)'},
+      {flag:'🏛️',lbl:'10Y Treasury Yield',val:'4.38%',prev:'4.20%',chg:'+18bps',up:false,freq:'Daily'},
+      {flag:'🏛️',lbl:'2Y Treasury Yield',val:'4.71%',prev:'4.60%',chg:'+11bps',up:false,freq:'Daily'},
+      {flag:'🏛️',lbl:'Yield Curve (10-2)',val:'-33bps',prev:'-40bps',chg:'+7bps',up:true,freq:'Daily'},
+      {flag:'🏛️',lbl:'Fed Balance Sheet',val:'$7.1T',prev:'$7.3T',chg:'-$200B',up:false,freq:'Weekly'},
+      {flag:'🏛️',lbl:'Sept Cut Probability',val:'78%',prev:'62%',chg:'+16pp',up:true,freq:'Real-time'},
+      {flag:'🏛️',lbl:'Dec Cut Probability',val:'91%',prev:'81%',chg:'+10pp',up:true,freq:'Real-time'},
+      {flag:'🏛️',lbl:'30Y Mortgage Rate',val:'6.84%',prev:'7.10%',chg:'-26bps',up:false,freq:'Weekly'},
+    ],
+    releases:[
+      {name:'FOMC Decision May 7',date:'May 7',actual:'4.375%',est:'4.375%',prev:'4.375%',impact:'Neutral — Hold unanimous. Powell more dovish on inflation but hawkish on timing.',type:'neutral'},
+      {name:'FOMC Minutes May 7',date:'May 21',actual:'Dovish Lean',est:'Neutral',prev:'Hawkish',impact:'Positive for markets — 3 members favoured earlier cut; June meeting "live" interpretation.',type:'up'},
+      {name:'Fed Speak — Powell (May 14)',date:'May 14',actual:'Cautiously dovish',est:'Neutral',prev:'Hawkish',impact:'Positive — Powell: "Inflation progress continues; we are watching closely."',type:'up'},
+      {name:'Fed Speak — Waller (May 20)',date:'May 20',actual:'Favours June cut',est:'Hold',prev:'Hold',impact:'Bullish — Governor Waller publicly advocated for June cut; rare dissent signal.',type:'up'},
+      {name:'Treasury Quarterly Refunding',date:'May 5',actual:'$125B',est:'$128B',prev:'$121B',impact:'Slightly positive — Less supply than feared; 10Y yield fell 8bps on announcement.',type:'up'},
+      {name:'CPI April (Fed input)',date:'May 13',actual:'2.7%',est:'2.9%',prev:'2.9%',impact:'Positive — Below forecast CPI gives Fed more comfort to cut in September.',type:'up'},
+    ]
+  },
+  global:{
+    indicators:[
+      {flag:'🌐',lbl:'DXY (Dollar Index)',val:'103.2',prev:'104.8',chg:'-1.5%',up:false,freq:'Daily'},
+      {flag:'🌐',lbl:'EUR/USD',val:'1.085',prev:'1.069',chg:'+1.5%',up:true,freq:'Daily'},
+      {flag:'🌐',lbl:'USD/JPY',val:'152.4',prev:'155.2',chg:'-1.8%',up:false,freq:'Daily'},
+      {flag:'🌐',lbl:'Gold ($/oz)',val:'$3,310',prev:'$3,185',chg:'+3.9%',up:true,freq:'Daily'},
+      {flag:'🌐',lbl:'WTI Crude ($/bbl)',val:'$65.40',prev:'$61.40',chg:'+6.5%',up:true,freq:'Daily'},
+      {flag:'🌐',lbl:'Bitcoin (USD)',val:'$107,420',prev:'$97,500',chg:'+10.2%',up:true,freq:'Daily'},
+      {flag:'🌐',lbl:'VIX (Fear Index)',val:'14.3',prev:'18.2',chg:'-21.4%',up:false,freq:'Daily'},
+      {flag:'🌐',lbl:'10Y German Bund',val:'2.48%',prev:'2.35%',chg:'+13bps',up:false,freq:'Daily'},
+    ],
+    releases:[
+      {name:'ECB Rate Decision',date:'Jun 5',actual:'3.65%',est:'3.65%',prev:'3.65%',impact:'Neutral — ECB held as expected; Lagarde signals possible June cut depending on data.',type:'neutral'},
+      {name:'China PMI Manufacturing',date:'May 31',actual:'49.2',est:'50.1',prev:'50.4',impact:'Negative — Back in contraction; Adds to global growth slowdown concerns. DXY fell.',type:'down'},
+      {name:'Eurozone CPI (Flash)',date:'May 30',actual:'2.2%',est:'2.3%',prev:'2.4%',impact:'Positive — Below forecast; ECB June cut more likely; EUR strengthens vs USD.',type:'up'},
+      {name:'OPEC+ Production Decision',date:'Jun 1',actual:'-500K bbl/d',est:'0',prev:'0',impact:'Negative for consumers — Surprise cut; WTI +4%; energy inflation risk resurfaces.',type:'down'},
+      {name:'Japan CPI',date:'May 24',actual:'2.8%',est:'2.7%',prev:'2.7%',impact:'Slightly hawkish — BoJ may hike sooner; USD/JPY falls; yen carry trade unwind risk.',type:'neutral'},
+      {name:'UK GDP Q1 2026',date:'May 15',actual:'+1.3%',est:'+1.0%',prev:'+0.3%',impact:'Positive — UK exiting stagnation; GBP rallies. Global growth outlook brightens.',type:'up'},
+    ]
+  }
+};
+
+const mktCtx = [
+  {lbl:'S&P 500',val:'5,892',chg:'+0.84%',up:true},
+  {lbl:'NASDAQ',val:'20,741',chg:'+1.12%',up:true},
+  {lbl:'Dow Jones',val:'42,350',chg:'+0.61%',up:true},
+  {lbl:'Russell 2000',val:'2,125',chg:'+0.44%',up:true},
+  {lbl:'VIX',val:'14.32',chg:'-8.4%',up:false},
+  {lbl:'Gold',val:'$3,310',chg:'+1.1%',up:true},
+  {lbl:'WTI Oil',val:'$65.40',chg:'+4.2%',up:true},
+  {lbl:'10Y Yield',val:'4.38%',chg:'+2bps',up:false},
+];
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+function go(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  document.querySelectorAll('.nl').forEach(l => l.classList.remove('active'));
+  if (el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast-el');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  // Date
+  document.getElementById('topdate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  // Breaking news
+
+
+  // Econ strip
+  document.getElementById('es-grid').innerHTML = econStrip.map(e => `<div class="ei"><div class="ei-lbl">${e.lbl}</div><div class="ei-val">${e.val}</div><div class="ei-chg ${e.up?'up':'dn'}">${e.up?'▲':'▼'} ${e.chg}</div></div>`).join('');
+
+  // News
+  document.getElementById('eco-news').innerHTML = usEcoNews.map(n => `<div class="nc" onclick="toast('Opening article...')"><div class="nc-head"><span class="nc-tag ${n.tagC}">${n.tag}</span><span class="nc-ico">${n.ico}</span></div><div class="nc-title">${n.title}</div><div class="nc-body">${n.body}</div><div class="nc-meta">${n.time} · Balaji N, CFP</div></div>`).join('');
+  document.getElementById('geo-news').innerHTML = geoNews.map(n => `<div class="nc" onclick="toast('Opening article...')"><div class="nc-head"><span class="nc-tag ${n.tagC}">${n.tag}</span><span class="nc-ico">${n.ico}</span></div><div class="nc-title">${n.title}</div><div class="nc-body">${n.body}</div><div class="nc-meta">${n.time} · Balaji N, CFP</div></div>`).join('');
+  document.getElementById('opinion').innerHTML = opinions.map(o => `<div class="oc" onclick="go('articles',document.querySelectorAll('.nl')[1])"><div class="oc-type">${o.type}</div><div class="oc-title">${o.title}</div><div class="oc-body">${o.body}</div></div>`).join('');
+
+  buildArticles();
+  buildEarnings();
+  buildEcon('macro');
+  buildTa();
+});
+
+// ═══════════════════════════════════════════
+// ARTICLES
+// ═══════════════════════════════════════════
+function buildArticles() {
+  const a = articles[0];
+  document.getElementById('art-featured').innerHTML = `<div class="art-featured" onclick="toast('Opening article...')"><div class="af-img">${a.emoji}</div><div class="af-body"><div class="af-cat">${a.cat}</div><div class="af-title">${a.title}</div><div class="af-excerpt">${a.excerpt}</div><div class="af-meta"><span>Balaji N, CFP</span><span>·</span><span>${a.date}</span><span>·</span><span>${a.time} read</span></div></div></div>`;
+  document.getElementById('art-list').innerHTML = articles.slice(1).map(a => `<div class="ali" onclick="toast('Opening article...')"><div class="ali-thumb">${a.emoji}</div><div><div class="ali-cat">${a.cat}</div><div class="ali-title">${a.title}</div><div class="ali-meta">${a.date} · ${a.time} read</div></div></div>`).join('');
+  document.getElementById('archive-list').innerHTML = archive.map((t,i) => `<div class="archi" onclick="toast('Opening article...')"><div class="archi-num">${String(i+1).padStart(2,'0')}</div><div class="archi-title">${t}</div></div>`).join('');
+}
+
+// ═══════════════════════════════════════════
+// EARNINGS
+// ═══════════════════════════════════════════
+let filteredE = [...earningsData];
+
+function buildEarnings() {
+  document.getElementById('earn-count').textContent = `${earningsData.length} reports · Max 10`;
+  renderEFeatured(filteredE[0]);
+  renderECards(filteredE.slice(1));
+}
+
+function filterE(cat, el) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  filteredE = cat === 'all' ? [...earningsData] : earningsData.filter(e => e.cat === cat || (cat==='cloud' && e.sector.includes('Cloud')));
+  renderEFeatured(filteredE[0]);
+  renderECards(filteredE.slice(1));
+}
+
+function renderEFeatured(e) {
+  if (!e) { document.getElementById('earn-featured').innerHTML = ''; return; }
+  const bc = e.beatMiss==='Beat'?'b-beat':e.beatMiss==='Miss'?'b-miss':'b-line';
+  const rc = e.rating.includes('Strong')?'b-sbuy':'b-buy';
+  document.getElementById('earn-featured').innerHTML = `
+<div class="earn-featured">
+  <div class="ef-head">
+    <div class="ef-pills">
+      <span class="badge ${bc}">${e.beatMiss}</span>
+      <span class="badge b-gray">${e.flag} ${e.sector}</span>
+      <span class="badge b-gray">${e.q}</span>
+      <span style="font-size:10px;color:var(--g2);margin-left:auto">📄 ${e.date}</span>
+    </div>
+    <div class="ef-co">${e.co}</div>
+    <div class="ef-sub">${e.sym} · ${e.q} Earnings Intelligence · Published ${e.date}</div>
+    <div class="ef-metrics">
+      <div><div class="efm-lbl">Revenue</div><div class="efm-val">${e.rev}</div><div class="efm-chg up">▲ ${e.revGr} YoY</div></div>
+      <div><div class="efm-lbl">EPS (Adj.)</div><div class="efm-val">${e.eps}</div><div class="efm-chg up">▲ ${e.epsGr} YoY</div></div>
+      <div><div class="efm-lbl">Gross Margin</div><div class="efm-val">${e.gm}</div><div class="efm-chg" style="font-size:10px;color:var(--g2)">${e.gmN}</div></div>
+      <div><div class="efm-lbl">Op. Cash Flow</div><div class="efm-val">${e.ocf}</div><div class="efm-chg up">${e.ocfN}</div></div>
+    </div>
+  </div>
+  <div class="ef-body">
+    <div class="ef-summary">${e.summary}</div>
+    <div class="ef-actions">
+      <button class="btn-sub" onclick="openRpt('${e.id}')">READ FULL ANALYSIS →</button>
+      <span class="badge ${rc}">${e.rating}</span>
+      <span class="badge b-gray">PT: ${e.pt}</span>
+    </div>
+  </div>
+</div>`;
+}
+
+function renderECards(reports) {
+  document.getElementById('earn-cards').innerHTML = reports.map(e => {
+    const bc = e.beatMiss==='Beat'?'b-beat':e.beatMiss==='Miss'?'b-miss':'b-line';
+    const rc = e.rating.includes('Strong')?'b-sbuy':'b-buy';
+    return `<div class="ecard" onclick="openRpt('${e.id}')">
+  <div class="ecard-top">
+    <div>
+      <div style="font-size:9px;color:var(--g2);margin-bottom:2px">📄 ${e.date}</div>
+      <div class="ecard-co">${e.flag} ${e.co}</div>
+      <div class="ecard-sub">${e.q} · ${e.sector}</div>
+    </div>
+    <div class="ecard-ico">${e.emoji}</div>
+  </div>
+  <div class="ecard-mets">
+    <div><div class="ecm-lbl">Revenue</div><div class="ecm-val">${e.rev}</div><div class="ecm-chg up">▲ ${e.revGr}</div></div>
+    <div><div class="ecm-lbl">EPS</div><div class="ecm-val">${e.eps}</div><div class="ecm-chg up">▲ ${e.epsGr}</div></div>
+  </div>
+  <div class="ecard-foot">
+    <div style="display:flex;gap:5px"><span class="badge ${rc}" style="font-size:9px">${e.rating}</span><span class="badge ${bc}" style="font-size:9px">${e.beatMiss}</span></div>
+    <span class="read-link">Full Analysis →</span>
+  </div>
+</div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════
+// FULL REPORT — EXACT SKILL DESIGN SYSTEM
+// ═══════════════════════════════════════════
+let activeCharts = [];
+
+function openRpt(id) {
+  const e = earningsData.find(r => r.id === id);
+  if (!e) return;
+  activeCharts.forEach(c => c.destroy()); activeCharts = [];
+
+  const ratingColor = e.rating.includes('Strong') ? 'var(--ei-pos)' : 'var(--ei-accent)';
+  document.getElementById('frp-id').textContent = `${e.co} · ${e.q} Earnings Intelligence`;
+
+  document.getElementById('rpt-body').innerHTML = `
+<!-- HEADER PANEL -->
+<header class="panel" style="background:linear-gradient(135deg,#0d1a2d,#1a2235);">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div style="font-size:11px;color:var(--ei-faint);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">EquiLens Research · Earnings Intelligence</div>
+      <h1>${e.co} — Earnings &amp; Valuation Intelligence</h1>
+      <div class="muted" style="margin-top:6px;font-size:13.5px;"><strong style="color:var(--ei-text)">${e.sym}</strong> · ${e.sector} &nbsp;|&nbsp; Quarter: <strong style="color:var(--ei-text)">${e.q}</strong> · Reported: ${e.date} · Generated: ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="pill pill-bull">✓ Revenue ${e.revVsCons}</span>
+        <span class="pill pill-bull">✓ EPS ${e.epsVsCons}</span>
+        <span class="pill ${e.beatMiss==='Beat'?'pill-bull':e.beatMiss==='Miss'?'pill-bear':'pill-neu'}">${e.beatMiss}</span>
+        <span class="pill pill-blue">${e.flag} ${e.sector}</span>
+        <span class="pill pill-gray">⚡ Earnings Intelligence Skill</span>
+      </div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:11px;color:var(--ei-faint);margin-bottom:6px;">Rating</div>
+      <div class="verdict-r" style="background:rgba(58,210,159,.18);color:var(--ei-pos);">${e.rating.toUpperCase()}</div>
+      <div style="margin-top:10px;"><span class="mono" style="font-size:19px;font-weight:700;color:var(--ei-text);">PT ${e.pt}</span> <span class="muted" style="font-size:13px;">base case</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- 1. EXECUTIVE SUMMARY -->
+<section class="panel"><h2>1. Executive Summary</h2><p>${e.execSummary || e.summary}</p></section>
+
+<!-- 2. EARNINGS OVERVIEW -->
+<section class="panel">
+  <h2>2. Earnings Overview — ${e.q} vs Consensus</h2>
+  <div class="grid-4r" style="margin-bottom:20px;">
+    <div class="kpi-r"><div class="label">Revenue</div><div class="value">${e.rev}</div><div class="delta pos">▲ ${e.revGr} YoY &nbsp;·&nbsp; ${e.revVsCons}</div></div>
+    <div class="kpi-r"><div class="label">EPS (Non-GAAP)</div><div class="value">${e.eps}</div><div class="delta pos">▲ ${e.epsGr} YoY &nbsp;·&nbsp; ${e.epsVsCons}</div></div>
+    <div class="kpi-r"><div class="label">Gross Margin</div><div class="value">${e.gm}</div><div class="delta muted">${e.gmN}</div></div>
+    <div class="kpi-r"><div class="label">Op. Cash Flow</div><div class="value">${e.ocf}</div><div class="delta pos">${e.ocfN}</div></div>
+  </div>
+  <table>
+    <thead><tr><th>Metric</th><th>Actual</th><th>Consensus Est.</th><th>Beat / Miss</th><th>YoY Change</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Revenue</strong></td><td class="mono">${e.rev}</td><td class="mono muted">See analysis</td><td class="beat">${e.revVsCons} ✓</td><td class="pos">${e.revGr}</td></tr>
+      <tr><td><strong>EPS (Non-GAAP)</strong></td><td class="mono">${e.eps}</td><td class="mono muted">See analysis</td><td class="beat">${e.epsVsCons} ✓</td><td class="pos">${e.epsGr}</td></tr>
+      <tr><td><strong>Gross Margin</strong></td><td class="mono">${e.gm}</td><td class="mono muted">—</td><td class="inline">—</td><td class="muted">${e.gmN}</td></tr>
+      <tr><td><strong>EBITDA</strong></td><td class="mono">${e.ebitda}</td><td class="mono muted">—</td><td>—</td><td class="pos">Strong YoY</td></tr>
+      <tr><td><strong>Net Income</strong></td><td class="mono">${e.netInc}</td><td class="mono muted">—</td><td>—</td><td class="pos">Strong YoY</td></tr>
+      <tr><td><strong>Cash &amp; Equivalents</strong></td><td class="mono">${e.cash}</td><td class="mono muted">—</td><td>—</td><td class="muted">—</td></tr>
+      <tr><td><strong>Beat / Miss</strong></td><td colspan="4"><span class="pill ${e.beatMiss==='Beat'?'pill-bull':e.beatMiss==='Miss'?'pill-bear':'pill-neu'}">${e.beatMiss}</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 3. REVENUE & EARNINGS GROWTH -->
+<section class="panel">
+  <h2>3. Revenue &amp; Earnings Growth Analysis</h2>
+  <div class="grid-2r" style="margin-bottom:20px;">
+    <div><div style="font-size:12px;color:var(--ei-muted);margin-bottom:8px;">Quarterly Revenue — ${e.revLabels ? e.revLabels[0] + ' to ' + e.revLabels[e.revLabels.length-1] : 'Trend'}</div><canvas id="rpt-rev" height="220"></canvas></div>
+    <div><div style="font-size:12px;color:var(--ei-muted);margin-bottom:8px;">Non-GAAP EPS — Quarterly Trend</div><canvas id="rpt-eps" height="220"></canvas></div>
+  </div>
+  <p>${e.revenueGrowthAnalysis || 'Revenue growth analysis not available for this report.'}</p>
+</section>
+
+<!-- 4. SEGMENT ANALYSIS -->
+${e.segments ? `<section class="panel">
+  <h2>4. Business Segment Analysis</h2>
+  <div class="grid-2r" style="margin-bottom:16px;align-items:start;">
+    <div><canvas id="rpt-seg" height="250"></canvas></div>
+    <table>
+      <thead><tr><th>Segment</th><th>Revenue</th><th>Growth</th></tr></thead>
+      <tbody>${e.segments.map(s => `<tr><td><strong>${s.n}</strong></td><td class="mono">${s.v}</td><td class="pos">${s.g}</td></tr>`).join('')}</tbody>
+    </table>
+  </div>
+  <p>${e.segmentAnalysis || ''}</p>
+</section>` : ''}
+
+<!-- 5. INDUSTRY & DEMAND -->
+<section class="panel"><h2>5. Industry &amp; Demand Analysis</h2><p>${e.industryAnalysis || 'Industry analysis not available.'}</p></section>
+
+<!-- 6. GUIDANCE & OUTLOOK -->
+<section class="panel"><h2>6. Guidance &amp; Outlook</h2><p>${e.guidanceAnalysis || e.guidance || 'Guidance details not available.'}</p></section>
+
+<!-- 7. MANAGEMENT COMMENTARY -->
+${(e.mgmtPositive || e.mgmtNegative) ? `<section class="panel">
+  <h2>7. Management Commentary</h2>
+  <div class="grid-2r">
+    <div><h3 style="color:var(--ei-pos);margin-bottom:10px;">🟢 Positive / Bullish Signals</h3><ul class="sig-list">${(e.mgmtPositive||[]).map(b => `<li><span style="color:var(--ei-pos);flex-shrink:0">▲</span><span>${b}</span></li>`).join('')}</ul></div>
+    <div><h3 style="color:var(--ei-neg);margin-bottom:10px;">🔴 Cautious / Risk Signals</h3><ul class="sig-list">${(e.mgmtNegative||[]).map(b => `<li><span style="color:var(--ei-neg);flex-shrink:0">▼</span><span>${b}</span></li>`).join('')}</ul></div>
+  </div>
+</section>` : ''}
+
+<!-- 9. BULL vs BEAR -->
+<section class="panel">
+  <h2>9. Bull vs Bear</h2>
+  <div class="bullbear">
+    <div class="bull-box"><h3>🟢 Bull Case</h3><ul class="sig-list">${(e.bullPoints||e.bull||[]).map(b => `<li><span style="color:var(--ei-pos);flex-shrink:0">✦</span><span>${b}</span></li>`).join('')}</ul></div>
+    <div class="bear-box"><h3>🔴 Bear Case</h3><ul class="sig-list">${(e.bearPoints||e.bear||[]).map(b => `<li><span style="color:var(--ei-neg);flex-shrink:0">✦</span><span>${b}</span></li>`).join('')}</ul></div>
+  </div>
+</section>
+
+<!-- 10. VALUATION -->
+<section class="panel"><h2>10. Valuation</h2><p>${e.valuation || 'Valuation analysis not available.'}</p></section>
+
+<!-- 11. PRICE TARGETS -->
+<section class="panel">
+  <h2>11. Price Targets — Three Scenarios</h2>
+  <div class="pt-bull"><div class="pt-label" style="color:var(--ei-pos)">🟢 Bull Case — 25% Probability</div><div class="pt-price" style="color:var(--ei-pos)">${e.ptBull || 'See analysis'}</div><div class="pt-assume">${e.ptBullCase || 'Assumes guidance raise and multiple expansion.'}</div></div>
+  <div class="pt-base"><div class="pt-label" style="color:var(--ei-accent)">🔵 Base Case — 55% Probability</div><div class="pt-price" style="color:var(--ei-accent)">${e.pt}</div><div class="pt-assume">${e.ptBaseCase || 'On-guide delivery at current multiple.'}</div></div>
+  <div class="pt-bear"><div class="pt-label" style="color:var(--ei-neg)">🔴 Bear Case — 20% Probability</div><div class="pt-price" style="color:var(--ei-neg)">${e.ptBear || 'See analysis'}</div><div class="pt-assume">${e.ptBearCase || 'Guidance cut and multiple compression.'}</div></div>
+</section>
+
+<!-- 12. KEY RISKS -->
+${(e.nearRisks || e.longRisks) ? `<section class="panel">
+  <h2>12. Key Risks</h2>
+  <div class="grid-2r">
+    <div><h3 style="margin-bottom:10px;">Near-Term (1–2 Quarters)</h3><ul class="risk-list">${(e.nearRisks||[]).map(r => `<li><span style="color:var(--ei-neg);flex-shrink:0">▲</span><span>${r}</span></li>`).join('')}</ul></div>
+    <div><h3 style="margin-bottom:10px;">Long-Term / Structural</h3><ul class="risk-list">${(e.longRisks||[]).map(r => `<li><span style="color:var(--ei-neg);flex-shrink:0">▲</span><span>${r}</span></li>`).join('')}</ul></div>
+  </div>
+</section>` : ''}
+
+<!-- 13. INVESTMENT THESIS & VERDICT -->
+<section class="panel" style="border-color:rgba(58,210,159,.3);">
+  <h2>13. Investment Thesis &amp; Verdict</h2>
+  <p>${e.thesis || e.summary}</p>
+  <div style="margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div class="verdict-r" style="background:rgba(58,210,159,.18);color:var(--ei-pos);">${e.rating.toUpperCase()}</div>
+    <div>
+      <div style="font-size:15px;font-weight:600;color:var(--ei-text);">12-Month Base Price Target: <span class="mono" style="color:var(--ei-accent);">${e.pt}</span></div>
+      <div class="muted" style="font-size:13px;margin-top:3px;">${e.co} · ${e.q} · ${e.sector}</div>
+      <div style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap;">
+        <span class="pill pill-bull">${e.rating}</span>
+        <span class="pill pill-blue">PT: ${e.pt}</span>
+        <span class="pill ${e.beatMiss==='Beat'?'pill-bull':e.beatMiss==='Miss'?'pill-bear':'pill-neu'}">${e.beatMiss} Quarter</span>
+        ${e.ptBull ? `<span class="pill pill-gray">Bull: ${e.ptBull}</span>` : ''}
+        ${e.ptBear ? `<span class="pill pill-gray">Bear: ${e.ptBear}</span>` : ''}
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rpt-disc">This report is informational research generated from public sources including company SEC filings (8-K), earnings call transcripts, and publicly available analyst commentary. All financial figures are attributed to reported company data or explicitly estimated where noted. This is not personalised investment advice. Verify all figures independently before making any investment decision. Past performance is not indicative of future results. EquiLens Research by Balaji N, CFP — ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}.</div>`;
+
+  // Render charts
+  setTimeout(() => {
+    const cCfg = {
+      grid:'rgba(255,255,255,0.05)',text:'#5a6675',text2:'#8b98a9',
+      tip:{backgroundColor:'#121821',titleColor:'#e6edf3',bodyColor:'#8b98a9',borderColor:'#243042',borderWidth:1}
+    };
+    const scale = (yLabel) => ({
+      x:{grid:{color:cCfg.grid},ticks:{color:cCfg.text,font:{family:'IBM Plex Mono',size:10}}},
+      y:{grid:{color:cCfg.grid},ticks:{color:cCfg.text,font:{family:'IBM Plex Mono',size:10},callback:v=>v+(yLabel||'')}}
+    });
+    Chart.defaults.color = '#8b98a9';
+    Chart.defaults.borderColor = '#243042';
+
+    // Revenue chart
+    if (document.getElementById('rpt-rev') && e.revHistory) {
+      activeCharts.push(new Chart(document.getElementById('rpt-rev'), {
+        type:'bar',
+        data:{labels:e.revLabels||e.revHistory.map((_,i)=>'Q'+(i+1)),datasets:[{label:'Revenue',data:e.revHistory,backgroundColor:(ctx)=>ctx.dataIndex===e.revHistory.length-1?'rgba(204,0,0,0.85)':'rgba(77,163,255,0.5)',borderRadius:4}]},
+        options:{responsive:true,plugins:{legend:{display:false},tooltip:cCfg.tip},scales:scale('')}
+      }));
+    }
+
+    // EPS chart
+    if (document.getElementById('rpt-eps') && e.epsHistory) {
+      activeCharts.push(new Chart(document.getElementById('rpt-eps'), {
+        type:'line',
+        data:{labels:e.revLabels||e.epsHistory.map((_,i)=>'Q'+(i+1)),datasets:[{label:'Non-GAAP EPS',data:e.epsHistory,borderColor:'#3ad29f',backgroundColor:'rgba(58,210,159,0.08)',fill:true,tension:0.4,borderWidth:2.5,pointRadius:5,pointBackgroundColor:(ctx)=>ctx.dataIndex===e.epsHistory.length-1?'#CC0000':'#3ad29f'}]},
+        options:{responsive:true,plugins:{legend:{display:false},tooltip:cCfg.tip},scales:scale('')}
+      }));
+    }
+
+    // Segment donut
+    if (document.getElementById('rpt-seg') && e.segments) {
+      const colors = ['#CC0000','#4da3ff','#3ad29f','#f5c451','#a78bfa','#8b98a9'];
+      const nums = e.segments.map(s => {
+        const m = s.v.match(/[\d.]+/);
+        return m ? parseFloat(m[0]) : 1;
+      });
+      activeCharts.push(new Chart(document.getElementById('rpt-seg'), {
+        type:'doughnut',
+        data:{labels:e.segments.map(s=>s.n),datasets:[{data:nums,backgroundColor:colors,borderColor:'#121821',borderWidth:2}]},
+        options:{responsive:true,cutout:'62%',plugins:{legend:{position:'bottom',labels:{color:'#8b98a9',font:{size:11},boxWidth:10,padding:8}},tooltip:cCfg.tip}}
+      }));
+    }
+  }, 80);
+
+  document.getElementById('full-rpt').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeRpt() {
+  document.getElementById('full-rpt').classList.remove('open');
+  document.body.style.overflow = '';
+  activeCharts.forEach(c => c.destroy()); activeCharts = [];
+}
+
+// ═══════════════════════════════════════════
+// ECONOMIC
+// ═══════════════════════════════════════════
+let econCharts = [];
+function eTab(tab, el) {
+  document.querySelectorAll('.etab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  econCharts.forEach(c => c.destroy()); econCharts = [];
+  buildEcon(tab);
+}
+
+function buildEcon(tab) {
+  const d = econData[tab];
+  const cCfg = {grid:'rgba(255,255,255,0.05)',text:'#555',text2:'#888',tip:{backgroundColor:'#111',titleColor:'#fff',bodyColor:'#888',borderColor:'#333',borderWidth:1}};
+  const sc = (yL) => ({x:{grid:{color:cCfg.grid},ticks:{color:cCfg.text,font:{family:'IBM Plex Mono',size:10}}},y:{grid:{color:cCfg.grid},ticks:{color:cCfg.text,font:{family:'IBM Plex Mono',size:10},callback:v=>v+(yL||'')}}});
+
+  document.getElementById('econ-content').innerHTML = `
+<div class="ind-grid">${d.indicators.map(i => `<div class="ind-card"><div class="ind-flag">${i.flag}</div><div class="ind-lbl">${i.lbl}</div><div class="ind-val ${i.up?'up':'dn'}">${i.val}</div><div class="ind-row"><span>Freq: ${i.freq}</span><span class="${i.up?'up':'dn'}">${i.up?'▲':'▼'} ${i.chg}</span></div></div>`).join('')}</div>
+${tab==='macro'?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+<div class="chart-box"><div class="cb-title">US GDP Growth Rate</div><div class="cb-sub">Quarterly YoY % · 2023–2026</div><canvas id="ch-gdp" height="220"></canvas></div>
+<div class="chart-box"><div class="cb-title">CPI Inflation vs Fed Funds Rate</div><div class="cb-sub">Monthly · 2024–2026</div><canvas id="ch-cpi" height="220"></canvas></div>
+</div>`:tab==='labor'?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+<div class="chart-box"><div class="cb-title">US Unemployment Rate</div><div class="cb-sub">Monthly % · 2024–2026</div><canvas id="ch-unemp" height="220"></canvas></div>
+<div class="chart-box"><div class="cb-title">Monthly NFP Job Additions</div><div class="cb-sub">Thousands · 2025–2026</div><canvas id="ch-nfp" height="220"></canvas></div>
+</div>`:tab==='fed'?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+<div class="chart-box"><div class="cb-title">Federal Funds Rate History</div><div class="cb-sub">% · 2022–2026</div><canvas id="ch-ffr" height="220"></canvas></div>
+<div class="chart-box"><div class="cb-title">US Treasury Yield Curve (2Y vs 10Y)</div><div class="cb-sub">% · 2024–2026</div><canvas id="ch-yc" height="220"></canvas></div>
+</div>`:`<div class="chart-box" style="margin-bottom:14px;"><div class="cb-title">Global Market Overview</div><div class="cb-sub">Multi-asset performance · 2026</div><canvas id="ch-global" height="260"></canvas></div>`}
+<div class="sh"><div class="sh-title"><span class="sh-tag">LATEST</span>ECONOMIC RELEASES</div></div>
+<div class="releases-grid">${d.releases.map(r => `<div class="rel-card"><div class="rel-top"><div class="rel-name">${r.name}</div><div class="rel-date">${r.date}</div></div><div class="rel-data"><div><div class="rd-lbl">Actual</div><div class="rd-val ${r.type==='up'?'up':r.type==='down'?'dn':''}">${r.actual}</div></div><div><div class="rd-lbl">Est.</div><div class="rd-val">${r.est}</div></div><div><div class="rd-lbl">Previous</div><div class="rd-val">${r.prev}</div></div></div><div class="rel-impact">${r.impact}</div></div>`).join('')}</div>`;
+
+  setTimeout(() => {
+    if (tab==='macro') {
+      econCharts.push(new Chart(document.getElementById('ch-gdp'),{type:'bar',data:{labels:['Q1 23','Q2 23','Q3 23','Q4 23','Q1 24','Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],datasets:[{label:'GDP %',data:[2.0,2.1,2.4,2.6,1.8,2.1,2.3,2.5,1.9,2.2,2.4,2.3,2.5],backgroundColor:(ctx)=>ctx.dataIndex===12?'rgba(204,0,0,.8)':'rgba(204,0,0,.5)',borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:cCfg.tip},scales:sc('%')}}));
+      econCharts.push(new Chart(document.getElementById('ch-cpi'),{type:'line',data:{labels:['Jan 24','Mar 24','May 24','Jul 24','Sep 24','Nov 24','Jan 25','Mar 25','May 25','Jul 25','Sep 25','Nov 25','Jan 26','Mar 26','May 26'],datasets:[{label:'CPI %',data:[3.1,3.5,3.3,2.9,2.4,2.7,3.0,2.8,2.7,2.6,2.5,2.8,2.9,2.8,2.7],borderColor:'#CC0000',backgroundColor:'rgba(27,79,138,.08)',fill:true,tension:0.4,borderWidth:2,pointRadius:0},{label:'Fed Rate %',data:[5.375,5.375,5.375,5.375,5.375,4.625,4.375,4.375,4.375,4.375,4.375,4.375,4.375,4.375,4.375],borderColor:'#F0B429',fill:false,tension:0,borderWidth:2,stepped:true,pointRadius:0}]},options:{responsive:true,plugins:{legend:{labels:{color:'#888',font:{size:11}}},tooltip:cCfg.tip},scales:sc('%')}}));
+    } else if (tab==='labor') {
+      econCharts.push(new Chart(document.getElementById('ch-unemp'),{type:'line',data:{labels:['Jan 24','Mar 24','May 24','Jul 24','Sep 24','Nov 24','Jan 25','Mar 25','May 25','Jul 25','Sep 25','Nov 25','Jan 26','Mar 26','May 26'],datasets:[{label:'Unemployment %',data:[3.7,3.8,4.0,4.2,4.1,4.2,4.1,4.2,4.1,4.0,4.1,4.2,4.1,4.2,4.1],borderColor:'#00A878',backgroundColor:'rgba(0,168,120,.08)',fill:true,tension:0.4,borderWidth:2,pointRadius:0}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:cCfg.tip},scales:sc('%')}}));
+      econCharts.push(new Chart(document.getElementById('ch-nfp'),{type:'bar',data:{labels:['Jan 25','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan 26','Feb','Mar','Apr'],datasets:[{label:'NFP (K)',data:[256,214,310,177,209,185,201,165,254,195,175,213,228,185,192,177],backgroundColor:(ctx)=>ctx.parsed.y<0?'rgba(204,0,0,.7)':'rgba(77,163,255,.6)',borderRadius:3}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:cCfg.tip},scales:sc('K')}}));
+    } else if (tab==='fed') {
+      econCharts.push(new Chart(document.getElementById('ch-ffr'),{type:'line',data:{labels:['Jan 22','Mar','May','Jul','Sep','Nov','Jan 23','Mar','May','Jul','Sep','Nov','Jan 24','Mar','May','Nov','Jan 25','Mar','May 26'],datasets:[{label:'Fed Funds Rate %',data:[0.125,0.375,0.875,2.375,3.125,3.875,4.375,4.625,5.125,5.375,5.375,5.375,5.375,5.375,5.375,4.625,4.375,4.375,4.375],borderColor:'#CC0000',fill:false,tension:0,borderWidth:2.5,stepped:true,pointRadius:0}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:cCfg.tip},scales:sc('%')}}));
+      econCharts.push(new Chart(document.getElementById('ch-yc'),{type:'line',data:{labels:['Jan 24','Mar','May','Jul','Sep','Nov','Jan 25','Mar','May','Jul','Sep','Nov','Jan 26','Mar','May 26'],datasets:[{label:'10Y Treasury %',data:[3.97,4.21,4.48,4.25,3.65,4.18,4.63,4.35,4.47,4.28,3.95,4.24,4.52,4.29,4.38],borderColor:'#4da3ff',fill:false,tension:0.4,borderWidth:2,pointRadius:0},{label:'2Y Treasury %',data:[4.53,4.62,4.87,4.74,3.97,4.24,4.18,4.02,4.03,3.85,3.55,4.18,4.45,4.22,4.71],borderColor:'#f5c451',fill:false,tension:0.4,borderWidth:2,pointRadius:0,borderDash:[5,3]}]},options:{responsive:true,plugins:{legend:{labels:{color:'#888',font:{size:11}}},tooltip:cCfg.tip},scales:sc('%')}}));
+    } else {
+      econCharts.push(new Chart(document.getElementById('ch-global'),{type:'bar',data:{labels:['S&P 500 YTD','NASDAQ YTD','Gold YTD','BTC YTD','WTI Oil YTD','DXY YTD','EUR/USD YTD','10Y Yield Δ'],datasets:[{label:'% Change 2026 YTD',data:[14.2,18.6,22.1,38.4,8.2,-2.8,1.5,-0.3],backgroundColor:(ctx)=>ctx.parsed.y>=0?'rgba(0,168,120,.65)':'rgba(204,0,0,.65)',borderRadius:4}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:cCfg.tip},scales:sc('%')}}));
+    }
+  },60);
+}
+
+// ═══════════════════════════════════════════
+// TECHNICAL ANALYSIS
+// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════
+// TECHNICAL ANALYSIS — Google Sheets Reader
+// ═══════════════════════════════════════════
+// Reads from Google Sheets published as CSV
+// Sheet URL set in EQUILENS_TA_SHEET_URL env
+// or hardcoded below in taSheetUrl
+
+const taSheetUrl = 'PASTE_YOUR_GOOGLE_SHEETS_CSV_URL_HERE';
+// Instructions to get this URL:
+// 1. Open your Google Sheet
+// 2. File → Share → Publish to web
+// 3. Select your TA sheet tab
+// 4. Choose "Comma-separated values (.csv)"
+// 5. Click Publish → Copy the URL → Paste above
+
+let taPosts     = [];
+let taFilterSig = 'all';
+let taSearchQ   = '';
+
+// ── Init ────────────────────────────────────
+function buildTa() {
+  // Market context sidebar
+  const mktEl = document.getElementById('ta-mkt-ctx');
+  if (mktEl) mktEl.innerHTML = mktCtx.map(m =>
+    `<div class="ta-quick-item"><span>${m.lbl}</span><span class="${m.up?'up':'dn'}" style="font-family:var(--fm)">${m.val} <small>${m.up?'▲':'▼'}${m.chg}</small></span></div>`
+  ).join('');
+  taFetchFromSheets();
+}
+
+// ── Fetch from Google Sheets CSV ────────────
+async function taFetchFromSheets() {
+  const loadEl  = document.getElementById('ta-loading');
+  const errEl   = document.getElementById('ta-error');
+  const emptyEl = document.getElementById('ta-empty-state');
+  const statsEl = document.getElementById('ta-stats-strip');
+  const filterEl= document.getElementById('ta-filter-bar');
+
+  loadEl.style.display  = 'block';
+  errEl.style.display   = 'none';
+  emptyEl.style.display = 'none';
+  statsEl.style.display = 'none';
+
+  if (!taSheetUrl || taSheetUrl.includes('PASTE_YOUR')) {
+    loadEl.style.display = 'none';
+    errEl.style.display  = 'block';
+    document.getElementById('ta-error-msg').textContent =
+      'Google Sheet not connected yet. See setup instructions below.';
+    document.getElementById('ta-last-updated').textContent = 'Not connected';
+    taShowSetupGuide();
+    return;
+  }
+
+  try {
+    // Add cache-bust so new rows appear without hard refresh
+    const url = taSheetUrl + (taSheetUrl.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+    const res  = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const csv  = await res.text();
+    taPosts    = taParseCsv(csv);
+
+    loadEl.style.display   = 'none';
+    statsEl.style.display  = 'flex';
+
+    if (!taPosts.length) {
+      emptyEl.style.display = 'block';
+      document.getElementById('ta-last-updated').textContent = 'Sheet connected — 0 rows yet';
+      return;
+    }
+
+    const now = new Date().toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    document.getElementById('ta-last-updated').textContent = `${taPosts.length} analyses · Updated ${now}`;
+    taRenderAll();
+
+  } catch(err) {
+    loadEl.style.display = 'none';
+    errEl.style.display  = 'block';
+    document.getElementById('ta-error-msg').textContent =
+      'Could not load Google Sheet. Check the URL is published as CSV and is publicly accessible. Error: ' + err.message;
+    document.getElementById('ta-last-updated').textContent = 'Connection error';
+  }
+}
+
+// ── Parse CSV → post objects ─────────────────
+// Expected column order (Row 1 = headers, ignored):
+// A: Date | B: Ticker | C: Company | D: Signal | E: Timeframe
+// F: Pattern | G: Indicators | H: Quote | I: Support1 | J: Support2
+// K: Entry | L: Resistance1 | M: Resistance2 | N: Target | O: Stop | P: R/R
+// Q: Analysis | R: BuyReasons | S: SellReasons
+// T: Image1 URL | U: Image2 URL | V: Image3 URL | W: Video URL | X: Tags
+function taParseCsv(csv) {
+  const lines  = csv.split('\n').filter(l => l.trim());
+  const rows   = lines.slice(1); // skip header row
+  return rows.map((line, idx) => {
+    const cols = taCsvLine(line);
+    const sig  = (cols[3] || 'watch').toLowerCase().trim();
+    const tags = (cols[23] || '').split(',').map(t => t.trim()).filter(Boolean);
+    const imgs = [cols[19], cols[20], cols[21]].filter(Boolean).map(s => s.trim());
+    return {
+      id:          idx + 1,
+      date:        cols[0]  || '',
+      ticker:      (cols[1] || '').toUpperCase().trim(),
+      company:     cols[2]  || '',
+      signal:      ['buy','sell','watch','hold'].includes(sig) ? sig : 'watch',
+      tf:          cols[4]  || '',
+      pattern:     cols[5]  || '',
+      indicators:  cols[6]  || '',
+      quote:       cols[7]  || '',
+      s1:          cols[8]  || '',
+      s2:          cols[9]  || '',
+      entry:       cols[10] || '',
+      r1:          cols[11] || '',
+      r2:          cols[12] || '',
+      target:      cols[13] || '',
+      stop:        cols[14] || '',
+      rr:          cols[15] || '',
+      analysis:    cols[16] || '',
+      buyReasons:  cols[17] || '',
+      sellReasons: cols[18] || '',
+      images:      imgs,
+      video:       taToEmbed(cols[22] || ''),
+      tags,
+      created:     cols[0]  || '',
+    };
+  }).filter(p => p.ticker); // skip blank rows
+}
+
+// ── CSV line parser (handles quoted commas) ──
+function taCsvLine(line) {
+  const cols = []; let cur = ''; let inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') { inQ = !inQ; continue; }
+    if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; continue; }
+    cur += ch;
+  }
+  cols.push(cur.trim());
+  return cols;
+}
+
+// ── Video URL → embed ────────────────────────
+function taToEmbed(url) {
+  if (!url) return '';
+  const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  if (yt) return 'https://www.youtube.com/embed/' + yt[1];
+  return url;
+}
+
+// ── Filter & search ──────────────────────────
+function taFilter(sig, el) {
+  taFilterSig = sig; taSearchQ = '';
+  document.getElementById('ta-search').value = '';
+  document.querySelectorAll('.tfbtn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  taRenderPosts();
+}
+function taSearch(q) { taSearchQ = q.toLowerCase(); taRenderPosts(); }
+function taGetFiltered() {
+  let r = taPosts;
+  if (taFilterSig !== 'all') r = r.filter(p => p.signal === taFilterSig);
+  if (taSearchQ) r = r.filter(p =>
+    p.ticker.toLowerCase().includes(taSearchQ) ||
+    (p.company || '').toLowerCase().includes(taSearchQ) ||
+    (p.tags || []).some(t => t.toLowerCase().includes(taSearchQ))
+  );
+  return r;
+}
+
+// ── Render ───────────────────────────────────
+function taRenderAll() {
+  updateTaStats();
+  taRenderPosts();
+}
+
+const taSigMap = {
+  buy:   { cls:'sig-buy',   lbl:'🟢 BUY SIGNAL',  sp:'sp-buy'   },
+  sell:  { cls:'sig-sell',  lbl:'🔴 SELL SIGNAL', sp:'sp-sell'  },
+  watch: { cls:'sig-watch', lbl:'📍 WATCH LIST',  sp:'sp-watch' },
+  hold:  { cls:'sig-hold',  lbl:'⏸ HOLD / WAIT', sp:'sp-hold'  },
+};
+
+function taRenderPosts() {
+  const filtered  = taGetFiltered();
+  const container = document.getElementById('ta-posts');
+  const emptyEl   = document.getElementById('ta-empty-state');
+  if (!filtered.length) {
+    container.innerHTML = '';
+    if (taPosts.length) {
+      container.innerHTML = '<div style="background:var(--blk2);border:1px solid var(--bdr);padding:30px;text-align:center;color:var(--g2);font-size:13px">No analyses match your filter.</div>';
+    } else {
+      emptyEl.style.display = 'block';
+    }
+    return;
+  }
+  emptyEl.style.display = 'none';
+  container.innerHTML = filtered.map(p => taBuildCard(p)).join('');
+}
+
+function taBuildCard(p) {
+  const sm  = taSigMap[p.signal] || taSigMap.watch;
+  const imgs = p.images || [];
+  const igCls = imgs.length === 1 ? 'n1' : imgs.length === 2 ? 'n2' : 'n3';
+  const hasLevels  = p.s1||p.s2||p.entry||p.r1||p.r2||p.target||p.stop;
+  const hasBuy     = p.buyReasons && p.buyReasons.trim();
+  const hasSell    = p.sellReasons && p.sellReasons.trim();
+
+  const lvls = hasLevels ? `<div class="tap-levels">
+    ${p.s1    ?`<div class="tap-lv"><div class="tlv-label"><span class="tlv-dot" style="background:#00D46A"></span>Support 1</div><div class="tlv-val" style="color:#00D46A">${p.s1}</div></div>`:''}
+    ${p.s2    ?`<div class="tap-lv"><div class="tlv-label"><span class="tlv-dot" style="background:#00A84E"></span>Support 2</div><div class="tlv-val" style="color:#00A84E">${p.s2}</div></div>`:''}
+    ${p.entry ?`<div class="tap-lv"><div class="tlv-label"><span class="tlv-dot" style="background:#87CEEB"></span>Entry</div><div class="tlv-val" style="color:#87CEEB">${p.entry}</div></div>`:''}
+    ${p.r1    ?`<div class="tap-lv"><div class="tlv-label"><span class="tlv-dot" style="background:#FF6666"></span>Resistance 1</div><div class="tlv-val" style="color:#FF6666">${p.r1}</div></div>`:''}
+    ${p.r2    ?`<div class="tap-lv"><div class="tlv-label"><span class="tlv-dot" style="background:#CC0000"></span>Resistance 2</div><div class="tlv-val" style="color:#CC0000">${p.r2}</div></div>`:''}
+    ${p.target?`<div class="tap-lv"><div class="tlv-label"><span class="tlv-dot" style="background:#FFB800"></span>Target</div><div class="tlv-val" style="color:#FFB800">${p.target}</div></div>`:''}
+    ${p.stop  ?`<div class="tap-lv"><div class="tlv-label"><span class="tlv-dot" style="background:#FF4444"></span>Stop Loss</div><div class="tlv-val" style="color:#FF4444">${p.stop}</div></div>`:''}
+    ${p.rr    ?`<div class="tap-lv"><div class="tlv-label">R/R</div><div class="tlv-val" style="color:var(--gold)">${p.rr}</div></div>`:''}
+  </div>` : '';
+
+  const imgsHtml = imgs.length ? `
+    <div class="tap-section-hdr">CHART${imgs.length>1?'S':''}</div>
+    <div class="tap-imgs ${igCls}" style="margin-bottom:12px">
+      ${imgs.map((src,i)=>`<div class="tap-img-wrap" onclick="taOpenLb('${src}')">
+        <span class="tap-img-label">Chart ${i+1}</span>
+        <img src="${src}" alt="Chart ${i+1}" loading="lazy" onerror="this.closest('.tap-img-wrap').style.display='none'">
+      </div>`).join('')}
+    </div>` : '';
+
+  const videoHtml = p.video ? `
+    <div class="tap-section-hdr">VIDEO ANALYSIS</div>
+    <div class="tap-video-wrap" style="margin-bottom:12px">
+      <iframe src="${p.video}" allowfullscreen title="${p.ticker} analysis"></iframe>
+    </div>` : '';
+
+  const buyHtml = hasBuy ? `
+    <div class="tap-section-hdr">REASONS TO BUY</div>
+    <div style="background:rgba(0,168,120,.06);border:1px solid rgba(0,168,120,.2);padding:12px 14px;margin-bottom:10px">
+      <ul class="tap-reason-list">
+        ${p.buyReasons.split('\n').filter(l=>l.trim()).map(l=>`<li><span style="color:var(--grn);flex-shrink:0">▲</span><span>${l.replace(/^[-•*]\s*/,'')}</span></li>`).join('')}
+      </ul>
+    </div>` : '';
+
+  const sellHtml = hasSell ? `
+    <div class="tap-section-hdr">REASONS TO SELL / RISKS</div>
+    <div style="background:rgba(27,79,138,.06);border:1px solid rgba(27,79,138,.2);padding:12px 14px;margin-bottom:10px">
+      <ul class="tap-reason-list">
+        ${p.sellReasons.split('\n').filter(l=>l.trim()).map(l=>`<li><span style="color:var(--red2);flex-shrink:0">▼</span><span>${l.replace(/^[-•*]\s*/,'')}</span></li>`).join('')}
+      </ul>
+    </div>` : '';
+
+  const tagsHtml = p.tags&&p.tags.length
+    ? `<div class="tap-tags">${p.tags.map(t=>`<span class="tap-tag">#${t}</span>`).join('')}</div>` : '';
+
+  return `<div class="ta-post ${sm.sp}">
+  <div class="tap-head">
+    <div>
+      <div class="tap-ticker">${p.ticker}${p.company?`<span style="font-size:12px;color:var(--g2);font-family:var(--fb);margin-left:10px;font-weight:400"> ${p.company}</span>`:''}</div>
+      <div class="tap-meta-row">
+        ${p.tf       ?`<span>📅 ${p.tf}</span>`:''}
+        ${p.pattern  ?`<span>📐 ${p.pattern}</span>`:''}
+        ${p.date     ?`<span>📆 ${p.date}</span>`:''}
+        ${p.indicators?`<span style="color:var(--gold)">⚡ ${p.indicators}</span>`:''}
+      </div>
+    </div>
+    <div class="tap-badges">
+      <span class="ta-signal ${sm.cls}">${sm.lbl}</span>
+    </div>
+  </div>
+
+  ${lvls}
+
+  ${p.quote?`<div class="tap-quote"><div class="tq-bar"></div><div class="tq-text">"${p.quote}"</div></div>`:''}
+
+  ${(imgs.length||p.video||p.analysis||hasBuy||hasSell)?`<div class="tap-body">
+    ${imgsHtml}
+    ${videoHtml}
+    ${p.analysis?`<div class="tap-section-hdr">ANALYSIS</div><div class="tap-analysis">${p.analysis}</div>`:''}
+    ${buyHtml}
+    ${sellHtml}
+    ${tagsHtml}
+  </div>`:''}
+
+  <div class="tap-foot">
+    <div class="tap-date">${p.created}</div>
+    <div style="font-size:10px;color:var(--g3)">⚡ EquiLens Research</div>
+  </div>
+</div>`;
+}
+
+// ── Lightbox ─────────────────────────────────
+function taOpenLb(src) {
+  if (!src) return;
+  document.getElementById('ta-lb-img').src = src;
+  document.getElementById('ta-lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function taCloseLb() {
+  document.getElementById('ta-lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── Stats ─────────────────────────────────────
+function updateTaStats() {
+  const b = taPosts.filter(p=>p.signal==='buy').length;
+  const s = taPosts.filter(p=>p.signal==='sell').length;
+  const w = taPosts.filter(p=>p.signal==='watch').length;
+  const h = taPosts.filter(p=>p.signal==='hold').length;
+  // Stats strip (main)
+  document.getElementById('stat-total').textContent = taPosts.length;
+  document.getElementById('stat-buy').textContent   = b;
+  document.getElementById('stat-sell').textContent  = s;
+  document.getElementById('stat-watch').textContent = w;
+  document.getElementById('stat-hold').textContent  = h;
+  // Sidebar stats
+  const setSb = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+  setSb('sb-total', taPosts.length);
+  setSb('sb-buy',   b);
+  setSb('sb-sell',  s);
+  setSb('sb-watch', w);
+  // Recent tickers sidebar
+  const recent = [...new Set(taPosts.map(p=>p.ticker))].slice(0,10);
+  const rtEl = document.getElementById('ta-recent-tickers');
+  if (rtEl) rtEl.innerHTML = recent.length
+    ? recent.map(t=>`<span onclick="document.getElementById('ta-search').value='${t}';taSearch('${t}')" style="display:inline-block;background:var(--blk4);border:1px solid var(--bdr2);padding:3px 9px;font-family:var(--fm);font-size:11px;margin:3px 3px 0 0;cursor:pointer">${t}</span>`).join('')
+    : '<span style="font-size:12px;color:var(--g3)">None yet.</span>';
+}
+
+// ── Setup guide for when sheet not connected ──
+function taShowSetupGuide() {
+  const posts = document.getElementById('ta-posts');
+  posts.innerHTML = `
+<div style="background:var(--blk2);border:1px solid var(--bdr);border-top:3px solid var(--red);padding:28px;margin-top:8px">
+  <div style="font-family:var(--fd);font-size:18px;letter-spacing:2px;color:var(--red);margin-bottom:20px">SETUP: CONNECT GOOGLE SHEET</div>
+
+  <div style="display:grid;gap:16px">
+    <div style="display:flex;gap:16px;align-items:flex-start">
+      <div style="width:28px;height:28px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:16px;flex-shrink:0">1</div>
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Create Your Google Sheet</div>
+        <div style="font-size:13px;color:var(--g2);line-height:1.7">Open <a href="https://sheets.google.com" target="_blank" style="color:var(--red)">sheets.google.com</a> → Create new spreadsheet → Name it <strong style="color:white">EquiLens Technical Analysis</strong></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;align-items:flex-start">
+      <div style="width:28px;height:28px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:16px;flex-shrink:0">2</div>
+      <div>
+        <div style="font-weight:600;margin-bottom:6px">Add These Headers in Row 1 (exactly)</div>
+        <div style="background:var(--blk3);border:1px solid var(--bdr);padding:12px;font-family:var(--fm);font-size:11px;color:var(--gold);line-height:2;overflow-x:auto">
+          Date | Ticker | Company | Signal | Timeframe | Pattern | Indicators | Quote | Support1 | Support2 | Entry | Resistance1 | Resistance2 | Target | StopLoss | RR | Analysis | BuyReasons | SellReasons | Image1 | Image2 | Image3 | Video | Tags
+        </div>
+        <div style="font-size:11px;color:var(--g3);margin-top:5px">One column per cell A through X · Row 2 onwards = your analyses</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;align-items:flex-start">
+      <div style="width:28px;height:28px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:16px;flex-shrink:0">3</div>
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Publish the Sheet as CSV</div>
+        <div style="font-size:13px;color:var(--g2);line-height:1.7">
+          File → <strong style="color:white">Share</strong> → <strong style="color:white">Publish to web</strong><br>
+          → Select your sheet tab → Choose <strong style="color:white">Comma-separated values (.csv)</strong><br>
+          → Click <strong style="color:white">Publish</strong> → Copy the URL shown
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;align-items:flex-start">
+      <div style="width:28px;height:28px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:16px;flex-shrink:0">4</div>
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Paste URL in Website Code</div>
+        <div style="font-size:13px;color:var(--g2);line-height:1.7">
+          Open <strong style="color:white">index.html</strong> in GitHub → search for:<br>
+          <code style="background:var(--blk3);padding:2px 8px;color:var(--gold);font-family:var(--fm);font-size:12px">PASTE_YOUR_GOOGLE_SHEETS_CSV_URL_HERE</code><br>
+          → Replace with your copied CSV URL → Commit changes
+        </div>
+      </div>
+    </div>
+
+    <div style="background:rgba(0,168,120,.08);border:1px solid rgba(0,168,120,.2);padding:14px 16px;border-radius:0">
+      <div style="font-size:12px;font-weight:700;color:var(--grn);margin-bottom:6px">✅ DONE — How it works</div>
+      <div style="font-size:12px;color:var(--g2);line-height:1.7">
+        Once connected: You fill a new row in the Google Sheet → Save → Website auto-reads the sheet every time it loads.<br>
+        <strong style="color:white">No code needed. No re-deployment needed. Just fill the sheet.</strong>
+      </div>
+    </div>
+  </div>
+</div>`;
+}
+</script>
+</body>
+</html>
