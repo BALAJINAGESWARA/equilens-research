@@ -1456,13 +1456,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') artCloseOver
 // ═══════════════════════════════════════════
 // EARNINGS
 // ═══════════════════════════════════════════
-let filteredE = [...earningsData];
+// filteredE declared above in earningsData section
 
-function buildEarnings() {
-  document.getElementById('earn-count').textContent = `${earningsData.length} reports · Max 10`;
-  renderEFeatured(filteredE[0]);
-  renderECards(filteredE.slice(1));
-}
+// buildEarnings defined in data.json reader above
 
 function filterE(cat, el) {
   document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
