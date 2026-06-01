@@ -599,19 +599,76 @@ footer{background:var(--blk2);border-top:3px solid var(--red);padding:36px 0 20p
 <!-- ══════════════════════ ARTICLES ══════════════════════ -->
 <div class="page" id="pg-articles">
   <div class="c">
-    <div class="sh"><div class="sh-title"><span class="sh-tag">ALL</span>US MARKET RESEARCH</div><div style="font-size:11px;color:var(--g2)">20 article max · US Focus</div></div>
-    <div class="art-layout">
-      <div>
-        <div id="art-featured"></div>
-        <div id="art-list"></div>
-      </div>
-      <div class="archive-box">
-        <div class="archive-title">ARTICLE ARCHIVE</div>
-        <div id="archive-list"></div>
+    <div class="sh">
+      <div class="sh-title"><span class="sh-tag">RESEARCH</span>COMPANY EQUITY RESEARCH</div>
+      <div style="font-size:11px;color:var(--g2)" id="art-count">Loading articles…</div>
+    </div>
+
+    <!-- Category filter -->
+    <div style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+      <button class="fbtn active" onclick="artFilter('all',this)">All</button>
+      <button class="fbtn" onclick="artFilter('EQUITY RESEARCH',this)">Equity Research</button>
+      <button class="fbtn" onclick="artFilter('SECTOR ANALYSIS',this)">Sector</button>
+      <button class="fbtn" onclick="artFilter('MARKET STRATEGY',this)">Strategy</button>
+      <input id="art-search" placeholder="Search ticker or company…" oninput="artSearch(this.value)"
+        style="margin-left:auto;background:var(--blk2);border:1px solid var(--bdr);padding:5px 12px;font-family:var(--fm);font-size:11px;color:white;outline:none;width:200px;transition:border-color .2s"
+        onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor='var(--bdr)'">
+    </div>
+
+    <!-- Loading state -->
+    <div id="art-loading" style="background:var(--blk2);border:1px solid var(--bdr);padding:50px;text-align:center">
+      <div style="font-size:13px;color:var(--g2)">⟳ Loading articles…</div>
+    </div>
+
+    <div id="art-main" style="display:none">
+      <div class="art-layout">
+        <!-- 70% main column -->
+        <div>
+          <div id="art-featured"></div>
+          <div id="art-list"></div>
+          <div id="art-empty" style="display:none;background:var(--blk2);border:1px solid var(--bdr);padding:40px;text-align:center">
+            <div style="font-size:32px;margin-bottom:10px">🔍</div>
+            <div style="font-size:14px;font-weight:600;margin-bottom:5px">No articles found</div>
+            <div style="font-size:12px;color:var(--g2)">Try a different filter or search term.</div>
+          </div>
+        </div>
+
+        <!-- 30% archive sidebar -->
+        <div class="archive-box">
+          <div class="archive-title">RESEARCH ARCHIVE</div>
+          <div style="font-size:10px;color:var(--g3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bdr)">
+            Company-focused research ·
+            <span id="archive-showing">0</span> of <span id="archive-total">0</span> shown
+          </div>
+          <div id="archive-list"></div>
+          <!-- Load More -->
+          <div id="archive-more-wrap" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--bdr)">
+            <button onclick="archiveLoadMore()"
+              style="width:100%;background:transparent;border:1px solid var(--bdr2);color:var(--g2);padding:9px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:var(--fb);transition:all .15s"
+              onmouseover="this.style.borderColor='var(--red)';this.style.color='white'"
+              onmouseout="this.style.borderColor='var(--bdr2)';this.style.color='var(--g2)'">
+              LOAD MORE <span id="archive-remaining"></span>
+            </button>
+          </div>
+          <div id="archive-all-done" style="display:none;margin-top:12px;font-size:11px;color:var(--g3);text-align:center;padding-top:10px;border-top:1px solid var(--bdr)">
+            ✓ All research loaded
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- ══ ARTICLE FULL REPORT OVERLAY ══ -->
+<div id="art-overlay" style="display:none;position:fixed;inset:0;z-index:600;background:var(--blk);overflow-y:auto">
+  <div style="background:var(--blk2);border-bottom:2px solid var(--red);padding:11px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10">
+    <button onclick="artCloseOverlay()" style="background:var(--red);color:white;border:none;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer">← Back to Articles</button>
+    <div id="art-overlay-title" style="font-size:12px;color:var(--g2);font-family:var(--fm)"></div>
+    <button onclick="window.print()" style="background:var(--blk3);border:1px solid var(--bdr2);color:var(--g2);padding:6px 12px;font-size:11px;cursor:pointer">🖨 Print</button>
+  </div>
+  <div id="art-overlay-body" style="max-width:1040px;margin:0 auto;padding:32px 24px 80px"></div>
+</div>
+
 
 <!-- ══════════════════════ EARNINGS ══════════════════════ -->
 <div class="page" id="pg-earnings">
@@ -836,35 +893,73 @@ const geoNews = [
   {tag:'MARKETS',tagC:'tg-mkt',ico:'📈',title:"Dollar Index Falls to 103.2 on Softer CPI — Emerging Market Currencies Rally as Rate Differential Narrows",body:'The DXY fell 0.6% as softer US CPI data reduced rate-differential support for the dollar. Gold gained 1.1% to $3,310/oz. Bitcoin rose above $107,000. The rate-sensitive sectors led equity gains.',time:'6 hours ago'},
 ];
 const opinions = [
-  {type:'SECTOR ANALYSIS',title:'Why the AI Semiconductor Capex Cycle Has Years Left to Run',body:'The combined $470B+ hyperscaler capex commitment for 2026 is not a bubble — it is a structural infrastructure shift driven by genuine AI inference demand at scale. NVIDIA, Marvell, and Broadcom remain primary beneficiaries with years of runway remaining.'},
-  {type:'MACRO STRATEGY',title:"The Fed's September Dilemma: Cut Into Resilience or Hold Into Slowdown?",body:'With core PCE at 2.9% and unemployment at 4.1%, the Fed faces a textbook stagflation-lite setup. September cut expectations at 78% seem aggressive. The risk is a delay to December, which markets are not pricing.'},
-  {type:'MARKET ANALYSIS',title:'Dollar Index at 103: Why USD Weakness Could Be the 2026 Trade of the Year',body:'As the Fed moves closer to cuts while the ECB and others hold, the interest rate differential supporting the dollar is narrowing. Emerging market currencies, gold, and commodities stand to benefit most from sustained dollar weakness.'},
-  {type:'EARNINGS PREVIEW',title:'Q2 2026 Earnings Season Preview: AI Revenue Recognition Will Be the Story',body:"As hyperscalers begin reporting Q2 results in July, the key question is whether AI services are showing up in revenue. Microsoft Copilot at 30M paid seats and AWS Bedrock growth are the metrics to watch. Estimate revision risk is to the upside."},
+  {type:"SECTOR ANALYSIS",title:"Why the AI Semiconductor Capex Cycle Has Years Left to Run",body:"The combined $470B+ hyperscaler capex for 2026 is not a bubble — it is structural infrastructure demand. NVIDIA, Marvell, and Broadcom remain primary beneficiaries with years of runway remaining."},
+  {type:"MACRO STRATEGY",title:"The Fed September Dilemma: Cut Into Resilience or Hold Into Slowdown?",body:"With core PCE at 2.9% and unemployment at 4.1%, the Fed faces a stagflation-lite setup. September cut expectations at 78% seem aggressive. The risk is a delay to December, which markets are not pricing."},
+  {type:"MARKET ANALYSIS",title:"Dollar Index at 103: Why USD Weakness Could Be the 2026 Trade of the Year",body:"As the Fed moves closer to cuts while the ECB holds, the rate differential supporting the dollar is narrowing. Emerging market currencies, gold, and commodities stand to benefit most."},
+  {type:"EARNINGS PREVIEW",title:"Q2 2026 Earnings Season Preview: AI Revenue Recognition Will Be the Story",body:"As hyperscalers begin reporting Q2 results in July, the key question is whether AI services are showing up in revenue. Microsoft Copilot at 30M paid seats and AWS Bedrock growth are the metrics to watch."},
 ];
 
+// ── ARTICLES DATA ─────────────────────────────────────────────
+// All company-focused research articles
+// Add new articles at the TOP of the array (newest first)
+// featured = first entry; rest appear as list below featured
 const articles = [
-  {emoji:'🤖',cat:'EQUITY RESEARCH',title:'AI Semiconductor Wars: NVDA, AMD, INTC — Who Wins Long Term?',excerpt:'The semiconductor industry is witnessing a once-in-a-generation transformation. CUDA software ecosystem moat, not chip specs, will determine the ultimate winner in the AI compute race.',date:'May 27, 2026',time:'18 min'},
-  {emoji:'🏛️',cat:'MACRO ANALYSIS',title:'Fed Rate Path 2026: September Cut or December? The Data Scorecard',excerpt:'With core PCE at 2.9% and labor market remaining resilient, we analyse exactly what data the Fed needs to see before pulling the trigger on the first rate cut of the cycle.',date:'May 23, 2026',time:'14 min'},
-  {emoji:'📊',cat:'MARKET STRATEGY',title:'S&P 500 Valuation Analysis: Forward P/E at 21x — Expensive or Justified?',excerpt:'At 21x forward earnings, the S&P 500 prices in a soft landing, multiple Fed cuts, and continued AI-driven earnings growth. We stress-test all three assumptions.',date:'May 20, 2026',time:'16 min'},
-  {emoji:'🛢️',cat:'SECTOR ANALYSIS',title:'Energy Sector: OPEC+ Cuts, Geopolitical Risk & the Oil Price Outlook for H2 2026',excerpt:'With crude at $65 and OPEC+ surprising with a 500K barrel cut, we analyse the supply-demand balance and identify the best-positioned energy companies for the next cycle.',date:'May 17, 2026',time:'12 min'},
-  {emoji:'🏦',cat:'FINANCIALS',title:'JPMorgan Q1 2026: Net Interest Income Trajectory & Credit Quality Deep-Dive',excerpt:'JPM delivered a strong quarter but the real story is the NII outlook for H2 2026 as the rate cycle turns. We model three rate-cut scenarios and their EPS impact.',date:'May 14, 2026',time:'15 min'},
+  {
+    id:'a01', emoji:'🎮', cat:'EARNINGS ANALYSIS',
+    title:'NVIDIA Q1 FY2026 Deep-Dive: Blackwell Demand "Insane" — Is the AI Super-Cycle Accelerating?',
+    excerpt:'NVIDIA crushed Q1 estimates with $44.1B in revenue (+69% YoY) as Blackwell GPU demand outpaces supply. CEO Jensen Huang described demand as "insane." We analyse whether the AI capex cycle has legs — and what the $1,400 price target implies.',
+    date:'May 22, 2026', time:'18 min', tag:'BEAT'
+  },
+  {
+    id:'a02', emoji:'🖥️', cat:'EARNINGS ANALYSIS',
+    title:'IBM Q1 FY2026: Beat on Every Metric — Why Did the Stock Fall -6%?',
+    excerpt:'IBM beat revenue (+9%), EPS (+19%), and FCF (decade-best Q1) — yet fell -6% after hours. We explain the disconnect, the z17 mainframe super-cycle, the $12.5B+ GenAI backlog, and our $250 price target.',
+    date:'April 22, 2026', time:'16 min', tag:'BEAT'
+  },
+  {
+    id:'a03', emoji:'🪟', cat:'EQUITY RESEARCH',
+    title:'Microsoft Azure +35% CC: Is the Copilot Monetisation Story Finally Real?',
+    excerpt:"Azure reaccelerated to its fastest growth since 2022. Copilot M365 at 30M paid seats and GitHub Copilot at 2M+ enterprise subscribers — we model what this means for Microsoft FY2027 earnings power and $510 price target.",
+    date:'April 30, 2026', time:'15 min', tag:'ANALYSIS'
+  },
+  {
+    id:'a04', emoji:'🍎', cat:'EQUITY RESEARCH',
+    title:'Apple Services at $26.3B Record: The 75% Gross Margin Engine Driving the Bull Case',
+    excerpt:'Apple Intelligence is beginning to pull forward the iPhone upgrade cycle. Services growing 13.8% with near-75% margins is the structural story. We model the path to 50% blended gross margin by 2028.',
+    date:'May 2, 2026', time:'14 min', tag:'ANALYSIS'
+  },
+  {
+    id:'a05', emoji:'📦', cat:'EQUITY RESEARCH',
+    title:'Amazon AWS Reaccelerates to +21%: The $105B Capex Bet and What It Means for FCF',
+    excerpt:'AWS growth reaccelerating confirms the AI cloud demand trend is structural. But Amazon is also making the largest absolute capex commitment in corporate history. We model when FCF recovers and why $245 is our base target.',
+    date:'May 1, 2026', time:'13 min', tag:'ANALYSIS'
+  },
 ];
+
+// ── ARCHIVE DATA ──────────────────────────────────────────────
+// Company-focused research archive — max 20 stored, 10 shown initially
+// Add new entries at the TOP. Click "Load More" shows remaining 10.
 const archive = [
-  "Apple WWDC 2026: AI Features & Services Monetization Analysis",
-  "Understanding P/E Expansion in US Bull Markets",
-  "Amazon AWS Q1: Cloud Reacceleration — Real or Restocking?",
-  "Meta Platforms: AI Capex ROI — When Does It Monetize?",
-  "Tesla Q1 2026: Margin Recovery vs Volume Dilemma",
-  "Nvidia CUDA Moat: Why It's Deeper Than You Think",
-  "US Yield Curve: What Inversion Duration Tells Us About Recession Risk",
-  "Alphabet vs Microsoft: Who Wins the AI Cloud War?",
-  "US Consumer Credit: Warning Signs in the Delinquency Data",
-  "Broadcom's AI Custom Silicon: The Google TPU Story",
-  "S&P 500 Sector Rotation: Where Capital Is Flowing in 2026",
-  "Berkshire Hathaway Q1: Cash Pile Strategy & Buffett's Market View",
-  "US Housing Market: Rates, Inventory & the Builder Opportunity",
-  "Risk-Free Rate at 4.4%: Rethinking Equity Risk Premium",
-  "The Dollar Smile Theory: Why USD Weakness Creates Opportunity",
+  {title:"Marvell Technology Q1 FY2027: Custom Silicon $10B+ FY29 Target — The Case for $270", cat:"EARNINGS", date:"May 27, 2026"},
+  {title:"Alphabet Q1 2026: Google Cloud +28% — Search AI Overviews Expanding Without Cannibalising Revenue", cat:"EQUITY RESEARCH", date:"April 29, 2026"},
+  {title:"Meta Platforms Q1 2026: AI Advertising ROI Proving Out — Why $650 Is the New Base Case", cat:"EQUITY RESEARCH", date:"April 30, 2026"},
+  {title:"Tesla Q1 2026: Margin Recovery vs Volume Dilemma — Can Musk Do Both?", cat:"EQUITY RESEARCH", date:"April 22, 2026"},
+  {title:"Broadcom Q1 FY2026: AI Custom Silicon and VMware Integration — $220 Target Intact", cat:"EARNINGS", date:"March 6, 2026"},
+  {title:"JPMorgan Q1 2026: NII Trajectory and Credit Quality — The Rate-Cut Sensitivity Model", cat:"EARNINGS", date:"April 11, 2026"},
+  {title:"Palantir Q1 2026: US Government AI Contracts Accelerating — Growth Stock or Deep Value?", cat:"EQUITY RESEARCH", date:"May 5, 2026"},
+  {title:"AMD Q1 2026: MI300X Ramp vs NVIDIA — Market Share Reality Check", cat:"EQUITY RESEARCH", date:"April 29, 2026"},
+  {title:"Salesforce FY2027 Q1: Agentforce Penetration Data — Is the AI Agent Era Here?", cat:"EQUITY RESEARCH", date:"May 28, 2026"},
+  {title:"ServiceNow Q1 2026: Now Assist AI Adoption — Enterprise Software's Clearest AI ROI Story", cat:"EQUITY RESEARCH", date:"April 23, 2026"},
+  {title:"Nvidia CUDA Moat: Why the Software Ecosystem is a Deeper Moat Than the Hardware", cat:"SECTOR ANALYSIS", date:"May 15, 2026"},
+  {title:"Alphabet vs Microsoft: Who Wins the Enterprise AI Cloud War in 2026?", cat:"SECTOR ANALYSIS", date:"May 10, 2026"},
+  {title:"Berkshire Hathaway Q1 2026: $325B Cash Pile — What is Buffett Waiting For?", cat:"EQUITY RESEARCH", date:"May 3, 2026"},
+  {title:"S&P 500 at 21x Forward P/E: Sector Rotation and Where Value Remains in 2026", cat:"MARKET STRATEGY", date:"April 28, 2026"},
+  {title:"US Semiconductor Sector: Export Controls, TSMC Dependency and the Domestic Fab Build", cat:"SECTOR ANALYSIS", date:"April 20, 2026"},
+  {title:"Apple Intelligence vs Google Gemini: The On-Device AI Race and What It Means for iPhone Share", cat:"SECTOR ANALYSIS", date:"April 15, 2026"},
+  {title:"The Data Centre Power Crisis: Utilities, REITs and the Infrastructure Play Behind AI", cat:"SECTOR ANALYSIS", date:"April 10, 2026"},
+  {title:"CrowdStrike vs Palo Alto: Cybersecurity Platform Consolidation and the $400B TAM", cat:"EQUITY RESEARCH", date:"April 5, 2026"},
+  {title:"Eli Lilly GLP-1 Dominance: Zepbound vs Ozempic — Pricing, Volume and the 2027 Earnings Model", cat:"EQUITY RESEARCH", date:"March 28, 2026"},
+  {title:"Vertiv Holdings: The Hidden AI Infrastructure Play — Data Centre Power and Cooling", cat:"EQUITY RESEARCH", date:"March 20, 2026"},
 ];
 
 // earningsData: base seed data (shown if data.json unavailable)
@@ -1135,12 +1230,247 @@ document.addEventListener('DOMContentLoaded', () => {
 // ═══════════════════════════════════════════
 // ARTICLES
 // ═══════════════════════════════════════════
-function buildArticles() {
-  const a = articles[0];
-  document.getElementById('art-featured').innerHTML = `<div class="art-featured" onclick="toast('Opening article...')"><div class="af-img">${a.emoji}</div><div class="af-body"><div class="af-cat">${a.cat}</div><div class="af-title">${a.title}</div><div class="af-excerpt">${a.excerpt}</div><div class="af-meta"><span>Balaji N, CFP</span><span>·</span><span>${a.date}</span><span>·</span><span>${a.time} read</span></div></div></div>`;
-  document.getElementById('art-list').innerHTML = articles.slice(1).map(a => `<div class="ali" onclick="toast('Opening article...')"><div class="ali-thumb">${a.emoji}</div><div><div class="ali-cat">${a.cat}</div><div class="ali-title">${a.title}</div><div class="ali-meta">${a.date} · ${a.time} read</div></div></div>`).join('');
-  document.getElementById('archive-list').innerHTML = archive.map((t,i) => `<div class="archi" onclick="toast('Opening article...')"><div class="archi-num">${String(i+1).padStart(2,'0')}</div><div class="archi-title">${t}</div></div>`).join('');
+// ── ARTICLES — State & Data ──────────────────────────────────
+const ARCHIVE_PAGE   = 10;
+let allArticles      = [];   // loaded from data.json
+let filteredArts     = [];
+let archiveShown     = ARCHIVE_PAGE;
+let artSearchQ       = '';
+let artFilterCat     = 'all';
+
+// ── Load from data.json ─────────────────────────────────────
+async function buildArticles() {
+  try {
+    const res  = await fetch('data.json?v=' + Date.now());
+    if (!res.ok) throw new Error('data.json not found');
+    const json = await res.json();
+    allArticles = json.articles || [];
+
+    document.getElementById('art-loading').style.display = 'none';
+    document.getElementById('art-main').style.display    = 'block';
+
+    if (!allArticles.length) {
+      document.getElementById('art-featured').innerHTML =
+        '<div style="background:var(--blk2);border:1px solid var(--bdr);padding:40px;text-align:center;margin-bottom:16px"><div style="font-size:32px;margin-bottom:10px">📄</div><div style="font-weight:600;margin-bottom:5px">No articles yet</div><div style="font-size:12px;color:var(--g2)">Add articles to data.json to display them here.</div></div>';
+      return;
+    }
+
+    filteredArts = [...allArticles];
+    artRenderAll();
+
+  } catch(err) {
+    document.getElementById('art-loading').innerHTML =
+      `<div style="color:var(--red2);font-size:13px">⚠ Could not load articles: ${err.message}</div>`;
+  }
 }
+
+// ── Filter & search ─────────────────────────────────────────
+function artFilter(cat, el) {
+  artFilterCat = cat;
+  artSearchQ   = '';
+  document.getElementById('art-search').value = '';
+  document.querySelectorAll('#pg-articles .fbtn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  archiveShown = ARCHIVE_PAGE;
+  applyArtFilter();
+  artRenderAll();
+}
+
+function artSearch(q) {
+  artSearchQ   = q.toLowerCase().trim();
+  archiveShown = ARCHIVE_PAGE;
+  applyArtFilter();
+  artRenderAll();
+}
+
+function applyArtFilter() {
+  filteredArts = allArticles.filter(a => {
+    const catOk = artFilterCat === 'all' || (a.cat||'').includes(artFilterCat);
+    const qOk   = !artSearchQ ||
+      (a.ticker||'').toLowerCase().includes(artSearchQ) ||
+      (a.title||'').toLowerCase().includes(artSearchQ) ||
+      (a.tags||[]).some(t => t.toLowerCase().includes(artSearchQ));
+    return catOk && qOk;
+  });
+}
+
+// ── Render all ──────────────────────────────────────────────
+function artRenderAll() {
+  const total = filteredArts.length;
+  document.getElementById('art-count').textContent =
+    `${allArticles.length} research reports · Equity Research Skill`;
+
+  const featuredEl = document.getElementById('art-featured');
+  const listEl     = document.getElementById('art-list');
+  const emptyEl    = document.getElementById('art-empty');
+
+  if (!total) {
+    featuredEl.innerHTML = '';
+    listEl.innerHTML     = '';
+    emptyEl.style.display = 'block';
+    archiveRender();
+    return;
+  }
+  emptyEl.style.display = 'none';
+
+  // Featured article — first in filtered list
+  const a = filteredArts[0];
+  const ratingColor = (a.rating||'').includes('Strong') ? 'var(--grn)' : 'var(--red)';
+  featuredEl.innerHTML = `
+    <div class="art-featured" onclick="artOpenReport('${a.report_file}','${a.title}','${a.ticker}')">
+      <div class="af-img" style="position:relative;background:linear-gradient(135deg,var(--blk3),var(--blk4))">
+        <span style="font-size:72px">${a.emoji}</span>
+        <span style="position:absolute;top:12px;left:12px;background:var(--red);color:white;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px">${a.tag||a.cat}</span>
+        <span style="position:absolute;top:12px;right:12px;background:var(--blk);color:${ratingColor};font-size:11px;font-weight:700;padding:4px 12px;border:1px solid ${ratingColor}">${a.rating||''} · PT ${a.pt||''}</span>
+      </div>
+      <div class="af-body">
+        <div class="af-cat">${a.cat} · ${a.ticker}</div>
+        <div class="af-title">${a.title}</div>
+        <div class="af-excerpt">${a.excerpt}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+          ${(a.tags||[]).map(t=>`<span style="font-size:10px;color:var(--g2);background:var(--blk3);border:1px solid var(--bdr);padding:2px 8px;font-family:var(--fm)">#${t}</span>`).join('')}
+        </div>
+        <div class="af-meta">
+          <span>${a.author||'Balaji N, CFP'}</span><span>·</span>
+          <span>${a.date}</span><span>·</span>
+          <span>${a.read_time} read</span>
+          <span style="margin-left:auto;background:var(--red);color:white;font-size:10px;font-weight:700;letter-spacing:1px;padding:4px 12px;text-transform:uppercase">READ REPORT →</span>
+        </div>
+      </div>
+    </div>`;
+
+  // Article list — rest
+  listEl.innerHTML = filteredArts.slice(1).map(a => {
+    const rc = (a.rating||'').includes('Strong') ? 'var(--grn)' : 'var(--red)';
+    return `
+    <div class="ali" onclick="artOpenReport('${a.report_file}','${a.title}','${a.ticker}')" style="cursor:pointer">
+      <div class="ali-thumb" style="position:relative;background:var(--blk3)">
+        ${a.emoji}
+        <span style="position:absolute;top:0;right:0;background:var(--red);color:white;font-size:8px;font-weight:700;padding:1px 5px">${a.tag||''}</span>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+          <div class="ali-cat">${a.cat} · ${a.ticker}</div>
+          <div style="font-size:10px;color:${rc};font-weight:700">${a.rating} · PT ${a.pt}</div>
+        </div>
+        <div class="ali-title">${a.title}</div>
+        <div class="ali-meta">${a.date} · ${a.read_time} read · ${a.author||'Balaji N, CFP'}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  archiveRender();
+}
+
+// ── Archive ─────────────────────────────────────────────────
+function archiveRender() {
+  const all    = filteredArts; // archive shows same filtered set
+  const shown  = all.slice(0, archiveShown);
+  const total  = all.length;
+
+  document.getElementById('archive-total').textContent   = total;
+  document.getElementById('archive-showing').textContent = Math.min(archiveShown, total);
+
+  document.getElementById('archive-list').innerHTML = shown.map((a,i) => `
+    <div class="archi" onclick="artOpenReport('${a.report_file}','${a.title}','${a.ticker}')">
+      <div class="archi-num">${String(i+1).padStart(2,'0')}</div>
+      <div>
+        <div class="archi-title">${a.title}</div>
+        <div style="font-size:9px;color:var(--red);font-weight:700;letter-spacing:1px;margin-top:3px;display:flex;gap:8px;flex-wrap:wrap">
+          <span>${a.ticker}</span>
+          <span>·</span><span>${a.cat}</span>
+          <span>·</span><span>${a.date}</span>
+        </div>
+      </div>
+    </div>`).join('');
+
+  const remaining = total - archiveShown;
+  const moreWrap  = document.getElementById('archive-more-wrap');
+  const allDone   = document.getElementById('archive-all-done');
+
+  if (remaining > 0) {
+    moreWrap.style.display = 'block';
+    allDone.style.display  = 'none';
+    document.getElementById('archive-remaining').textContent = `(${remaining} more)`;
+  } else if (total > ARCHIVE_PAGE) {
+    moreWrap.style.display = 'none';
+    allDone.style.display  = 'block';
+  } else {
+    moreWrap.style.display = 'none';
+    allDone.style.display  = 'none';
+  }
+}
+
+function archiveLoadMore() {
+  archiveShown += ARCHIVE_PAGE;
+  archiveRender();
+}
+
+// ── Open equity research report ─────────────────────────────
+function artOpenReport(file, title, ticker) {
+  if (!file || file === 'undefined') {
+    toast(`${ticker} full report coming soon — run the equity research skill first`);
+    return;
+  }
+
+  const overlay   = document.getElementById('art-overlay');
+  const bodyEl    = document.getElementById('art-overlay-body');
+  const titleEl   = document.getElementById('art-overlay-title');
+
+  titleEl.textContent = `${ticker} · Equity Research · EquiLens Research`;
+  bodyEl.innerHTML    = `
+    <div style="text-align:center;padding:80px 40px;color:var(--g2)">
+      <div style="font-size:32px;margin-bottom:16px;animation:spin 1.5s linear infinite;display:inline-block">⟳</div>
+      <div style="font-size:14px">Loading ${ticker} Equity Research…</div>
+    </div>`;
+
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+
+  // Load the equity research HTML file into an iframe-style embed
+  fetch(file + '?v=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error(`Report file "${file}" not found in GitHub repository`);
+      return r.text();
+    })
+    .then(reportHtml => {
+      // Extract body content from the report HTML
+      const parser   = new DOMParser();
+      const doc      = parser.parseFromString(reportHtml, 'text/html');
+      const bodyContent = doc.body ? doc.body.innerHTML : reportHtml;
+      const headStyles  = Array.from(doc.querySelectorAll('style')).map(s=>s.outerHTML).join('');
+      bodyEl.innerHTML  = headStyles + bodyContent;
+
+      // Re-run any scripts in the loaded content
+      Array.from(bodyEl.querySelectorAll('script')).forEach(oldScript => {
+        const newScript = document.createElement('script');
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+      });
+    })
+    .catch(err => {
+      bodyEl.innerHTML = `
+        <div style="background:var(--blk2);border:1px solid rgba(27,79,138,.3);border-left:4px solid var(--red);padding:28px;max-width:640px;margin:60px auto">
+          <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:10px">⚠ Report Not Found</div>
+          <div style="font-size:13px;color:var(--g2);line-height:1.7;margin-bottom:18px">${err.message}</div>
+          <div style="background:var(--blk3);border:1px solid var(--bdr);padding:16px;font-size:12px;color:var(--g1);line-height:1.8">
+            <strong style="color:white">To connect this report:</strong><br>
+            1. Run <code style="color:var(--gold)">/equity-research</code> skill on <strong>${ticker}</strong><br>
+            2. Download the generated HTML file<br>
+            3. Rename it to: <code style="color:var(--gold)">${file}</code><br>
+            4. Upload to your GitHub repository alongside index.html<br>
+            5. Refresh this page ✅
+          </div>
+        </div>`;
+    });
+}
+
+function artCloseOverlay() {
+  document.getElementById('art-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') artCloseOverlay(); });
 
 // ═══════════════════════════════════════════
 // EARNINGS
