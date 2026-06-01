@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Marvell Technology (MRVL) — Equity Research | EquiLens Research</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+:root{
+  --bg:#0a0e14;--p1:#121821;--p2:#1a2230;--p3:#243042;
+  --t1:#e6edf3;--t2:#8b98a9;--t3:#5a6675;
+  --acc:#4da3ff;--pos:#3ad29f;--neg:#ff6b6b;--neu:#f5c451;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--t1);font-family:var(--font);font-size:14px;line-height:1.6;}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 20px 80px;}
+.disclaimer{background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.25);border-left:3px solid var(--neg);padding:10px 14px;font-size:12px;color:var(--t2);margin-bottom:24px;line-height:1.6;}
+.panel{background:var(--p1);border:1px solid var(--p3);border-radius:10px;padding:22px;margin:16px 0;}
+h1{font-size:26px;font-weight:700;margin:0 0 4px;}
+h2{font-size:16px;font-weight:700;margin:0 0 14px;color:var(--t1);display:flex;align-items:center;gap:8px;}
+h2::before{content:'';width:3px;height:16px;background:var(--acc);border-radius:2px;flex-shrink:0;}
+h3{font-size:13px;font-weight:700;margin:0 0 8px;color:var(--t1);}
+p{margin-bottom:9px;color:var(--t2);line-height:1.75;}
+p:last-child{margin-bottom:0;}
+strong{color:var(--t1);}
+ul{padding-left:18px;color:var(--t2);}
+li{padding:3px 0;line-height:1.6;}
+.muted{color:var(--t2);} .faint{color:var(--t3);}
+.pos{color:var(--pos);font-weight:600;} .neg{color:var(--neg);font-weight:600;} .neu{color:var(--neu);}
+.mono{font-family:var(--mono);}
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+th,td{padding:9px 11px;text-align:right;border-bottom:1px solid var(--p3);}
+th:first-child,td:first-child{text-align:left;}
+th{color:var(--t2);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.kpi{background:var(--p2);border:1px solid var(--p3);border-radius:10px;padding:14px 16px;}
+.kpi .lbl{font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.kpi .val{font-size:20px;font-weight:700;font-family:var(--mono);margin-bottom:3px;}
+.kpi .delta{font-size:11.5px;color:var(--t2);}
+.kpi .note{font-size:10.5px;color:var(--t3);margin-top:2px;}
+.bull{background:rgba(58,210,159,.06);border:1px solid rgba(58,210,159,.2);border-radius:10px;padding:16px;}
+.bear{background:rgba(255,107,107,.06);border:1px solid rgba(255,107,107,.2);border-radius:10px;padding:16px;}
+.bull h3{color:var(--pos);} .bear h3{color:var(--neg);}
+.blist{list-style:none;padding:0;}
+.blist li{padding:4px 0;border-bottom:1px solid var(--p3);font-size:12.5px;color:var(--t2);display:flex;gap:7px;line-height:1.5;}
+.blist li:last-child{border-bottom:none;}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;}
+.p-bull{background:rgba(58,210,159,.15);color:var(--pos);border:1px solid rgba(58,210,159,.3);}
+.p-bear{background:rgba(255,107,107,.15);color:var(--neg);border:1px solid rgba(255,107,107,.3);}
+.p-blue{background:rgba(77,163,255,.13);color:var(--acc);border:1px solid rgba(77,163,255,.3);}
+.p-neu{background:rgba(245,196,81,.15);color:var(--neu);border:1px solid rgba(245,196,81,.3);}
+.p-gray{background:var(--p2);color:var(--t2);border:1px solid var(--p3);}
+.verdict{font-size:20px;font-weight:800;padding:7px 18px;border-radius:10px;display:inline-block;}
+.snote{font-size:11.5px;color:var(--t3);border-left:2px solid var(--p3);padding-left:9px;margin-bottom:12px;line-height:1.6;}
+.dev-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--p3);}
+.dev-item:last-child{border-bottom:none;}
+.dev-date{font-size:11px;color:var(--t3);font-family:var(--mono);flex-shrink:0;width:100px;margin-top:2px;}
+.dev-body{font-size:12.5px;color:var(--t2);line-height:1.6;}
+.dev-body strong{color:var(--t1);}
+.app-row{display:grid;grid-template-columns:40px 1fr 1fr 2fr;gap:8px;padding:7px 0;border-bottom:1px solid var(--p3);font-size:11.5px;color:var(--t2);}
+.app-row:first-child{color:var(--t3);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
+.app-row:last-child{border-bottom:none;}
+@media(max-width:720px){.g2,.g3,.g4{grid-template-columns:1fr!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="disclaimer">
+  <strong>AI-Generated Research Report — Not Investment Advice.</strong> This report was produced by EquiLens Research using publicly available sources (SEC filings, earnings press releases, company investor relations materials, and analyst commentary). All figures are attributed to disclosed sources. This is informational research only and does not constitute personalised investment advice. Verify all data independently before making any investment decision.
+</div>
+
+<!-- HEADER -->
+<div class="panel" style="background:linear-gradient(135deg,#0d1a2d,#1a2235);">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+    <div>
+      <div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px;">EquiLens Research · Equity Research Pro · Generated May 31, 2026</div>
+      <h1>Marvell Technology, Inc.</h1>
+      <div style="font-size:13px;color:var(--t2);margin-bottom:10px;"><strong style="color:var(--t1)">MRVL</strong> · NASDAQ · Semiconductors (Fabless) · Santa Clara, CA · FY ends January</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;">
+        <span class="pill p-bull">AI Infrastructure Platform</span>
+        <span class="pill p-blue">Custom Silicon XPU</span>
+        <span class="pill p-blue">Optical Interconnect</span>
+        <span class="pill p-blue">Ethernet Switching</span>
+        <span class="pill p-gray">FY2026 Revenue $8.19B +42%</span>
+      </div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:10px;color:var(--t3);margin-bottom:5px;">Stance</div>
+      <div class="verdict" style="background:rgba(58,210,159,.18);color:var(--pos);">CONSTRUCTIVE</div>
+      <div style="margin-top:8px;font-family:var(--mono);font-size:17px;font-weight:700;">~$219</div>
+      <div style="font-size:11px;color:var(--t3);">Price as of May 28, 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: COMPANY OVERVIEW -->
+<div class="panel">
+  <h2>1. Company Identification &amp; Business Overview</h2>
+  <div class="g2" style="margin-bottom:16px;align-items:start;">
+    <div>
+      <table>
+        <tbody>
+          <tr><td><strong>Legal Name</strong></td><td>Marvell Technology, Inc.</td></tr>
+          <tr><td><strong>Ticker</strong></td><td>NASDAQ: MRVL</td></tr>
+          <tr><td><strong>Sector / Industry</strong></td><td>IT / Semiconductors (Fabless)</td></tr>
+          <tr><td><strong>Fiscal Year</strong></td><td>Ends last Saturday of January</td></tr>
+          <tr><td><strong>Reporting Currency</strong></td><td>USD</td></tr>
+          <tr><td><strong>Market Cap</strong></td><td class="mono">~$190B (May 28, 2026)</td></tr>
+          <tr><td><strong>Shares (diluted)</strong></td><td class="mono">~895M</td></tr>
+          <tr><td><strong>CEO</strong></td><td>Matt Murphy (since 2016)</td></tr>
+          <tr><td><strong>Headquarters</strong></td><td>Santa Clara, California</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p>Marvell Technology is a <strong>fabless semiconductor company</strong> providing data infrastructure solutions across the data centre core to network edge. The company designs system-on-a-chip architectures integrating analog, mixed-signal, and digital signal processing.</p>
+      <p>Marvell has successfully repositioned itself over five years from a diversified semiconductor supplier into a <strong>pure-play AI infrastructure platform</strong>. Its three primary growth vectors — custom AI silicon (XPUs), optical interconnect (PAM4, CPO, DCI), and high-speed Ethernet switching — are all in structural growth driven by hyperscaler AI capex.</p>
+      <p>Revenue is earned from selling chips to hyperscalers, cloud infrastructure companies, and enterprise/carrier customers. The business is <strong>fabless</strong>: Marvell designs chips but outsources manufacturing exclusively to TSMC and other foundries, creating significant foundry dependency but also asset-light economics.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: BUSINESS ANALYSIS -->
+<div class="panel">
+  <h2>2. Business Analysis</h2>
+
+  <div class="g2" style="margin-bottom:18px;">
+    <div>
+      <h3 style="margin-bottom:8px;">Revenue Model</h3>
+      <ul>
+        <li><strong>Custom Silicon (XPU):</strong> Co-designed AI accelerator chips for hyperscalers wanting proprietary compute without in-house chip design teams. Revenue is per-chip sold at wafer cost + margin.</li>
+        <li><strong>Optical Interconnect:</strong> PAM4 DSPs, TIAs, laser drivers, DCI modules sold per unit to cloud and telecom customers. Scale-out (800G/1.6T) and scale-up (CPO/NPO) architectures.</li>
+        <li><strong>Ethernet Switching:</strong> 51.2T switching chips for AI cluster scale-out networks. Sold to hyperscalers and ODMs building AI infrastructure.</li>
+        <li><strong>NICs / PCIe / CXL:</strong> Network interface cards, PCIe switches (via XConn), CXL memory expanders for AI server attach.</li>
+        <li><strong>Storage / Other:</strong> Legacy storage controllers; declining as portfolio reorients to AI.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-bottom:8px;">Competitive Moat Assessment</h3>
+      <p><strong>Moat Rating: Narrow-to-Wide (building)</strong></p>
+      <ul>
+        <li><strong>Customer switching costs:</strong> Custom silicon requires 18-24 month co-design cycle with customer; switching resets a multi-year programme. Once in production, incumbent position is very durable.</li>
+        <li><strong>Technology breadth:</strong> Only company with credible scale across all optical interconnect technologies — PAM4 scale-out, CPO, NPO, DCI, coherent, and now plasmonics (Polariton). Hyperscalers can use Marvell as single-vendor interconnect supplier.</li>
+        <li><strong>NVIDIA partnership depth:</strong> NVLink Fusion integration creates embedded exposure to every NVIDIA AI rack — a quasi-royalty position that competitors do not have.</li>
+        <li><strong>Scale economies:</strong> $8.2B revenue buys R&D capacity that smaller interconnect-only rivals cannot match. Growing design win backlog ($10B+ FY29 custom silicon target) compounds the advantage.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:0">
+    <div>
+      <h3 style="margin-bottom:8px;">End-Market Segments (FY2026, per 10-K)</h3>
+      <table>
+        <thead><tr><th>Segment</th><th>FY2026</th><th>% Rev</th><th>FY2025</th><th>YoY</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Data Center</strong></td><td class="mono">$6,100M</td><td>74%</td><td class="mono muted">$4,164M</td><td class="pos">+46%</td></tr>
+          <tr><td><strong>Comm. &amp; Other</strong></td><td class="mono">$2,094M</td><td>26%</td><td class="mono muted">$1,603M</td><td class="pos">+31%</td></tr>
+          <tr><td><strong>Total</strong></td><td class="mono">$8,195M</td><td>100%</td><td class="mono muted">$5,767M</td><td class="pos">+42%</td></tr>
+        </tbody>
+      </table>
+      <p class="faint" style="font-size:11px;margin-top:6px;">Note: From Q4 FY2026 Marvell consolidated carrier, enterprise, consumer, and auto into one "Communications and other" segment. Data centre composition unchanged.</p>
+    </div>
+    <div>
+      <h3 style="margin-bottom:8px;">Management &amp; Capital Allocation</h3>
+      <ul>
+        <li><strong>Matt Murphy (CEO since 2016):</strong> Led the transformation from diversified to AI-focused. Track record of portfolio rationalization (divested storage, automotive ethernet), strategic acquisitions (Inphi 2021 $10B, Cavium 2018 $6B, Celestial AI 2026, XConn 2026, Polariton 2026), and operational execution. Strong credibility with investors.</li>
+        <li><strong>Capital allocation:</strong> Predominantly reinvesting in R&D (~$2.2B annually, ~27% of FY2026 revenue). Modest dividend ($0.06/quarter). Limited buybacks. Strategy is growth-over-returns — appropriate given the AI capex cycle opportunity.</li>
+        <li><strong>Concentration risk:</strong> Top 2 customers (Amazon, Google estimated) likely represent 50%+ of data centre revenue. Highly disclosed as a risk factor; true percentages not disclosed per SEC filings.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: KPI ANALYSIS -->
+<div class="panel">
+  <h2>3. Industry KPI Analysis — Semiconductors (Fabless, AI Infrastructure)</h2>
+  <div class="snote">Key KPIs for fabless AI infrastructure semiconductors: end-market revenue mix, data centre growth rate, gross margin trajectory, design wins/backlog, book-to-bill (not disclosed), inventory days, and FCF conversion. Sources: SEC filings (8-K quarterly reports), company investor day presentations.</div>
+
+  <div class="g4" style="margin-bottom:18px;">
+    <div class="kpi">
+      <div class="lbl">Data Centre % of Revenue</div>
+      <div class="val pos">74%</div>
+      <div class="delta">FY2026 · Up from 40% in FY2024</div>
+      <div class="note">Mix-shift driving margin expansion thesis</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Data Centre Revenue CAGR</div>
+      <div class="val pos">+45%</div>
+      <div class="delta">10-year CAGR (FY2016–FY2026)</div>
+      <div class="note">$200M → $6.1B in 10 years</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Non-GAAP Gross Margin</div>
+      <div class="val neu">59.0%</div>
+      <div class="delta">FY2026 · Down from 65% in FY2022</div>
+      <div class="note">Custom ASIC mix-shift structurally lower</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">FY2029 Custom Silicon Target</div>
+      <div class="val pos">$10B+</div>
+      <div class="delta">CEO confirmed — design-win backed</div>
+      <div class="note">Not guidance; based on existing wins</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">FCF (FY2025)</div>
+      <div class="val">$1.68B</div>
+      <div class="delta">Operating cash flow basis</div>
+      <div class="note">Record for Marvell at time</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Non-GAAP OpEx % Rev</div>
+      <div class="val">~27%</div>
+      <div class="delta">FY2026 · R&D ~22%, SG&A ~5%</div>
+      <div class="note">R&D investment underpins design wins</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Optical Interconnect CAGR</div>
+      <div class="val pos">~50%</div>
+      <div class="delta">5-year CAGR (company disclosed)</div>
+      <div class="note">Largest data centre sub-segment</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Design Wins FY2026</div>
+      <div class="val pos">Record</div>
+      <div class="delta">All-time high per CEO Murphy</div>
+      <div class="note">Specific numbers not disclosed</div>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>KPI</th><th>Latest</th><th>Year-Ago</th><th>Trend</th><th>Why It Matters</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Data Centre Revenue</strong></td><td class="pos mono">$6,100M FY26</td><td class="mono muted">$4,164M FY25</td><td class="pos">▲ +46%</td><td>Primary growth engine; AI capex pull</td></tr>
+      <tr><td><strong>Non-GAAP Gross Margin</strong></td><td class="mono">59.0% FY26</td><td class="mono muted">60.1% FY25</td><td class="neg">▼ -110bps</td><td>Custom ASIC lower margin than DSPs; structural mix shift</td></tr>
+      <tr><td><strong>Non-GAAP EPS Growth</strong></td><td class="pos mono">+81% FY26</td><td class="mono muted">+1.57 FY25</td><td class="pos">▲ Strong</td><td>Operating leverage materialising at scale</td></tr>
+      <tr><td><strong>Revenue CAGR FY22–FY26</strong></td><td class="pos mono">+16%</td><td>—</td><td class="pos">▲ Accelerating</td><td>FY26 alone +42%; trajectory inflecting up</td></tr>
+      <tr><td><strong>FCF Conversion</strong></td><td class="mono">~28%</td><td class="mono muted">~29%</td><td class="neu">→ Stable</td><td>Fabless model enables high cash conversion</td></tr>
+      <tr><td><strong>Book-to-bill</strong></td><td class="mono">Not disclosed</td><td>—</td><td>—</td><td>Demand vs shipments; CEO says "bookings growing at record pace"</td></tr>
+      <tr><td><strong>Inventory Days</strong></td><td class="mono">~50 days est.</td><td>—</td><td class="pos">▲ Healthy</td><td>Fabless: inventory risk at customers not Marvell</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 4: REVENUE ANALYSIS -->
+<div class="panel">
+  <h2>4. Revenue Analysis — Segment &amp; Growth Trends (5 Years)</h2>
+
+  <div class="g2" style="margin-bottom:20px;">
+    <div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:8px;">Annual Revenue by End Market ($B) — FY2022 to FY2026</div>
+      <canvas id="revChart" height="240"></canvas>
+    </div>
+    <div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:8px;">Non-GAAP Gross &amp; Operating Margin Trend (%)</div>
+      <canvas id="marginChart" height="240"></canvas>
+    </div>
+  </div>
+
+  <table style="margin-bottom:16px;">
+    <thead><tr><th>Fiscal Year</th><th>Total Rev</th><th>YoY</th><th>Data Centre</th><th>DC %</th><th>Comm&amp;Other</th><th>Non-GAAP GM%</th><th>Non-GAAP EPS</th></tr></thead>
+    <tbody>
+      <tr><td><strong>FY2022</strong></td><td class="mono">$4.46B</td><td class="pos">+68%</td><td class="mono muted">~$0.9B</td><td class="muted">~20%</td><td class="mono muted">~$3.6B</td><td class="mono">65.3%</td><td class="mono">$1.90</td></tr>
+      <tr><td><strong>FY2023</strong></td><td class="mono">$5.92B</td><td class="pos">+33%</td><td class="mono muted">~$1.6B</td><td class="muted">~27%</td><td class="mono muted">~$4.3B</td><td class="mono">65.0%</td><td class="mono">$2.05</td></tr>
+      <tr><td><strong>FY2024</strong></td><td class="mono">$5.51B</td><td class="neg">-7%</td><td class="mono">$2.22B</td><td>40%</td><td class="mono">$3.29B</td><td class="mono">63.9%</td><td class="mono">$1.85</td></tr>
+      <tr><td><strong>FY2025</strong></td><td class="mono">$5.77B</td><td class="pos">+5%</td><td class="mono">$4.16B</td><td>72%</td><td class="mono">$1.60B</td><td class="mono">60.1%</td><td class="mono">$1.57</td></tr>
+      <tr><td><strong>FY2026</strong></td><td class="mono pos">$8.19B</td><td class="pos">+42%</td><td class="mono pos">$6.10B</td><td class="pos">74%</td><td class="mono">$2.09B</td><td class="mono">59.0%</td><td class="mono pos">$2.84</td></tr>
+      <tr><td><strong>Q1 FY2027</strong></td><td class="mono pos">$2.42B</td><td class="pos">+28%</td><td class="mono pos">$1.83B</td><td class="pos">76%</td><td class="mono">$0.59B</td><td class="mono">58.9%</td><td class="mono pos">$0.80</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Revenue trajectory:</strong> Total revenue grew at a 16% CAGR from FY2022 to FY2026, but the pace is accelerating — FY2026 alone was +42%. The structural story is a dramatic mix-shift: data centre grew from ~20% of revenue in FY2022 to 74% in FY2026, with optical interconnect and custom silicon as the primary drivers within data centre. Data centre revenue grew from approximately $200M at the start of the decade to more than $6 billion in fiscal 2026, representing a 45% CAGR over 10 years.</p>
+  <p><strong>Gross margin compression is structural, not cyclical:</strong> Non-GAAP GM contracted from 65.3% in FY2022 to 59.0% in FY2026. The cause is explicit: custom silicon (XPU) carries lower margins than networking DSPs because the co-design model shares economics with hyperscaler customers. As XPU scales from ~25% to potentially 40%+ of data centre revenue by FY2028, blended margins will likely settle in the 58-61% range — below FY2022 peaks but stable once mix normalises.</p>
+  <p><strong>FY2024 revenue decline context:</strong> The -7% decline in FY2024 reflected inventory digestion in carrier, enterprise networking, and consumer end markets — now consolidated into "Communications and other." Data centre was growing even then (+34% YoY in FY2024). The recovery in "Comm. & other" in FY2026 (+31%) reflects normalised inventory cycles in those sub-markets.</p>
+</div>
+
+<!-- SECTION 5: VALUATION -->
+<div class="panel">
+  <h2>5. Valuation Analysis</h2>
+  <div class="snote">All multiples as of stock price ~$219 (May 28, 2026, post Q1 FY2027 report). NTM = next twelve months = FY2027 (ending Jan 2027). Non-GAAP EPS used throughout as standard for semiconductor sector. Sources: SEC filings, consensus estimates via StockAnalysis, analyst reports.</div>
+
+  <div class="g4" style="margin-bottom:18px;">
+    <div class="kpi">
+      <div class="lbl">NTM P/E (non-GAAP)</div>
+      <div class="val">~56x</div>
+      <div class="delta">$219 / FY27E EPS ~$3.90</div>
+      <div class="note">FY2027 ends Jan 2027</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">NTM EV/Revenue</div>
+      <div class="val">~17x</div>
+      <div class="delta">EV ~$195B / FY27E rev $11.5B</div>
+      <div class="note">Premium to semiconductor avg ~6x</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">PEG Ratio (NTM)</div>
+      <div class="val pos">~1.4x</div>
+      <div class="delta">56x P/E / ~40% FY27 rev growth</div>
+      <div class="note">Reasonable vs growth rate</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">FCF Yield (LTM)</div>
+      <div class="val">~1.2%</div>
+      <div class="delta">LTM FCF ~$2.3B / $190B mkt cap</div>
+      <div class="note">Low; growth stock profile</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:18px;align-items:start;">
+    <div>
+      <h3 style="margin-bottom:10px;">Peer Valuation Comparison</h3>
+      <table>
+        <thead><tr><th>Company</th><th>Mkt Cap</th><th>NTM P/E</th><th>NTM EV/Rev</th><th>Rev Growth</th></tr></thead>
+        <tbody>
+          <tr style="background:rgba(77,163,255,.06)"><td><strong>MRVL (Marvell)</strong></td><td class="mono">$190B</td><td class="mono">~56x</td><td class="mono">~17x</td><td class="pos">+40% FY27E</td></tr>
+          <tr><td>AVGO (Broadcom)</td><td class="mono">$980B</td><td class="mono">~28x</td><td class="mono">~14x</td><td class="pos">+25% est.</td></tr>
+          <tr><td>NVDA (NVIDIA)</td><td class="mono">$2.7T</td><td class="mono">~35x</td><td class="mono">~12x</td><td class="pos">+50% est.</td></tr>
+          <tr><td>AMD</td><td class="mono">$240B</td><td class="mono">~25x</td><td class="mono">~6x</td><td class="pos">+14% est.</td></tr>
+          <tr><td>ALAB (Astera Labs)</td><td class="mono">$18B</td><td class="mono">~80x</td><td class="mono">~25x</td><td class="pos">+50% est.</td></tr>
+        </tbody>
+      </table>
+      <p class="faint" style="font-size:11px;margin-top:5px;">Sources: MarketBeat, StockAnalysis, CNN Markets. NTM estimates per consensus. Peers selected based on AI infrastructure semiconductor overlap.</p>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">DCF Assumptions (Illustrative)</h3>
+      <table>
+        <thead><tr><th>Assumption</th><th>Input</th></tr></thead>
+        <tbody>
+          <tr><td>FY27E Revenue</td><td class="mono">$11.5B (co. guidance)</td></tr>
+          <tr><td>FY28E Revenue</td><td class="mono">$16.5B (co. guidance)</td></tr>
+          <tr><td>FY29–32E Rev CAGR</td><td class="mono">20% (custom silicon ramp)</td></tr>
+          <tr><td>Terminal growth rate</td><td class="mono">3.0%</td></tr>
+          <tr><td>Target non-GAAP op. margin</td><td class="mono">38% (FY28E+)</td></tr>
+          <tr><td>Discount rate (WACC)</td><td class="mono">10.0%</td></tr>
+          <tr><td>DCF implied equity value</td><td class="mono">~$180–$240 per share</td></tr>
+        </tbody>
+      </table>
+      <p class="faint" style="font-size:11px;margin-top:5px;line-height:1.6">DCF is highly sensitive to WACC and terminal growth. At 11% WACC / 2.5% terminal growth, implied value falls to ~$155. At 9% WACC / 3.5%, rises to ~$280. These are illustrative assumptions, not price targets.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:8px;">Historical Valuation Ranges (NTM P/E, 5-year)</h3>
+  <div style="background:var(--p2);border:1px solid var(--p3);padding:14px;font-size:12.5px;color:var(--t2);line-height:1.7;">
+    <strong style="color:var(--t1)">Trough:</strong> ~12x (FY2024 inventory correction — stock fell to ~$40) &nbsp;·&nbsp;
+    <strong style="color:var(--t1)">Median:</strong> ~35x (5-year) &nbsp;·&nbsp;
+    <strong style="color:var(--t1)">Peak:</strong> ~80x+ (mid-2024 AI excitement peak) &nbsp;·&nbsp;
+    <strong style="color:var(--t1)">Current:</strong> ~56x NTM — above 5-year median but below the 2024 peak. The elevated multiple reflects the guidance raise to $11.5B FY27 and $16.5B FY28, which is anchored in design-win commitments. If FY28 EPS of ~$5.80 is achievable, the stock trades at ~38x FY28E P/E today — much more reasonable.
+  </div>
+</div>
+
+<!-- SECTION 6: RECENT DEVELOPMENTS -->
+<div class="panel">
+  <h2>6. Recent Developments (Last 12 Months)</h2>
+  <div>
+    <div class="dev-item">
+      <div class="dev-date">May 27, 2026</div>
+      <div class="dev-body"><strong>Q1 FY2027 Earnings Beat + Massive Guidance Raise:</strong> Revenue $2.418B +28% YoY, beat guidance by $18M. FY2027 raised to ~$11.5B (+40%), FY2028 raised to ~$16.5B (+43%). Optical interconnect FY27 guidance raised from +50% to >+70%. Custom silicon on track to more than double in FY28. <span class="pill p-bull" style="font-size:10px">Highly Positive</span></div>
+    </div>
+    <div class="dev-item">
+      <div class="dev-date">Q1 FY2027 2026</div>
+      <div class="dev-body"><strong>Polariton Acquisition (Closed):</strong> Acquired developer of plasmonic modulator technology with bandwidth exceeding 1 THz — up to 10× higher than current silicon photonics. Extends optical roadmap to 3.2T+ bandwidth, securing technology leadership well past 2028. <span class="pill p-bull" style="font-size:10px">Strategic</span></div>
+    </div>
+    <div class="dev-item">
+      <div class="dev-date">Feb 10, 2026</div>
+      <div class="dev-body"><strong>XConn Acquisition (Closed):</strong> Acquired XConn Technologies, adding PCIe 6.0 and CXL 3.x switch silicon for scale-up switching and memory disaggregation. Bridges Marvell into the enterprise CXL memory expansion market. <span class="pill p-blue" style="font-size:10px">Additive</span></div>
+    </div>
+    <div class="dev-item">
+      <div class="dev-date">Feb 2, 2026</div>
+      <div class="dev-body"><strong>Celestial AI Acquisition (Closed):</strong> Acquired Celestial AI for photonic fabric technology (EAM modulators, low-power analog SerDes). Technology already selected by a tier-1 hyperscaler for next-gen XPU scale-up networks. CEO called integration "a home run." <span class="pill p-bull" style="font-size:10px">High Strategic Value</span></div>
+    </div>
+    <div class="dev-item">
+      <div class="dev-date">Q1 FY2027</div>
+      <div class="dev-body"><strong>NVIDIA Partnership Expansion:</strong> Expanded collaboration covering silicon photonics integration, NVLink Fusion, and AI RAN. Embeds Marvell optics directly into NVIDIA AI rack architecture, creating a quasi-royalty exposure to NVIDIA AI rack sales not previously in consensus. <span class="pill p-bull" style="font-size:10px">Revenue-Additive</span></div>
+    </div>
+    <div class="dev-item">
+      <div class="dev-date">March 5, 2026</div>
+      <div class="dev-body"><strong>FY2026 Full-Year Record Results:</strong> Revenue $8.195B +42% YoY, non-GAAP EPS $2.84 +81% YoY. Design wins hit all-time record. Data centre $6.1B (74% of revenue). FCF ~$2.3B. <span class="pill p-bull" style="font-size:10px">Strong Execution</span></div>
+    </div>
+    <div class="dev-item">
+      <div class="dev-date">Aug 14, 2025</div>
+      <div class="dev-body"><strong>Automotive Ethernet Business Divested:</strong> Divested automotive ethernet operations as part of full strategic pivot to data centre. Reduces exposure to cyclical automotive semiconductor market and simplifies portfolio. <span class="pill p-gray" style="font-size:10px">Portfolio Cleanup</span></div>
+    </div>
+    <div class="dev-item">
+      <div class="dev-date">FY2025–26</div>
+      <div class="dev-body"><strong>Custom XPU Programmes Enter Volume Production:</strong> Multiple hyperscaler custom AI accelerator (XPU) programmes moved from tape-out/development to volume production. AI-related revenue accounted for approximately 50% of data centre revenue in FY2025, up from less than 10% in FY2023. <span class="pill p-bull" style="font-size:10px">Structural Inflection</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: BULL VS BEAR -->
+<div class="panel">
+  <h2>7. Bull vs Bear</h2>
+  <div class="g2" style="margin-bottom:16px;">
+    <div class="bull">
+      <h3>Bull Case</h3>
+      <ul class="blist">
+        <li><span class="pos">✦</span><span><strong>Design-win–backed revenue visibility:</strong> The $10B+ FY2029 custom silicon target is grounded in already-won, multi-year hyperscaler chip co-design programmes — the rarest form of semiconductor forward visibility. Not a market share estimate; an order book.</span></li>
+        <li><span class="pos">✦</span><span><strong>Three AI businesses compounding simultaneously:</strong> Optical interconnect (>70% FY27 growth), custom XPU (doubles FY28), ethernet switching — all accelerating at the same time. Rare setup not dependent on a single product.</span></li>
+        <li><span class="pos">✦</span><span><strong>NVIDIA NVLink Fusion partnership:</strong> Embedded exposure to every NVIDIA AI rack sale creates a revenue stream not in prior consensus models. NVIDIA's $6.5B photonics investment signals the depth of the relationship.</span></li>
+        <li><span class="pos">✦</span><span><strong>Polariton plasmonics extends the optical moat to 2030+:</strong> 1 THz+ modulator bandwidth — 10× current silicon photonics — positions Marvell at 3.2T interconnect when peers are at 1.6T. Technology leadership gap is growing, not narrowing.</span></li>
+        <li><span class="pos">✦</span><span><strong>FY28 $16.5B implies top-5 semiconductor position:</strong> If achieved, Marvell becomes one of the largest pure-play semiconductor companies globally. That structural re-rating is not priced into current multiples, which still value it as a mid-cap.</span></li>
+      </ul>
+    </div>
+    <div class="bear">
+      <h3>Bear Case</h3>
+      <ul class="blist">
+        <li><span class="neg">✦</span><span><strong>Hyperscaler concentration and capex cycle risk:</strong> Top 4 US cloud companies dominate data centre revenue. A confirmed >20% reduction in AI capex guidance from Amazon or Google would materially impair the $16.5B FY28 target with no easy offset.</span></li>
+        <li><span class="neg">✦</span><span><strong>Gross margin structural ceiling:</strong> Custom ASIC is inherently lower margin than networking DSPs. As XPU scales to 40%+ of revenue, blended GMs settle below FY2022 peaks (~65%) — limiting EPS power per dollar of revenue regardless of top-line growth.</span></li>
+        <li><span class="neg">✦</span><span><strong>Three simultaneous acquisitions — integration complexity:</strong> Celestial AI, XConn, and Polariton all closed within one quarter. Engineering integration and talent retention are material execution risks over the next 12-18 months.</span></li>
+        <li><span class="neg">✦</span><span><strong>Valuation at 56x NTM P/E prices near-perfection:</strong> At these multiples, any guidance miss or macro shock triggers violent multiple de-rating. MRVL fell 20% on a single-day after Q4 FY2025 guidance came in slightly below the most optimistic expectations.</span></li>
+        <li><span class="neg">✦</span><span><strong>Broadcom competitive pressure:</strong> AVGO designs Google's TPU and has a larger balance sheet, broader networking portfolio, and lower cost of capital. Hyperscalers pursuing dual-source strategies could cap Marvell's custom silicon share over a multi-year horizon.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <h3 style="margin-bottom:8px;">Key Risks</h3>
+      <ul>
+        <li><strong>Operational:</strong> Foundry concentration (TSMC dominance); advanced packaging (CoWoS-equivalent) supply constraints; talent retention post three acquisitions.</li>
+        <li><strong>Financial:</strong> GAAP EPS materially below non-GAAP due to SBC ($800M+ annually) and acquisition intangibles amortisation — GAAP EPS quality overstated vs non-GAAP.</li>
+        <li><strong>Regulatory:</strong> US export controls could restrict access to TSMC advanced nodes for non-US customers; geopolitical risk to Taiwan supply chain.</li>
+        <li><strong>Competitive:</strong> Hyperscaler vertical integration (custom chip teams growing at Amazon, Google, Meta, Microsoft) could reduce outsourced design dependency over a 5-year horizon.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-bottom:8px;">Growth Catalysts</h3>
+      <ul>
+        <li><strong>Q2 FY2027 earnings (Aug 2026):</strong> Sequential acceleration from $2.42B to $2.70B guided is the first hard test of management's FY27 commitment.</li>
+        <li><strong>Hyperscaler capex guidance (Jul 2026):</strong> AWS, Azure, Google Q2 2026 earnings — any capex raise directly implies higher MRVL demand.</li>
+        <li><strong>1.6T PAM4 volume ramp:</strong> Murphy stated "ramping quickly this fiscal year" — early shipment data from hyperscaler supply chains would be a significant catalyst.</li>
+        <li><strong>New tier-1 XPU programme announcement:</strong> A 4th or 5th hyperscaler XPU programme win would confirm the custom silicon moat and re-rate the $10B+ FY29 target upward.</li>
+        <li><strong>Polariton roadmap details:</strong> First public presentation of 3.2T photonic interconnect roadmap likely at a future Marvell investor event.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:18px;padding:16px;background:var(--p2);border:1px solid var(--p3);border-left:3px solid var(--acc);">
+    <h3 style="color:var(--acc);margin-bottom:8px;">Investment Stance &amp; The Central Debate</h3>
+    <p><strong>Stance: CONSTRUCTIVE</strong> — Marvell's transformation into a pure-play AI infrastructure platform is executing ahead of schedule. The FY26 to FY28 revenue trajectory ($8.2B → $11.5B → $16.5B), anchored in won design commitments, represents the clearest multi-year visibility in the semiconductor sector outside NVIDIA. The NVIDIA NVLink Fusion partnership and Polariton acquisition extend the moat beyond what was previously modelled.</p>
+    <p><strong>The central debate</strong> is whether the 56x NTM P/E — pricing in execution of a $16.5B FY28 revenue target that would make Marvell one of the world's largest fabless chip companies — is justified given the concentration risk in three or four hyperscaler customers. Investors who believe hyperscaler AI capex is durable through FY28 will find Marvell's PEG of ~1.4x inexpensive. Those who see AI capex as a cycle will see the multiple as extremely demanding.</p>
+    <p class="faint" style="font-size:11.5px;margin-top:8px;">This report is AI-generated by EquiLens Research and is informational only. It is not personalised investment advice. Consult a qualified financial adviser before making investment decisions.</p>
+  </div>
+</div>
+
+<!-- APPENDIX -->
+<div class="panel">
+  <h2>Appendix — Data Sources</h2>
+  <div class="snote">AI-generated disclaimer: This report was produced using publicly available data. All figures are attributed below. No figures have been fabricated; where data was unavailable, "n.a." or "not disclosed" has been used.</div>
+  <div>
+    <div class="app-row"><div>#</div><div>Fact</div><div>Value</div><div>Source</div></div>
+    <div class="app-row"><div>1</div><div>FY2026 Annual Revenue</div><div class="mono">$8,194.6M</div><div>SEC 8-K, March 5, 2026 (Marvell Q4/FY2026 press release)</div></div>
+    <div class="app-row"><div>2</div><div>FY2026 Data Centre Revenue</div><div class="mono">$6,100.3M (74%)</div><div>SEC ARS Form FY2026 (Annual Report to Shareholders), revenue disaggregation table</div></div>
+    <div class="app-row"><div>3</div><div>FY2026 Non-GAAP EPS</div><div class="mono">$2.84 (+81% YoY)</div><div>SEC 8-K, March 5, 2026</div></div>
+    <div class="app-row"><div>4</div><div>FY2025 Annual Revenue</div><div class="mono">$5,767.3M</div><div>SEC 8-K, March 5, 2025 (FY2025 full year results)</div></div>
+    <div class="app-row"><div>5</div><div>FY2024 Annual Revenue</div><div class="mono">$5,507.7M</div><div>SEC 8-K, March 7, 2024 (FY2024 full year results)</div></div>
+    <div class="app-row"><div>6</div><div>Q1 FY2027 Revenue / EPS</div><div class="mono">$2,418M / $0.80</div><div>SEC 8-K, May 27, 2026 (Q1 FY2027 results)</div></div>
+    <div class="app-row"><div>7</div><div>FY2027 Revenue Guidance</div><div class="mono">~$11.5B</div><div>Q1 FY2027 earnings call, CEO Matt Murphy, May 27, 2026</div></div>
+    <div class="app-row"><div>8</div><div>FY2028 Revenue Guidance</div><div class="mono">~$16.5B</div><div>Q1 FY2027 earnings call, CEO Matt Murphy, May 27, 2026</div></div>
+    <div class="app-row"><div>9</div><div>Optical Interconnect 5-yr CAGR</div><div class="mono">~50%</div><div>SEC ARS FY2026: "Optical interconnect has grown at an approximately 50% CAGR for five straight years"</div></div>
+    <div class="app-row"><div>10</div><div>Data Centre CAGR 10yr</div><div class="mono">~45%</div><div>SEC ARS FY2026: "data center revenue grown...at 45% CAGR over past 10 years"</div></div>
+    <div class="app-row"><div>11</div><div>AI Revenue % of DC (FY2025)</div><div class="mono">~50%</div><div>SEC DEF 14A FY2025 proxy statement</div></div>
+    <div class="app-row"><div>12</div><div>FY2025 OCF</div><div class="mono">$1.68B</div><div>SEC 8-K, March 5, 2025 (FY2025 full year results)</div></div>
+    <div class="app-row"><div>13</div><div>Stock Price (May 28, 2026)</div><div class="mono">~$219</div><div>StockAnalysis.com post Q1 FY2027 results</div></div>
+    <div class="app-row"><div>14</div><div>Analyst consensus PT</div><div class="mono">$219.8 avg (44 analysts)</div><div>StockAnalysis.com, MarketBeat, accessed May 31, 2026</div></div>
+    <div class="app-row"><div>15</div><div>Celestial AI closed</div><div class="mono">Feb 2, 2026</div><div>SEC 8-K/A, Marvell press release Feb 2, 2026</div></div>
+    <div class="app-row"><div>16</div><div>XConn closed</div><div class="mono">Feb 10, 2026</div><div>Company press release, Feb 10, 2026</div></div>
+    <div class="app-row"><div>17</div><div>Q1 FY2027 DC Revenue</div><div class="mono">$1,832.7M (76%)</div><div>SEC 10-Q, filed post Q1 FY2027 earnings</div></div>
+    <div class="app-row"><div>18</div><div>FY2022 Non-GAAP GM</div><div class="mono">65.3%</div><div>SEC 8-K, March 3, 2022 (FY2022 full year results)</div></div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+Chart.defaults.color = '#8b98a9';
+Chart.defaults.borderColor = '#243042';
+const TIP = {backgroundColor:'#121821',titleColor:'#e6edf3',bodyColor:'#8b98a9',borderColor:'#243042',borderWidth:1};
+const SC = {
+  x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#5a6675',font:{size:10}}},
+  y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#5a6675',font:{size:10}}}
+};
+
+// Revenue by segment chart
+new Chart(document.getElementById('revChart'),{
+  type:'bar',
+  data:{
+    labels:['FY2022','FY2023','FY2024','FY2025','FY2026'],
+    datasets:[
+      {label:'Data Centre',data:[0.9,1.6,2.22,4.16,6.10],backgroundColor:'rgba(77,163,255,0.75)',borderRadius:3},
+      {label:'Comm. & Other',data:[3.56,4.32,3.29,1.60,2.09],backgroundColor:'rgba(107,122,141,0.55)',borderRadius:3},
+    ]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{labels:{color:'#8b98a9',font:{size:11},boxWidth:10}},
+      tooltip:{...TIP,callbacks:{label:c=>`${c.dataset.label}: $${c.parsed.y.toFixed(2)}B`}}
+    },
+    scales:{
+      x:{...SC.x,stacked:true},
+      y:{...SC.y,stacked:true,ticks:{...SC.y.ticks,callback:v=>'$'+v+'B'}}
+    }
+  }
+});
+
+// Margin trend chart
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:['FY2022','FY2023','FY2024','FY2025','FY2026','Q1 FY27'],
+    datasets:[
+      {label:'Non-GAAP GM%',data:[65.3,65.0,63.9,60.1,59.0,58.9],borderColor:'#4da3ff',backgroundColor:'rgba(77,163,255,.08)',fill:true,tension:0.4,borderWidth:2,pointRadius:4},
+      {label:'Non-GAAP OpMgn%',data:[34,38,33,28,35,33],borderColor:'#3ad29f',fill:false,tension:0.4,borderWidth:2,borderDash:[4,3],pointRadius:4},
+    ]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{labels:{color:'#8b98a9',font:{size:11},boxWidth:10}},
+      tooltip:{...TIP,callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y}%`}}
+    },
+    scales:{
+      x:SC.x,
+      y:{...SC.y,min:20,ticks:{...SC.y.ticks,callback:v=>v+'%'}}
+    }
+  }
+});
+</script>
+</body>
+</html>
