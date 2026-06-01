@@ -1206,26 +1206,7 @@ function toast(msg) {
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', () => {
-  // Date
-  document.getElementById('topdate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-  // Breaking news
-
-
-  // Econ strip
-  document.getElementById('es-grid').innerHTML = econStrip.map(e => `<div class="ei"><div class="ei-lbl">${e.lbl}</div><div class="ei-val">${e.val}</div><div class="ei-chg ${e.up?'up':'dn'}">${e.up?'▲':'▼'} ${e.chg}</div></div>`).join('');
-
-  // News
-  document.getElementById('eco-news').innerHTML = usEcoNews.map(n => `<div class="nc" onclick="toast('Opening article...')"><div class="nc-head"><span class="nc-tag ${n.tagC}">${n.tag}</span><span class="nc-ico">${n.ico}</span></div><div class="nc-title">${n.title}</div><div class="nc-body">${n.body}</div><div class="nc-meta">${n.time} · Balaji N, CFP</div></div>`).join('');
-  document.getElementById('geo-news').innerHTML = geoNews.map(n => `<div class="nc" onclick="toast('Opening article...')"><div class="nc-head"><span class="nc-tag ${n.tagC}">${n.tag}</span><span class="nc-ico">${n.ico}</span></div><div class="nc-title">${n.title}</div><div class="nc-body">${n.body}</div><div class="nc-meta">${n.time} · Balaji N, CFP</div></div>`).join('');
-  document.getElementById('opinion').innerHTML = opinions.map(o => `<div class="oc" onclick="go('articles',document.querySelectorAll('.nl')[1])"><div class="oc-type">${o.type}</div><div class="oc-title">${o.title}</div><div class="oc-body">${o.body}</div></div>`).join('');
-
-  buildArticles();
-  buildEarnings();
-  buildEcon('macro');
-  buildTa();
-});
 
 // ═══════════════════════════════════════════
 // ARTICLES
@@ -2133,6 +2114,28 @@ function taShowSetupGuide() {
   </div>
 </div>`;
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Date
+  document.getElementById('topdate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  // Econ strip
+  document.getElementById('es-grid').innerHTML = econStrip.map(e => `<div class="ei"><div class="ei-lbl">${e.lbl}</div><div class="ei-val">${e.val}</div><div class="ei-chg ${e.up?'up':'dn'}">${e.up?'▲':'▼'} ${e.chg}</div></div>`).join('');
+
+  // News
+  document.getElementById('eco-news').innerHTML = usEcoNews.map(n => `<div class="nc" onclick="toast('Opening article...')"><div class="nc-head"><span class="nc-tag ${n.tagC}">${n.tag}</span><span class="nc-ico">${n.ico}</span></div><div class="nc-title">${n.title}</div><div class="nc-body">${n.body}</div><div class="nc-meta">${n.time} · Balaji N, CFP</div></div>`).join('');
+  document.getElementById('geo-news').innerHTML = geoNews.map(n => `<div class="nc" onclick="toast('Opening article...')"><div class="nc-head"><span class="nc-tag ${n.tagC}">${n.tag}</span><span class="nc-ico">${n.ico}</span></div><div class="nc-title">${n.title}</div><div class="nc-body">${n.body}</div><div class="nc-meta">${n.time} · Balaji N, CFP</div></div>`).join('');
+  document.getElementById('opinion').innerHTML = opinions.map(o => `<div class="oc" onclick="go('articles',document.querySelectorAll('.nl')[1])"><div class="oc-type">${o.type}</div><div class="oc-title">${o.title}</div><div class="oc-body">${o.body}</div></div>`).join('');
+
+  // Use window.onload to ensure ALL functions are defined before calling
+  window.addEventListener('load', () => {
+    buildArticles();
+    buildEarnings();
+    buildEcon('macro');
+    buildTa();
+  });
+});
 </script>
 </body>
 </html>
