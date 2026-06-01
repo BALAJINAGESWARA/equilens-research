@@ -1,0 +1,164 @@
+{
+  "earnings": [
+    {
+      "id": "ibm-q1-2026",
+      "ticker": "IBM",
+      "company": "International Business Machines",
+      "quarter": "Q1 FY2026",
+      "sector": "Technology & Consulting",
+      "cat": "tech",
+      "emoji": "\ud83d\udda5\ufe0f",
+      "flag": "\ud83c\uddfa\ud83c\uddf8",
+      "date": "April 22, 2026",
+      "rating": "Buy",
+      "pt": "$250",
+      "pt_bull": "$290",
+      "pt_bear": "$175",
+      "beat_miss": "Beat",
+      "revenue": "$15.92B",
+      "revenue_growth": "+9%",
+      "eps": "$1.91",
+      "eps_growth": "+19%",
+      "gross_margin": "57.7%",
+      "gross_margin_note": "Non-GAAP \u00b7 +110bps YoY",
+      "fcf": "$2.22B",
+      "fcf_note": "Decade-best Q1 \u00b7 +13% YoY",
+      "ebitda": "$4.0B",
+      "net_income": "$1.22B",
+      "cash": "$11.8B",
+      "summary": "IBM beat Q1 FY2026 on every key metric. Revenue $15.92B (+9% YoY) beat consensus $15.62B by $300M. Non-GAAP EPS $1.91 (+19% YoY) beat $1.81 consensus by $0.10. Free cash flow $2.22B \u2014 highest Q1 in a decade. Software +11%, z17 mainframe +51%, GenAI book of business $12.5B+. Guidance maintained despite the beat, citing macro uncertainty \u2014 stock fell -6% after-hours on profit-taking after a +50% YTD run.",
+      "exec_summary": "IBM delivered a clean beat across revenue, EPS, and free cash flow in Q1 FY2026, confirming the software-led hybrid cloud and AI transformation thesis. Software accelerated to +11% YoY (Red Hat +13%, Automation +15%), z17 mainframe surged +51% YoY pacing ahead of the z16 cycle, and the GenAI book of business crossed $12.5B inception-to-date \u2014 the largest enterprise AI backlog outside hyperscalers. FCF of $2.22B was the strongest Q1 in a decade. Management maintained rather than raised full-year guidance citing macro uncertainty, which drove a -6% after-hours reaction despite the operational beat. Rating: BUY \u00b7 PT $250.",
+      "revenue_growth_analysis": "Software at $7.05B (+11% reported, +8% CC) was the primary growth driver \u2014 Red Hat hybrid cloud +13%, Automation +15%, Watsonx AI tools growing rapidly. Infrastructure at $3.33B (+15%) was powered by a 51% surge in z17 IBM Z mainframe hardware, pacing ahead of the prior z16 cycle. Consulting at $5.27B (+4% reported, +1% CC) was the only mixed signal \u2014 modest growth reflecting macro headwinds on enterprise discretionary IT spend. Confluent acquisition (closed Q1 2026) contributed early revenue to the software segment. EPS grew 19% YoY to $1.91 driven by SG&A efficiencies, operating leverage from software scale, and favourable other income items.",
+      "segment_analysis": "Software (44% of revenue): $7.05B, +11% YoY \u2014 Red Hat hybrid cloud +13%, Automation +15%, Data & AI (Watsonx) +7%. Infrastructure (21%): $3.33B, +15% YoY \u2014 IBM Z mainframe +51% (z17 super-cycle), distributed infrastructure. Consulting (33%): $5.27B, +4% YoY (+1% CC) \u2014 AI backlog penetration ~30%, modest growth reflecting macro pressure. Financing (1%): $220M, +15% YoY.",
+      "industry_analysis": "IBM's hybrid cloud and AI positioning targets regulated enterprises \u2014 banks, insurers, governments \u2014 that cannot move workloads to public cloud and require on-premise AI governance. Watsonx provides AI model training, deployment, and governance; Red Hat OpenShift provides hybrid infrastructure. Together they create a defensible AI control plane for enterprises. The $12.5B+ GenAI book of business converts into recurring software licenses and multi-year consulting engagements. z17 mainframe enables AI inference on-premise with built-in data governance \u2014 increasingly demanded by banks under stricter regulatory frameworks globally. Confluent adds real-time data streaming \u2014 the fastest-growing enterprise data infrastructure category (CAGR 25%+).",
+      "guidance_analysis": "FY2026 guidance maintained: CC revenue growth 5%+, Software CC growth now 10%+ (raised from ~10%), Consulting low-to-mid single digits CC (raised from low single digits), FCF $13.5B+ (~+$1B YoY), op. pre-tax margin +~1pt, Confluent EPS dilution ~$600M. Management maintained rather than raised top-line guidance citing fluid macro environment and tariff uncertainty. Software guidance raise to 10%+ was the most meaningful move \u2014 reflects early Confluent contributions and Automation acceleration. Infrastructure guided to decline low-single-digits for full FY2026 despite strong Q1 \u2014 z17 cycle comparisons become difficult in H2.",
+      "mgmt_positive": [
+        "CEO Arvind Krishna: 'We exceeded expectations for revenue, profitability and free cash flow, led by strength across our Software portfolio'",
+        "GenAI book of business now exceeds $12.5B inception-to-date \u2014 real revenue commitments, not pipeline. Converts to recurring software licenses and consulting engagements",
+        "Software guidance raised to 10%+ CC for FY2026 \u2014 reflects Confluent contributions and Automation acceleration",
+        "z17 mainframe early client engagement described as 'constructive' \u2014 growing demand for secure AI inference workloads on-premise",
+        "Consulting AI backlog penetration at ~30% \u2014 'momentum in gen AI continues to support acceleration in revenue growth'",
+        "FCF $2.22B \u2014 strongest Q1 in a decade, full-year $13.5B+ target intact and well-supported"
+      ],
+      "mgmt_negative": [
+        "Guidance maintained rather than raised despite $300M revenue beat \u2014 'macroeconomic environment is fluid' signals caution on H2 visibility",
+        "Consulting at +4% reported, just +1% CC \u2014 below the acceleration needed to validate the multi-year consulting recovery thesis",
+        "Confluent dilution ~$600M in FY2026 EPS \u2014 near-term headwind as integration begins",
+        "Infrastructure guided to decline low-single-digits for full FY2026 despite Q1 +15% \u2014 z17 cycle comparisons build in H2",
+        "Stock fell -6% after-hours: market wanted a guidance raise given $300M revenue beat and +50% YTD run into results"
+      ],
+      "bull_points": [
+        "GenAI book of business $12.5B+ \u2014 largest enterprise AI commitment base outside hyperscalers, converts to high-margin recurring revenue over 3-5 years",
+        "Software compounding at 10%+ CC \u2014 mix-shift to high-margin recurring revenue is the core structural bull case",
+        "z17 mainframe super-cycle pacing ahead of z16 \u2014 AI inferencing on-premise extends cycle duration and value per client",
+        "Confluent adds real-time data streaming \u2014 completes IBM's end-to-end enterprise AI data stack uniquely",
+        "Regulated enterprise TAM insulated from public cloud \u2014 banks, insurers, governments need IBM's hybrid AI approach",
+        "FCF decade-best Q1 $2.22B \u2014 $13.5B+ FY2026 target, 3%+ dividend yield, 31st consecutive annual dividend increase"
+      ],
+      "bear_points": [
+        "Consulting +1% CC \u2014 structural weakness risk if no acceleration to mid-single-digits in H2 2026",
+        "Confluent $11B acquisition creates $600M EPS dilution in FY2026 \u2014 large M&A integration track record in enterprise tech is poor",
+        "Valuation 22-23x forward P/E \u2014 premium to 14x historical average, no room for guidance error",
+        "z17 cycle will become headwind in H2 2026 \u2014 infrastructure guided to decline low-single-digits for full year",
+        "Hyperscaler hybrid competition intensifying \u2014 AWS Outposts, Azure Stack, Google Distributed Cloud targeting IBM's regulated enterprise moat",
+        "Macro and tariff sensitivity \u2014 enterprise consulting and AI deployment projects highly discretionary in uncertain environment"
+      ],
+      "near_risks": [
+        "Q2 consulting growth below +3% reported would signal structural weakness not cyclical softness \u2014 #1 watch metric",
+        "z17 compare becomes difficult in H2 as hardware ramp laps itself through Q3/Q4 2026",
+        "Confluent integration Q2 is first full quarter \u2014 enterprise software M&A execution risk highest immediately post-close",
+        "Macro tariff uncertainty causing enterprises to delay consulting and AI deployment projects in H2 2026"
+      ],
+      "long_risks": [
+        "Hyperscaler hybrid competition \u2014 AWS Outposts, Azure Stack, GCP Distributed Cloud targeting IBM's core regulated enterprise differentiation",
+        "Consulting commoditisation \u2014 GenAI automating routine consulting work, pressuring IBM Consulting's labour-intensive model structurally",
+        "AI model commoditisation \u2014 open-source models (Llama, Mistral) could reduce demand for IBM Watsonx premium governance tools",
+        "Debt load post-Confluent \u2014 total debt $66.4B, rising rates could increase cost of IBM's significant financing obligations"
+      ],
+      "valuation": "IBM at ~$214 post-earnings trades at 22-23x CY2026 non-GAAP EPS ~$10.80. FCF yield ~5.5%. Dividend yield ~3.0%. 31st consecutive annual dividend increase. PEG ~1.5x on 7% revenue CAGR FY25-27E. Premium to 14x historical 10-yr average but discount to large-cap software complex (~30x). EV/Revenue ~4x (vs software peers 8-12x). FCF yield 5.5% (vs software peers 2-3%). Base PT $250 = 23x FY2026E EPS. Bull $290, Bear $175.",
+      "pt_bull_case": "$290. Software accelerates to 12%+ FY2026. Consulting recovery to 5%+ by H2. Confluent integration ahead of plan. FY2026 non-GAAP EPS ~$11.50. Target 26x = ~$299 \u2248 $290. Trigger: Q2 consulting beat + software guidance raise to 12%+.",
+      "pt_base_case": "$250. Software 10%+ (on guide). Consulting 3-4% FY2026. Confluent dilution ~$600M. FY2026 non-GAAP EPS ~$10.80. 23x = $248 \u2248 $250. FCF yield ~5.5% + 3% dividend = solid total return floor.",
+      "pt_bear_case": "$175. Consulting stalls below 2% in H2. Software misses 10% target. Confluent disappoints. EPS $9.50. Multiple compresses to 18x = $171 \u2248 $175. Trigger: Q2 consulting below +3% + guidance cut.",
+      "thesis": "IBM is executing a credible transformation from declining legacy IT into a software-led hybrid cloud and enterprise AI platform. Q1 FY2026 confirmed: software compounding at 10%+, FCF at decade-best levels, and GenAI book of business $12.5B+ is the largest enterprise AI backlog outside hyperscalers. The z17 cycle provides a durable near-term earnings layer. Regulated enterprises cannot use hyperscaler cloud \u2014 IBM owns this AI infrastructure market through Red Hat, Watsonx, and now Confluent. The post-earnings -6% pullback to ~$214 offers better risk/reward than pre-earnings levels. BUY \u00b7 PT $250.",
+      "segments": [
+        {
+          "name": "Software",
+          "val": "$7.05B",
+          "growth": "+11% YoY"
+        },
+        {
+          "name": "Consulting",
+          "val": "$5.27B",
+          "growth": "+4% YoY"
+        },
+        {
+          "name": "Infrastructure",
+          "val": "$3.33B",
+          "growth": "+15% YoY"
+        },
+        {
+          "name": "Financing",
+          "val": "$0.22B",
+          "growth": "+15% YoY"
+        }
+      ],
+      "rev_history": [
+        14.54,
+        15.76,
+        15.97,
+        19.65,
+        15.92
+      ],
+      "rev_labels": [
+        "Q1 FY25",
+        "Q2 FY25",
+        "Q3 FY25",
+        "Q4 FY25",
+        "Q1 FY26"
+      ],
+      "eps_history": [
+        1.6,
+        2.15,
+        2.3,
+        4.52,
+        1.91
+      ],
+      "next_earnings": "July 22, 2026"
+    }
+  ],
+  "technical_analysis": [
+    {
+      "id": 1,
+      "date": "2026-05-30",
+      "ticker": "IBM",
+      "company": "International Business Machines",
+      "signal": "buy",
+      "timeframe": "Weekly",
+      "pattern": "Breakout above 200-day MA",
+      "indicators": "RSI 58, MACD bullish cross, Volume 1.8x avg, Above 200MA",
+      "quote": "z17 mainframe super-cycle + Software 10%+ creates a durable multi-year earnings floor",
+      "support1": "$205",
+      "support2": "$195",
+      "entry": "$210-$215",
+      "resistance1": "$235",
+      "resistance2": "$250",
+      "target": "$265",
+      "stop": "$198",
+      "rr": "1:3",
+      "analysis": "IBM has broken out of a multi-month consolidation range following the Q1 FY2026 earnings beat. The z17 mainframe cycle is pacing 51% ahead YoY. Software at 44% of revenue growing 10%+ CC provides structural growth. The post-earnings -6% pullback to $214 offers better risk/reward than pre-earnings. Key level to hold: $205 (50-day MA).",
+      "buy_reasons": "z17 mainframe super-cycle +51% YoY \u2014 pacing ahead of z16\nSoftware 10%+ CC \u2014 mix-shift to high-margin recurring revenue\nGenAI book $12.5B+ \u2014 converts to recurring software and consulting\nFCF $2.22B decade-best Q1 \u2014 $13.5B+ FY2026 well-supported\nPost-earnings pullback -6% offers better entry at $214",
+      "sell_reasons": "Consulting only +1% CC \u2014 weakness risk in H2 2026\nConfluent $11B acquisition \u2014 $600M EPS dilution FY2026\nValuation 22-23x P/E \u2014 premium to 14x historical average\nz17 cycle headwind builds in H2 as hardware laps itself",
+      "image1": "",
+      "image2": "",
+      "image3": "",
+      "video": "",
+      "tags": [
+        "breakout",
+        "mainframe",
+        "AI",
+        "software",
+        "IBM"
+      ]
+    }
+  ]
+}
