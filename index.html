@@ -818,6 +818,62 @@ footer{background:var(--blk2);border-top:3px solid var(--red);padding:36px 0 20p
   <img id="ta-lb-img" src="" alt="Chart">
 </div>
 
+<!-- ====== ABOUT PAGE ====== -->
+<div class="page" id="pg-about">
+  <div class="c">
+    <div class="about-hero">
+      <div>
+        <div class="ah-eyebrow">Founder &amp; Chief Research Officer</div>
+        <div class="ah-name">BALAJI N</div>
+        <div class="ah-title">CFP &middot; Economist &middot; US Market Intelligence Expert</div>
+        <div class="ah-text">
+          <p>With <strong>19 years of deep experience</strong> in US financial markets, equity research, and macroeconomic analysis, Balaji N founded EquiLens Research to bring institutional-grade intelligence to independent investors.</p>
+          <p>A <strong>Certified Financial Planner (CFP Level 2)</strong> and trained economist, Balaji has spent nearly two decades analysing US business cycles, corporate earnings, Federal Reserve policy, and geopolitical risk.</p>
+          <p>EquiLens Research core belief: <strong>every serious investor deserves the same quality of research that hedge funds use</strong> without the institutional price tag.</p>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div class="ah-avatar">BN</div>
+        <div style="font-size:11px;font-weight:700;margin-bottom:10px;letter-spacing:1px;color:var(--g2)">CREDENTIALS</div>
+        <ul class="cred-list">
+          <li><div class="cred-dot"></div>Certified Financial Planner (CFP) Level 2</li>
+          <li><div class="cred-dot"></div>19 Years US Market Experience</li>
+          <li><div class="cred-dot"></div>Economist Macro &amp; Micro</li>
+          <li><div class="cred-dot"></div>US Equity Research Specialist</li>
+          <li><div class="cred-dot"></div>Technical Analysis Expert</li>
+          <li><div class="cred-dot"></div>SEBI Registered Research Analyst</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:var(--red);padding:28px;text-align:center;margin-bottom:28px">
+      <div style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;opacity:.8">MISSION</div>
+      <div style="font-family:var(--fh);font-size:clamp(16px,3vw,22px);font-weight:700;line-height:1.45;max-width:680px;margin:0 auto">To provide high-quality US financial research, earnings intelligence, and technical analysis that empowers investors to make informed, confident decisions.</div>
+      <div style="font-size:12px;margin-top:10px;opacity:.8">Balaji N, Founder</div>
+    </div>
+    <div class="sh"><div class="sh-title"><span class="sh-tag">CONTACT</span>GET IN TOUCH</div></div>
+    <div class="contact-grid">
+      <div class="contact-pane" style="border-top:3px solid var(--red)">
+        <div style="font-family:var(--fd);font-size:18px;letter-spacing:2px;margin-bottom:18px">SEND A MESSAGE</div>
+        <div class="frow"><label class="flabel">Name</label><input type="text" class="finput-c" placeholder="Your Name"></div>
+        <div class="frow"><label class="flabel">Email</label><input type="email" class="finput-c" placeholder="your@email.com"></div>
+        <div class="frow"><label class="flabel">Subject</label><input type="text" class="finput-c" placeholder="Research inquiry..."></div>
+        <div class="frow"><label class="flabel">Message</label><textarea class="finput-c" rows="4" style="resize:vertical" placeholder="Your message..."></textarea></div>
+        <button class="btn-submit" onclick="toast('Message sent!')">SEND MESSAGE</button>
+      </div>
+      <div class="contact-pane">
+        <div style="font-family:var(--fd);font-size:18px;letter-spacing:2px;margin-bottom:22px">CONTACT INFO</div>
+        <div class="cinfo-row"><div class="cinfo-icon">&#128231;</div><div><div style="font-size:14px">research@equilens.in</div><div style="font-size:11px;color:var(--g2);margin-top:2px">For all research inquiries</div></div></div>
+        <div class="cinfo-row"><div class="cinfo-icon">&#128336;</div><div><div style="font-size:14px">Response within 24-48 hours</div><div style="font-size:11px;color:var(--g2);margin-top:2px">Mon-Sat, 9AM-6PM IST</div></div></div>
+        <div style="height:1px;background:var(--bdr);margin:20px 0"></div>
+        <div style="font-family:var(--fd);font-size:14px;letter-spacing:2px;color:var(--red);margin-bottom:10px">NEWSLETTER</div>
+        <div style="font-size:13px;color:var(--g2);margin-bottom:12px">Join investors getting weekly US market research free.</div>
+        <input type="email" class="finput-c" placeholder="your@email.com" style="margin-bottom:10px">
+        <button class="btn-submit" onclick="toast('Subscribed!')">SUBSCRIBE FREE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="c">
@@ -962,134 +1018,78 @@ const archive = [
   {title:"Vertiv Holdings: The Hidden AI Infrastructure Play — Data Centre Power and Cooling", cat:"EQUITY RESEARCH", date:"March 20, 2026"},
 ];
 
-// earningsData: base seed data (shown if data.json unavailable)
-// data.json earnings entries are PREPENDED at runtime
-const earningsData = [
-  {
-    id:'ibm-q1-2026', co:'International Business Machines', sym:'IBM', q:'Q1 FY2026', flag:'🇺🇸', sector:'Technology & Consulting', cat:'tech', emoji:'🖥️',
-    rev:'$15.92B', revGr:'+9%', eps:'$1.91', epsGr:'+19%', gm:'57.7%', gmN:'Non-GAAP +110bps YoY', ocf:'$2.22B', ocfN:'Decade-best Q1 +13% YoY',
-    ebitda:'$4.0B', netInc:'$1.22B', cash:'$11.8B', date:'April 22, 2026', beatMiss:'Beat', rating:'Buy', pt:'$250', ptBull:'$290', ptBear:'$175',
-    summary:'IBM beat Q1 FY2026 on every metric: revenue $15.92B (+9% YoY, beat +$300M), non-GAAP EPS $1.91 (+19%, beat +$0.10), FCF $2.22B — decade-best Q1. Software +11%, z17 mainframe +51%, GenAI book $12.5B+. Guidance maintained citing macro uncertainty.',
-    execSummary:'IBM delivered a clean beat across revenue, EPS, and free cash flow in Q1 FY2026. Software accelerated to +11% YoY (Red Hat +13%, Automation +15%), z17 mainframe surged +51%, and the GenAI book of business crossed $12.5B inception-to-date — the largest enterprise AI backlog outside hyperscalers. FCF of $2.22B was the strongest Q1 in a decade. Management maintained rather than raised full-year guidance citing macro uncertainty. Rating: BUY · PT $250.',
-    revenueGrowthAnalysis:'Software at $7.05B (+11% reported, +8% CC) was the primary growth driver — Red Hat +13%, Automation +15%, Watsonx growing. Infrastructure at $3.33B (+15%) powered by 51% surge in z17 IBM Z mainframe. Consulting at $5.27B (+4% reported, +1% CC) was the only mixed signal. Confluent acquisition contributed early revenue. EPS grew 19% YoY driven by SGA efficiencies and operating leverage.',
-    segmentAnalysis:'Software (44%): $7.05B +11% — Red Hat +13%, Automation +15%, Watsonx +7%. Infrastructure (21%): $3.33B +15% — IBM Z mainframe +51% (z17 super-cycle). Consulting (33%): $5.27B +4% (+1% CC) — AI backlog penetration ~30%. Financing (1%): $220M +15%.',
-    industryAnalysis:'IBM targets regulated enterprises — banks, insurers, governments — that cannot move workloads to public cloud and need on-premise AI governance. Watsonx provides AI governance; Red Hat OpenShift provides hybrid infrastructure. GenAI book $12.5B+ converts to recurring licenses and multi-year consulting. z17 enables AI inference on-premise with built-in governance. Confluent adds real-time data streaming.',
-    guidanceAnalysis:'FY2026: CC revenue 5%+, Software 10%+ CC (raised), Consulting low-to-mid single digits, FCF $13.5B+ (~+$1B YoY), op. margin +~1pt, Confluent dilution ~$600M. Guidance maintained despite beat — fluid macro environment cited. Software raise to 10%+ was the most meaningful move.',
-    mgmtPositive:["CEO Krishna: We exceeded expectations for revenue, profitability and FCF, led by Software portfolio strength","GenAI book $12.5B+ — real revenue commitments converting to recurring licenses and consulting","Software guidance raised to 10%+ CC — reflects Confluent and Automation acceleration","z17 mainframe early engagement constructive — growing demand for secure AI inference on-premise","FCF $2.22B strongest Q1 in decade — $13.5B+ FY2026 target intact"],
-    mgmtNegative:["Guidance maintained not raised despite $300M beat — macro environment is fluid","Consulting +4% reported, just +1% CC — below acceleration needed for recovery thesis","Confluent dilution ~$600M FY2026 EPS — near-term headwind as integration begins","Infrastructure guided to decline low-single-digits FY despite Q1 +15%"],
-    bullPoints:["GenAI book $12.5B+ — largest enterprise AI commitment outside hyperscalers, converts to high-margin recurring revenue","Software 10%+ CC compounding — mix-shift to high-margin recurring revenue is the structural bull case","z17 super-cycle pacing ahead of z16 — AI inferencing on-premise extends cycle duration and value","Confluent adds real-time data streaming — completes IBM end-to-end enterprise AI data stack","FCF decade-best Q1 $2.22B — 3%+ dividend yield, 31st consecutive annual dividend increase"],
-    bearPoints:["Consulting +1% CC — structural weakness risk if no acceleration to mid-single-digits in H2","Confluent $11B acquisition — $600M EPS dilution, large M&A integration risk","Valuation 22-23x P/E — premium to 14x historical average, no room for guidance error","z17 cycle becomes headwind in H2 — infrastructure guided to decline low-single-digits FY","Hyperscaler hybrid competition — AWS Outposts, Azure Stack, Google Distributed Cloud targeting IBM moat"],
-    nearRisks:["Q2 consulting below +3% would signal structural not cyclical weakness","z17 compare difficult in H2 as hardware ramp laps itself","Confluent Q2 first full integration quarter — execution risk highest post-close","Macro tariff uncertainty delaying enterprise consulting and AI projects"],
-    longRisks:["Hyperscaler hybrid products targeting IBM regulated enterprise differentiation","Consulting commoditisation — GenAI automating labour-intensive work","AI model commoditisation reducing demand for Watsonx premium tools","Debt $66.4B post-Confluent — rising rates increase financing cost"],
-    valuation:'IBM at ~$214 trades at 22-23x CY2026 non-GAAP EPS ~$10.80. FCF yield ~5.5%. Dividend yield ~3.0%. PEG ~1.5x. PT $250 base = 23x FY2026E EPS.',
-    ptBullCase:'$290. Software 12%+ FY2026. Consulting 5%+ H2. Confluent ahead of plan. EPS ~$11.50. 26x = $299.',
-    ptBaseCase:'$250. Software 10% on guide. Consulting 3-4%. FCF $13.5B+. EPS ~$10.80. 23x = $248.',
-    ptBearCase:'$175. Consulting stalls <2%. Software misses. EPS $9.50. 18x = $171.',
-    thesis:'IBM is executing a credible transformation into a software-led hybrid cloud and enterprise AI platform. Q1 FY2026 confirmed: software 10%+, FCF decade-best, GenAI backlog $12.5B+. The -6% post-earnings pullback to ~$214 offers better risk/reward. Regulated enterprises need IBM hybrid AI — this TAM is insulated from hyperscaler competition. BUY · PT $250.',
-    segments:[{n:'Software',v:'$7.05B',g:'+11%'},{n:'Consulting',v:'$5.27B',g:'+4%'},{n:'Infrastructure',v:'$3.33B',g:'+15%'},{n:'Financing',v:'$0.22B',g:'+15%'}],
-    revHistory:[14.54,15.76,15.97,19.65,15.92], revLabels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26'],
-    epsHistory:[1.60,2.15,2.30,4.52,1.91],
-  },
-  {
-    id:'nvda-q1-2026', co:'NVIDIA Corporation', sym:'NVDA', q:'Q1 FY2026', flag:'🇺🇸', sector:'Technology', cat:'semi', emoji:'🎮',
-    rev:'$44.1B', revGr:'+69%', eps:'$0.96', epsGr:'+72%', gm:'78.4%', gmN:'Non-GAAP +180bps YoY', ocf:'$26.1B', ocfN:'+84% YoY',
-    ebitda:'$26.8B', netInc:'$18.8B', cash:'$34.8B', date:'May 22, 2026', beatMiss:'Beat', rating:'Strong Buy', pt:'$1,400', ptBull:'$1,800', ptBear:'$700',
-    summary:'NVIDIA delivered another blockbuster quarter. Revenue $44.1B (+69% YoY) beat consensus $42.8B by $1.3B. Non-GAAP EPS $0.96 (+72% YoY) beat $0.91 consensus by $0.05. Data Center revenue $39.1B (+73% YoY). Non-GAAP gross margin 78.4% (+180bps YoY). Q2 guidance $45.0B beat consensus $43.8B. CEO Huang: Blackwell demand is "insane".',
-    execSummary:'NVIDIA reported a near-perfect Q1 FY2026 — every metric beat consensus, guidance exceeded expectations. Data Center at $39.1B (+73% YoY) confirms the AI super-cycle is intact and broadening. Blackwell GPU shipments are ahead of schedule. Non-GAAP gross margin at 78.4% expanded 180bps YoY — extraordinary pricing power. CUDA ecosystem with 4M+ developers creates switching costs that hardware competition cannot overcome. Rating: STRONG BUY · PT $1,400.',
-    revenueGrowthAnalysis:'Data Center at $39.1B (+73% YoY, 89% of revenue) dominates. Blackwell architecture ramping across all hyperscalers simultaneously. Gaming $3.8B (+18%) benefited from PC refresh cycle. Automotive $0.6B (+72%) reflects DRIVE platform adoption. Non-GAAP gross margin 78.4% (+180bps YoY) confirms extraordinary pricing power — NVIDIA charges premium prices because the hardware ecosystem is irreplaceable near-term.',
-    segmentAnalysis:'Data Center (89%): $39.1B +73% YoY — Blackwell H200 and NVLink driving hyperscaler demand. Gaming (9%): $3.8B +18% — Ada Lovelace refresh. Professional Viz (1%): $0.5B +45%. Automotive (1%): $0.6B +72% — DRIVE Orin ramp. Networking growing alongside GPU revenue.',
-    industryAnalysis:'Hyperscaler combined 2026 capex $470B+. AI inference market growing faster than training as models deploy at scale. CUDA ecosystem — 4M+ developers, 650+ applications — creates switching costs taking years to overcome. Custom silicon (Google TPU, AWS Trainium) is gaining but serves as complement not substitute for 80%+ of AI workloads near-term.',
-    guidanceAnalysis:'Q2 FY2026 guidance: Revenue $45.0B (±2%) beats consensus $43.8B by $1.2B (+3%). Non-GAAP gross margin ~78.5%. Non-GAAP OpEx ~$4.0B. Management noted supply, not demand, remains the constraint. FY2026 annualised revenue run-rate approaching $175B+ based on Q2 guide.',
-    mgmtPositive:["CEO Huang: Blackwell demand is insane — every major cloud provider scaling simultaneously at unprecedented pace","Blackwell supply constrained not demand-constrained — backlog extends into FY2027","CUDA ecosystem 4M+ developers creates deep switching costs — software is eating AI infrastructure","Q2 guidance beat consensus by 3% — demand visibility beyond current quarter","Networking growing in lockstep with GPU sales — full AI factory concept gaining traction"],
-    mgmtNegative:["China export restrictions limit TAM — Huawei Ascend gaining share in Chinese market permanently","Gross margin sustainability questioned — 78.4% may be peak as mix shifts toward Ethernet networking","Custom silicon risk acknowledged — TPU, Trainium threat growing over time","Supply chain: TSMC CoWoS packaging tight, yield issues would disrupt shipments"],
-    bullPoints:["Data Center TAM expanding — hyperscaler combined 2026 capex $470B+, every dollar flows through NVIDIA first","Blackwell ahead of schedule — supply constraint means demand is real, not pull-forward","Gross margin 78.4% — highest in history, demonstrates pricing power commoditised makers cannot match","CUDA ecosystem 4M+ developers, 650+ applications — multi-year switching cost moat","Software monetisation beginning — NVIDIA AI Enterprise growing, recurring revenue from install base","Automotive DRIVE: $14B design win pipeline provides long-duration visibility beyond AI training cycle"],
-    bearPoints:["China export restrictions permanently limit ~10% of TAM — not reversible under current policy","Valuation 35x+ forward P/E prices significant perfection — any miss violent","Custom silicon threat: Google, Amazon, Meta investing heavily in proprietary AI accelerators","Customer concentration: top 5 hyperscalers ~87% of Data Center revenue","DeepSeek-style efficiency improvements could reduce GPU intensity per model parameter"],
-    nearRisks:["Hyperscaler capex guidance reduction — any public cut from top 5 customers directly pressures revenue","Export control escalation — further restrictions on Blackwell architecture would impair TAM","TSMC CoWoS packaging yield issues would delay Blackwell shipments and miss revenue guidance"],
-    longRisks:["Custom silicon proliferation — Google TPU, AWS Trainium, Meta MTIA maturing over 5 years","AI model efficiency improvements — fewer FLOPs per capability unit could plateau GPU demand","Software competition — AMD ROCm, Intel oneAPI gaining developer adoption over time"],
-    valuation:'NVDA at ~$1,124 trades at ~35x FY2026E non-GAAP EPS $3.68. NTM EV/Revenue ~11.7x. PEG ~0.7x on 50%+ growth — inexpensive vs growth rate. Consensus: $1,350 avg PT, 22 buys, 4 holds, 0 sells.',
-    ptBullCase:'$1,800. FY2026 revenue $180B+. Gross margin 80%+. EPS $4.80. 40x FY2026E EPS. Trigger: New sovereign AI deals, automotive wins, software monetisation.',
-    ptBaseCase:'$1,400. FY2026 revenue $170B+. EPS $4.20. 38x FY2027E EPS = $159, or 12x EV/Revenue on $175B = $1,400.',
-    ptBearCase:'$700. AI capex cycle inflects. Revenue growth decelerates to 20%. EPS $3.00. 25x on lower growth = $750. Custom silicon displaces GPU in training.',
-    thesis:'NVIDIA is the operating system of AI infrastructure. CUDA network effects, Blackwell performance leadership, and NVLink ecosystem create a platform moat taking years to erode. Not cheap on headline multiples but inexpensive on growth-adjusted basis (PEG 0.7x). Primary risk is a capex cycle inflection not visible in current bookings. STRONG BUY · PT $1,400.',
-    segments:[{n:'Data Center',v:'$39.1B',g:'+73%'},{n:'Gaming',v:'$3.8B',g:'+18%'},{n:'Professional Viz',v:'$0.5B',g:'+45%'},{n:'Automotive',v:'$0.6B',g:'+72%'}],
-    revHistory:[13.5,18.1,22.1,26.0,30.0,35.1,44.1], revLabels:['Q2 FY24','Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q1 FY26'],
-    epsHistory:[0.44,0.68,0.78,0.61,0.68,0.81,0.96],
-  },  {
-    id:'msft-q3-2026', co:'Microsoft Corporation', sym:'MSFT', q:'Q3 FY2026', flag:'🇺🇸', sector:'Cloud & AI', cat:'cloud', emoji:'🪟',
-    rev:'$61.9B', revGr:'+15%', eps:'$3.46', epsGr:'+18%', gm:'70.1%', gmN:'GAAP Gross Margin', ocf:'$24.1B', ocfN:'+22% YoY',
-    ebitda:'$29.4B', netInc:'$25.8B', cash:'$78.4B', date:'April 30, 2026', beatMiss:'Beat', rating:'Strong Buy', pt:'$510', ptBull:'$620', ptBear:'$340',
-    summary:'Microsoft crushed estimates. Azure accelerated to +35% CC — fastest since 2022. Copilot M365 reached 30M paid seats. Operating margin 47.1% expanded despite heavy AI investment. Q4 guidance $68.1-69.1B exceeded consensus $67.4B. Azure OpenAI used by 65% of Fortune 500.',
-    execSummary:'Microsoft delivered a strong beat across all segments. Azure reacceleration to 35% CC is the key positive surprise — genuine enterprise cloud migration momentum plus AI. Copilot M365 at 30M paid seats demonstrates real commercial adoption. Operating margin 47.1% expanding despite $18B/quarter AI capex is extraordinary. Rating: STRONG BUY · PT $510.',
-    revenueGrowthAnalysis:'Azure reaccelerating to 35% CC (from 31% in Q2) is the standout. AI services contributed ~12pp of Azure growth. M365 Commercial +13% driven by E5 suite upgrades and Copilot attachment. Gaming solid post-Activision. Revenue beat driven by Azure strength and Copilot early monetisation.',
-    segmentAnalysis:'Intelligent Cloud (Azure): $26.8B +21% reported (+35% CC) — AI services 12pp of growth. Productivity (M365): $20.4B +12% — E5 and Copilot driving ASP expansion. Gaming: $6.4B +8%. LinkedIn: $4.2B +9%.',
-    industryAnalysis:'Enterprise cloud migration accelerating not decelerating. AI is incremental to base cloud spend. Microsoft is best positioned with both cloud infrastructure (Azure) and AI application layer (Copilot, GitHub). Total enterprise AI software market $150B+ by 2030.',
-    guidanceAnalysis:'Q4 FY2026: Revenue $68.1-69.1B (vs consensus $67.4B — beat $700M-$1.7B). Azure 34-35% CC sustained. Operating margin ~47%. Management not seeing demand saturation in Azure.',
-    mgmtPositive:['CEO Nadella: Every layer of the stack is being transformed by AI — Azure OpenAI used by 65% of Fortune 500','Azure reacceleration to 35% CC — we expect this pace to continue','Copilot M365 30M paid seats — fastest enterprise software ramp in company history','GitHub Copilot 2M+ enterprise subscribers','FCF $24.1B — self-funding entire AI capex programme without dilution'],
-    mgmtNegative:['OpenAI dependency and relationship complexity — investor and competitor simultaneously','EU antitrust scrutiny on M365/Teams bundling','Gaming margin suppressed post-Activision integration','China revenue declining — geopolitical exposure'],
-    bullPoints:['Azure 35% CC with AI contributing 12pp — reacceleration is structural','Copilot M365 30M paid seats at $30/seat/month = $10.8B ARR run-rate','Operating leverage at 47.1% margin despite $18B/quarter AI investment','65% Fortune 500 on Azure OpenAI — switching costs compound as workflows rebuilt on MSFT AI','FCF yield ~3.5% + $60B buyback programme supports per-share metrics'],
-    bearPoints:['Valuation 31x FY26E P/E with 15% revenue growth — high expectations','OpenAI partnership complexity — billions invested in potential competitor','EU and DOJ scrutiny of cloud bundling could force changes to M365 Teams bundle','Capex $80B+ for 2026 — if AI revenue disappoints this becomes a P&L problem'],
-    nearRisks:['Azure below 30% CC in Q4 would signal AI momentum fading','Copilot churn rate — 30M seats but retention data unavailable','Capex escalation if AI revenue monetisation lags'],
-    longRisks:['Custom model proliferation reduces Azure OpenAI moat','AWS rebound eating into Azure market share gains','EU regulatory forced unbundling of M365 suite'],
-    valuation:'MSFT at $442 trades at 31x FY26E non-GAAP EPS $13.86. NTM EV/Revenue ~12x. FCF yield ~3.5%. PT $510 = 34x FY27E EPS $15.80.',
-    ptBullCase:'$620. Azure sustains 35%+ growth through FY27. Copilot reaches 20% of M365 base. Op margin 50%+. EPS $17.50 × 38x.',
-    ptBaseCase:'$510. Azure sustains 32-35% CC. Copilot 60M seats by FY27. Op margin ~47-48%. FY27E EPS $15.80 × 34x.',
-    ptBearCase:'$340. Azure decelerates to 20% CC. Copilot churn high. Op margin 44%. EPS $13.50 × 26x.',
-    thesis:'Microsoft is the only company with cloud infrastructure scale (Azure) AND AI application layer (M365 Copilot, GitHub) to monetise the AI wave end-to-end. 30M Copilot seats in year one is extraordinary. STRONG BUY · PT $510.',
-    segments:[{n:'Azure Cloud',v:'$26.8B',g:'+35% CC'},{n:'Productivity M365',v:'$20.4B',g:'+12%'},{n:'Gaming Xbox',v:'$6.4B',g:'+8%'},{n:'LinkedIn',v:'$4.2B',g:'+9%'}],
-    revHistory:[56.5,57.4,61.0,65.6,56.5,57.4,61.9], revLabels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
-    epsHistory:[2.94,2.95,3.30,3.23,2.94,2.95,3.46],
-  },
-  {
-    id:'aapl-q1-2026', co:'Apple Inc.', sym:'AAPL', q:'Q1 FY2026', flag:'🇺🇸', sector:'Consumer Tech', cat:'con', emoji:'🍎',
-    rev:'$95.4B', revGr:'+4.1%', eps:'$1.65', epsGr:'+8.9%', gm:'46.9%', gmN:'GAAP +180bps YoY', ocf:'$30.2B', ocfN:'+12% YoY',
-    ebitda:'$34.2B', netInc:'$24.8B', cash:'$145B', date:'May 2, 2026', beatMiss:'Beat', rating:'Buy', pt:'$248', ptBull:'$310', ptBear:'$160',
-    summary:'Apple beat on Services ($26.3B record, +13.8% YoY) and iPhone outperformed in India (+22% YoY). Apple Intelligence features accelerating upgrade cycle. Gross margin 46.9% near all-time highs. $110B buyback announced. China revenue -8% YoY remains the key headwind.',
-    execSummary:'Apple delivered a clean beat driven by record Services revenue ($26.3B, 75%+ gross margin) and better-than-expected iPhone performance in emerging markets. Apple Intelligence is beginning to pull forward the upgrade cycle. Gross margin 46.9% demonstrates platform pricing power. China overhang persists (-8% YoY) but becoming a smaller share. Rating: BUY · PT $248.',
-    revenueGrowthAnalysis:'Services at $26.3B (+13.8% YoY) approaching 28% of revenue with 75%+ gross margins — the structural gross margin expansion engine. iPhone $69.1B (+2.1%) outperformed driven by India +22%. China -8% drag. Apple Intelligence features anecdotally driving upgrade interest — upgrade cycle pull-forward is the key FY2027 thesis.',
-    segmentAnalysis:'iPhone (72%): $69.1B +2.1% — US and India strong, China -8%. Services (28%): $26.3B +13.8% — record. Mac: $7.9B +6.2%. iPad: $6.0B +8.1%. Wearables: $12.1B -3.1%.',
-    industryAnalysis:'Global smartphone market growing 3-5% annually but Apple growing ASP through mix-shift to Pro. Services is the structural growth driver — 2.2B+ device installed base creates recurring monetisation. Apple Intelligence is the near-term catalyst for next major iPhone upgrade super-cycle.',
-    guidanceAnalysis:'Q2 FY2026: Revenue $94-98B (vs consensus $96B — in-line). Gross margin 46.5-47.5%. Services growth guided at ~13-14% YoY. $110B buyback announced — largest in company history.',
-    mgmtPositive:['CEO Cook: Apple Intelligence generating significant interest in iPhone upgrades, especially older devices','Services $26.3B record — never had stronger engagement with Apple ecosystem','India iPhone +22% YoY — one of our fastest growing markets globally','Gross margin 46.9% near all-time high — Services mix-shift benefit','$110B buyback — largest single announcement in Apple history'],
-    mgmtNegative:['China -8% YoY — Cook acknowledged continued challenges in Greater China','Vision Pro below sales trajectory — still in early adopter phase','Wearables -3.1% — Apple Watch plateau acknowledged','Antitrust risk on App Store — EU DMA and DOJ case ongoing'],
-    bullPoints:['Services $26.3B record with 75%+ gross margin — mix-shift is structural gross margin expansion engine','Apple Intelligence upgrade cycle: 1.3B iPhone users on pre-AI models — 10% upgrading = 130M unit tailwind','India: 1.4B population, <5% iPhone penetration — decade-long secular growth opportunity','$110B buyback + dividend: ~4% total capital return yield provides meaningful floor','Gross margin 46.9% — can reach 50% by 2028 if Services trajectory holds'],
-    bearPoints:['China -8% YoY — Huawei market share recovery is real and ongoing, TAM structurally impaired','iPhone unit growth +2.1% — hardware near-zero, bull case depends entirely on Services and ASP','App Store antitrust risk — EU DMA forced sideloading, US DOJ case could force similar changes','Vision Pro investment without clear revenue path — $3,499 device, limited ecosystem','Valuation 28x forward P/E for 4% revenue growth — expensive on growth-adjusted basis'],
-    nearRisks:['China further deterioration — any worsening US-China relations directly impairs $15-20B annual revenue','Apple Intelligence adoption disappoints — if upgrade cycle does not materialise iPhone stays at +2%','App Store regulatory enforcement — EU penalties or US settlement reduces Services margin'],
-    longRisks:['Structural China challenge — Huawei premium smartphone share shift permanent','Services antitrust forced open access would reduce App Store commissions from 30% to 5-10%','Apple Intelligence competitive parity — Google Gemini, Samsung Galaxy AI catching up'],
-    valuation:'AAPL at $209 trades at 28x FY26E EPS $7.48. NTM P/E 28x. EV/Sales ~8x. FCF yield ~3.6%. PT $248 = 30x FY27E EPS $8.20.',
-    ptBullCase:'$310. iPhone units +12% FY2027. Services grows 18%+. Gross margin 49%+. EPS $9.50 × 35x FY2027.',
-    ptBaseCase:'$248. Services 13-14%. iPhone +4-5% FY2027. Gross margin ~47%. EPS $8.20 × 30x premium.',
-    ptBearCase:'$160. China deteriorates. iPhone flat. App Store forced open. Services margin 65%. EPS $6.50 × 26x.',
-    thesis:'Apple bull case: Services flywheel at 13%+ growth, Apple Intelligence as next iPhone upgrade cycle catalyst, India as decade-long expansion. Franchise quality justifies premium multiple. BUY · PT $248.',
-    segments:[{n:'iPhone',v:'$69.1B',g:'+2.1%'},{n:'Services',v:'$26.3B',g:'+13.8%'},{n:'Mac',v:'$7.9B',g:'+6.2%'},{n:'Wearables',v:'$12.1B',g:'-3.1%'}],
-    revHistory:[90.8,94.9,95.4,91.0,90.8,94.9,95.4], revLabels:['Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY25b','Q1 FY26'],
-    epsHistory:[1.46,1.53,1.52,1.40,1.42,1.53,1.65],
-  },
-  {
-    id:'amzn-q1-2026', co:'Amazon.com Inc.', sym:'AMZN', q:'Q1 2026', flag:'🇺🇸', sector:'Cloud & E-Commerce', cat:'cloud', emoji:'📦',
-    rev:'$155.7B', revGr:'+13%', eps:'$1.59', epsGr:'+61%', gm:'50.2%', gmN:'Consolidated Gross Margin', ocf:'$42.5B', ocfN:'+35% YoY',
-    ebitda:'$28.9B', netInc:'$17.1B', cash:'$88B', date:'May 1, 2026', beatMiss:'Beat', rating:'Buy', pt:'$245', ptBull:'$310', ptBear:'$145',
-    summary:'Amazon delivered strong Q1 2026. AWS reaccelerated to +21% growth. Operating income hit a record $18.4B (11.8% margin). Advertising +19%. EPS $1.59 grew 61% YoY as high-margin businesses scale. Q2 operating income guided $13.0-17.5B — wide range reflecting capex timing.',
-    execSummary:'Amazon Q1 2026 strong across the board: AWS +21% (reaccelerating), Advertising +19%, record operating margin 11.8%. EPS grew 61% YoY. The slight cloud: Q2 operating income guidance $13.0-17.5B with a wide range reflecting $105B+ 2026 capex investment timing. Rating: BUY · PT $245.',
-    revenueGrowthAnalysis:'AWS reacceleration to 21% (from 18% in Q4 2025) is the key positive — confirms industry AI cloud demand trend. Advertising $13.8B (+19%) is the highest-margin business at ~75%+ operating margins. North America retail margin expansion from fulfillment automation. Revenue growing 13% while operating income grew 21% and EPS grew 61% — operational leverage story.',
-    segmentAnalysis:'AWS (19% of rev): $29.3B +21% YoY — Bedrock, SageMaker, Trainium adoption growing. Advertising (9%): $13.8B +19% — Prime Video ads just beginning. North America Retail (60%): $92.9B +10%. International (22%): $34.0B +9%.',
-    industryAnalysis:'Cloud hyperscaler market growing 20-25% annually, AI incremental to base workloads. AWS has 31% market share. Amazon Bedrock provides multi-model AI Switzerland positioning. Trainium reduces GPU dependency for training. Advertising TAM enormous — Prime Video ads just launched.',
-    guidanceAnalysis:'Q2 2026: Revenue $159-164B (vs consensus $160.4B — in-line). Operating income $13.0-17.5B wide range. $105B capex planned for 2026 — largest absolute commitment by any company. AWS demand signals described as strong and continuing.',
-    mgmtPositive:['CEO Jassy: AWS demand strong and broad-based — every enterprise in some phase of AI adoption','AWS +21% — AI workloads becoming meaningful contributor to growth','Operating margin 11.8% — record for Amazon, demonstrating retail leverage and mix shift','Advertising $13.8B +19% — Prime Video ads just launched, significant incremental opportunity','Trainium cost savings — custom silicon giving meaningful cost advantages vs GPU-only architectures'],
-    mgmtNegative:['Q2 operating income guided $13-17.5B — very wide range signals uncertainty','$105B 2026 capex — largest absolute dollar commitment by any company, FCF pressured 2-3 years','Retail competition from Temu, Shein intensifying in value segments','International losses continue despite improvement'],
-    bullPoints:['AWS +21% reaccelerating with AI as incremental workload — not substituting existing cloud, adding to it','Advertising 19% growth — Prime Video ads are year-one revenue with multi-year monetisation runway','Record operating margin 11.8% — retail at 8%+ margins creates enormous operating income upside','Bedrock multi-model AI platform — Switzerland positioning among Claude, GPT, Llama','Trainium cost advantage: reducing GPU cost 30-40% enabling competitive pricing without margin sacrifice'],
-    bearPoints:['$105B 2026 capex — returns materialise in 2-3 years, FCF substantially negative 2026-27','AWS +21% strong but below Azure +35% CC — relative share question','Wide Q2 operating income range $13-17.5B — low end implies significant margin compression','International still loss-making despite improvement','Retail competitive pressure from Temu/Shein at low end, Walmart/Target at mid-range'],
-    nearRisks:['Q2 operating income below $13B would confirm margin investment weighing heavily','AWS growth deceleration to 18% would signal AI workload contribution one-time not recurring','International losses widening in emerging markets macro downturn'],
-    longRisks:['Regulatory: antitrust scrutiny on AWS bundling and marketplace practices','Retail margin ceiling at 8-10% — future growth must come from AWS and advertising','Custom chip commoditisation if Trainium success replicated by Azure and GCP'],
-    valuation:'AMZN at $213 trades at ~34x FY2026E EPS $6.50. EV/EBITDA ~22x. FCF yield weak 2026-27 due to capex. Sum-of-parts: AWS $150B+ revenue at 35%+ margins by 2028. PT $245.',
-    ptBullCase:'$310. AWS reaches 25%+ sustained. Advertising hits $20B FY2027. Retail margins 9%+. FY2028E EPS $11 × 30x.',
-    ptBaseCase:'$245. AWS sustains 20-22%. Advertising 15-18%. FY2027E EPS $8.50 × 30x = $255 adjusted for capex cycle.',
-    ptBearCase:'$145. AWS decelerates to 15%. Retail fails to hold margin. EPS $4.50 × 32x = $144.',
-    thesis:'Amazon has three high-quality compounding engines: AWS (cloud), Advertising (high-margin media), Retail (logistics moat). Capex supercycle creates near-term FCF headwind but positions AWS for 20%+ sustained growth. BUY · PT $245.',
-    segments:[{n:'AWS',v:'$29.3B',g:'+21%'},{n:'Advertising',v:'$13.8B',g:'+19%'},{n:'North America',v:'$92.9B',g:'+10%'},{n:'International',v:'$34.0B',g:'+9%'}],
-    revHistory:[143.3,148.0,155.7,158.0,143.3,148.0,155.7], revLabels:['Q2 25','Q3 25','Q4 25','Q1 26E','Q2 25b','Q3 25b','Q1 26'],
-    epsHistory:[1.43,1.86,1.59,1.70,1.43,1.86,1.59],
-  },
-];
+// earningsData loaded from data.json
+let earningsData = [];
+let filteredE    = [];
+
+// ── Load earnings from data.json ─────────────────
+async function buildEarnings() {
+  try {
+    const res  = await fetch('data.json?v=' + Date.now());
+    if (!res.ok) throw new Error('data.json not found');
+    const json = await res.json();
+
+    earningsData = (json.earnings || []).map(e => ({
+      id:          e.id,
+      co:          e.co          || '',
+      sym:         e.ticker      || '',
+      q:           e.q           || '',
+      flag:        e.flag        || '🇺🇸',
+      sector:      e.sector      || '',
+      cat:         e.cat         || 'tech',
+      emoji:       e.emoji       || '📊',
+      rev:         e.rev         || '',
+      revGr:       e.revGr       || '',
+      eps:         e.eps         || '',
+      epsGr:       e.epsGr       || '',
+      gm:          e.gm          || '',
+      gmN:         e.gmN         || '',
+      ocf:         e.ocf         || '',
+      ocfN:        e.ocfN        || '',
+      ebitda:      e.ebitda      || '',
+      netInc:      e.netInc      || '',
+      cash:        e.cash        || '',
+      date:        e.date        || '',
+      beatMiss:    e.beatMiss    || 'Beat',
+      rating:      e.rating      || 'Buy',
+      pt:          e.pt          || '',
+      ptBull:      e.ptBull      || '',
+      ptBear:      e.ptBear      || '',
+      summary:     e.summary     || '',
+      execSummary: e.execSummary || e.summary || '',
+      revenueGrowthAnalysis: e.revenueGrowthAnalysis || '',
+      segmentAnalysis:       e.segmentAnalysis       || '',
+      industryAnalysis:      e.industryAnalysis      || '',
+      guidanceAnalysis:      e.guidanceAnalysis      || '',
+      mgmtPositive:  e.mgmtPositive  || [],
+      mgmtNegative:  e.mgmtNegative  || [],
+      bullPoints:    e.bullPoints     || [],
+      bearPoints:    e.bearPoints     || [],
+      nearRisks:     e.nearRisks      || [],
+      longRisks:     e.longRisks      || [],
+      valuation:     e.valuation      || '',
+      ptBullCase:    e.ptBullCase     || '',
+      ptBaseCase:    e.ptBaseCase     || '',
+      ptBearCase:    e.ptBearCase     || '',
+      thesis:        e.thesis         || '',
+      segments:      (e.segments||[]).map(s=>({n:s.n||s.name,v:s.v||s.val,g:s.g||s.growth})),
+      revHistory:    e.revHistory     || [],
+      revLabels:     e.revLabels      || [],
+      epsHistory:    e.epsHistory     || [],
+    }));
+
+    filteredE = [...earningsData];
+    document.getElementById('earn-count').textContent =
+      `${earningsData.length} reports · Powered by data.json`;
+    renderEFeatured(filteredE[0]);
+    renderECards(filteredE.slice(1));
+
+  } catch(err) {
+    document.getElementById('earn-count').textContent = 'Error loading data.json';
+    console.error('Earnings load error:', err);
+  }
+}
+
 
 const econData = {
   macro: {
@@ -1808,142 +1808,83 @@ ${tab==='macro'?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px
 // TECHNICAL ANALYSIS
 // ═══════════════════════════════════════════
 // ═══════════════════════════════════════════
-// TECHNICAL ANALYSIS — Google Sheets Reader
+// TECHNICAL ANALYSIS — data.json Reader
 // ═══════════════════════════════════════════
-// Reads from Google Sheets published as CSV
-// Sheet URL set in EQUILENS_TA_SHEET_URL env
-// or hardcoded below in taSheetUrl
-
-const taSheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQSNp4ByyMaSfeHJPMEu_A9AFCOyvoGdqB86Zr_hHlCZvKcIoHr2OVUbcnsqziA3jCTDa18gihW6r4H/pub?gid=0&single=true&output=csv';
-// Instructions to get this URL:
-// 1. Open your Google Sheet
-// 2. File → Share → Publish to web
-// 3. Select your TA sheet tab
-// 4. Choose "Comma-separated values (.csv)"
-// 5. Click Publish → Copy the URL → Paste above
-
 let taPosts     = [];
 let taFilterSig = 'all';
 let taSearchQ   = '';
 
-// ── Init ────────────────────────────────────
 function buildTa() {
-  // Market context sidebar
   const mktEl = document.getElementById('ta-mkt-ctx');
   if (mktEl) mktEl.innerHTML = mktCtx.map(m =>
     `<div class="ta-quick-item"><span>${m.lbl}</span><span class="${m.up?'up':'dn'}" style="font-family:var(--fm)">${m.val} <small>${m.up?'▲':'▼'}${m.chg}</small></span></div>`
   ).join('');
-  taFetchFromSheets();
+  taLoadFromJson();
 }
 
-// ── Fetch from Google Sheets CSV ────────────
-async function taFetchFromSheets() {
+async function taLoadFromJson() {
   const loadEl  = document.getElementById('ta-loading');
   const errEl   = document.getElementById('ta-error');
   const emptyEl = document.getElementById('ta-empty-state');
   const statsEl = document.getElementById('ta-stats-strip');
-  const filterEl= document.getElementById('ta-filter-bar');
 
   loadEl.style.display  = 'block';
   errEl.style.display   = 'none';
   emptyEl.style.display = 'none';
   statsEl.style.display = 'none';
 
-  if (!taSheetUrl || taSheetUrl.includes('PASTE_YOUR')) {
-    loadEl.style.display = 'none';
-    errEl.style.display  = 'block';
-    document.getElementById('ta-error-msg').textContent =
-      'Google Sheet not connected yet. See setup instructions below.';
-    document.getElementById('ta-last-updated').textContent = 'Not connected';
-    taShowSetupGuide();
-    return;
-  }
-
   try {
-    // Add cache-bust so new rows appear without hard refresh
-    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(taSheetUrl);
-    const res = await fetch(proxyUrl);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const csv  = await res.text();
-    taPosts    = taParseCsv(csv);
+    const res  = await fetch('data.json?v=' + Date.now());
+    if (!res.ok) throw new Error('data.json not found');
+    const json = await res.json();
+    const raw  = json.technical_analysis || [];
 
-    loadEl.style.display   = 'none';
-    statsEl.style.display  = 'flex';
+    taPosts = raw.map((r, i) => ({
+      id:          r.id          || i+1,
+      date:        r.date        || '',
+      ticker:      (r.ticker     || '').toUpperCase(),
+      company:     r.company     || '',
+      signal:      r.signal      || 'watch',
+      tf:          r.timeframe   || r.tf || '',
+      pattern:     r.pattern     || '',
+      indicators:  r.indicators  || '',
+      quote:       r.quote       || '',
+      s1:          r.support1    || r.s1 || '',
+      s2:          r.support2    || r.s2 || '',
+      entry:       r.entry       || '',
+      r1:          r.resistance1 || r.r1 || '',
+      r2:          r.resistance2 || r.r2 || '',
+      target:      r.target      || '',
+      stop:        r.stop        || '',
+      rr:          r.rr          || '',
+      analysis:    r.analysis    || '',
+      buyReasons:  r.buy_reasons || r.buyReasons || '',
+      sellReasons: r.sell_reasons|| r.sellReasons|| '',
+      images:      [r.image1,r.image2,r.image3].filter(Boolean),
+      video:       taToEmbed(r.video || ''),
+      tags:        Array.isArray(r.tags)?r.tags:(r.tags||'').split(',').map(t=>t.trim()).filter(Boolean),
+      created:     r.date        || '',
+    })).filter(p => p.ticker);
+
+    loadEl.style.display  = 'none';
+    statsEl.style.display = 'flex';
 
     if (!taPosts.length) {
       emptyEl.style.display = 'block';
-      document.getElementById('ta-last-updated').textContent = 'Sheet connected — 0 rows yet';
+      document.getElementById('ta-last-updated').textContent = 'data.json connected — add analyses';
       return;
     }
 
     const now = new Date().toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
-    document.getElementById('ta-last-updated').textContent = `${taPosts.length} analyses · Updated ${now}`;
+    document.getElementById('ta-last-updated').textContent = `${taPosts.length} analyses · ${now}`;
     taRenderAll();
 
   } catch(err) {
     loadEl.style.display = 'none';
     errEl.style.display  = 'block';
-    document.getElementById('ta-error-msg').textContent =
-      'Could not load Google Sheet. Check the URL is published as CSV and is publicly accessible. Error: ' + err.message;
-    document.getElementById('ta-last-updated').textContent = 'Connection error';
+    document.getElementById('ta-error-msg').textContent = err.message;
+    document.getElementById('ta-last-updated').textContent = 'Error loading data.json';
   }
-}
-
-// ── Parse CSV → post objects ─────────────────
-// Expected column order (Row 1 = headers, ignored):
-// A: Date | B: Ticker | C: Company | D: Signal | E: Timeframe
-// F: Pattern | G: Indicators | H: Quote | I: Support1 | J: Support2
-// K: Entry | L: Resistance1 | M: Resistance2 | N: Target | O: Stop | P: R/R
-// Q: Analysis | R: BuyReasons | S: SellReasons
-// T: Image1 URL | U: Image2 URL | V: Image3 URL | W: Video URL | X: Tags
-function taParseCsv(csv) {
-  const lines  = csv.split('\n').filter(l => l.trim());
-  const rows   = lines.slice(1); // skip header row
-  return rows.map((line, idx) => {
-    const cols = taCsvLine(line);
-    const sig  = (cols[3] || 'watch').toLowerCase().trim();
-    const tags = (cols[23] || '').split(',').map(t => t.trim()).filter(Boolean);
-    const imgs = [cols[19], cols[20], cols[21]].filter(Boolean).map(s => s.trim());
-    return {
-      id:          idx + 1,
-      date:        cols[0]  || '',
-      ticker:      (cols[1] || '').toUpperCase().trim(),
-      company:     cols[2]  || '',
-      signal:      ['buy','sell','watch','hold'].includes(sig) ? sig : 'watch',
-      tf:          cols[4]  || '',
-      pattern:     cols[5]  || '',
-      indicators:  cols[6]  || '',
-      quote:       cols[7]  || '',
-      s1:          cols[8]  || '',
-      s2:          cols[9]  || '',
-      entry:       cols[10] || '',
-      r1:          cols[11] || '',
-      r2:          cols[12] || '',
-      target:      cols[13] || '',
-      stop:        cols[14] || '',
-      rr:          cols[15] || '',
-      analysis:    cols[16] || '',
-      buyReasons:  cols[17] || '',
-      sellReasons: cols[18] || '',
-      images:      imgs,
-      video:       taToEmbed(cols[22] || ''),
-      tags,
-      created:     cols[0]  || '',
-    };
-  }).filter(p => p.ticker); // skip blank rows
-}
-
-// ── CSV line parser (handles quoted commas) ──
-function taCsvLine(line) {
-  const cols = []; let cur = ''; let inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    if (ch === '"') { inQ = !inQ; continue; }
-    if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; continue; }
-    cur += ch;
-  }
-  cols.push(cur.trim());
-  return cols;
 }
 
 // ── Video URL → embed ────────────────────────
