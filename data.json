@@ -160,5 +160,139 @@
         "IBM"
       ]
     }
+  ],
+  "articles": [
+    {
+      "id": "art-mrvl-2026-05-31",
+      "ticker": "MRVL",
+      "emoji": "\u26a1",
+      "cat": "EQUITY RESEARCH",
+      "tag": "FEATURED",
+      "title": "Marvell Technology \u2014 Custom Silicon $10B+ & Optical Interconnect Leadership: Full Equity Research",
+      "excerpt": "Marvell has completed its transformation into a pure-play AI infrastructure platform. Custom silicon XPU at $10B+ FY29 target anchored in won design commitments, optical interconnect growing >70% in FY27, and NVLink Fusion partnership with NVIDIA. We build a 5-year model and assess whether 56x NTM P/E is justified.",
+      "date": "May 31, 2026",
+      "read_time": "22 min",
+      "author": "Balaji N, CFP",
+      "report_file": "equity-research-MRVL-2026-05-31.html",
+      "rating": "Constructive",
+      "pt": "~$219\u2013$240",
+      "tags": [
+        "MRVL",
+        "Custom Silicon",
+        "Optical Interconnect",
+        "AI",
+        "Semiconductors"
+      ]
+    },
+    {
+      "id": "art-ibm-2026-05-30",
+      "ticker": "IBM",
+      "emoji": "\ud83d\udda5\ufe0f",
+      "cat": "EQUITY RESEARCH",
+      "tag": "DEEP DIVE",
+      "title": "IBM \u2014 Hybrid Cloud & AI Platform: Full Equity Research Report",
+      "excerpt": "IBM's transformation from legacy IT giant to software-led hybrid cloud and AI platform is underway. Software at 44% of revenue, growing 10%+ CC. GenAI book of business $12.5B+. z17 mainframe super-cycle. We analyse the business quality, competitive moat, 5-year revenue model, and whether the 22x P/E premium is justified.",
+      "date": "May 30, 2026",
+      "read_time": "22 min",
+      "author": "Balaji N, CFP",
+      "report_file": "equity-research-IBM-2026-05-30.html",
+      "rating": "Buy",
+      "pt": "$250",
+      "tags": [
+        "IBM",
+        "Hybrid Cloud",
+        "AI",
+        "Software",
+        "Red Hat"
+      ]
+    },
+    {
+      "id": "art-nvda-2026-05-25",
+      "ticker": "NVDA",
+      "emoji": "\ud83c\udfae",
+      "cat": "EQUITY RESEARCH",
+      "tag": "FEATURED",
+      "title": "NVIDIA \u2014 The Operating System of AI Infrastructure: Bull Case, Bear Case & Valuation",
+      "excerpt": "NVIDIA is not a semiconductor company \u2014 it is the operating system of AI infrastructure. CUDA ecosystem with 4M+ developers, Blackwell architecture, and NVLink fabric create a moat that takes years to replicate. We model three scenarios for the stock through FY2028 and explain why PEG 0.7x on 50%+ growth is inexpensive.",
+      "date": "May 25, 2026",
+      "read_time": "25 min",
+      "author": "Balaji N, CFP",
+      "report_file": "equity-research-NVDA-2026-05-25.html",
+      "rating": "Strong Buy",
+      "pt": "$1,400",
+      "tags": [
+        "NVIDIA",
+        "AI",
+        "Semiconductors",
+        "Blackwell",
+        "CUDA"
+      ]
+    },
+    {
+      "id": "art-msft-2026-05-20",
+      "ticker": "MSFT",
+      "emoji": "\ud83e\ude9f",
+      "cat": "EQUITY RESEARCH",
+      "tag": "ANALYSIS",
+      "title": "Microsoft \u2014 Azure + Copilot: Modelling the AI Monetisation Flywheel Through FY2028",
+      "excerpt": "Microsoft owns both the cloud infrastructure layer (Azure, 35% CC growth) and the AI application layer (Copilot M365 at 30M paid seats, GitHub Copilot at 2M+ enterprise). We model the compounding effect and build a sum-of-parts valuation that supports our $510 base target.",
+      "date": "May 20, 2026",
+      "read_time": "20 min",
+      "author": "Balaji N, CFP",
+      "report_file": "equity-research-MSFT-2026-05-20.html",
+      "rating": "Strong Buy",
+      "pt": "$510",
+      "tags": [
+        "Microsoft",
+        "Azure",
+        "Copilot",
+        "Cloud",
+        "AI"
+      ]
+    },
+    {
+      "id": "art-aapl-2026-05-15",
+      "ticker": "AAPL",
+      "emoji": "\ud83c\udf4e",
+      "cat": "EQUITY RESEARCH",
+      "tag": "ANALYSIS",
+      "title": "Apple \u2014 Services Flywheel & Apple Intelligence: The Path to 50% Gross Margin",
+      "excerpt": "Apple Services at $26.3B with 75%+ gross margins is the structural story behind the stock. We model how Apple Intelligence accelerates the iPhone upgrade cycle, India drives the next decade of hardware growth, and the blended gross margin path to 50% by 2028. Is 28x P/E justified?",
+      "date": "May 15, 2026",
+      "read_time": "19 min",
+      "author": "Balaji N, CFP",
+      "report_file": "equity-research-AAPL-2026-05-15.html",
+      "rating": "Buy",
+      "pt": "$248",
+      "tags": [
+        "Apple",
+        "iPhone",
+        "Services",
+        "AI",
+        "India"
+      ]
+    },
+    {
+      "id": "art-amzn-2026-05-10",
+      "ticker": "AMZN",
+      "emoji": "\ud83d\udce6",
+      "cat": "EQUITY RESEARCH",
+      "tag": "ANALYSIS",
+      "title": "Amazon \u2014 Three Compounding Engines: AWS, Advertising & Retail Margin Expansion",
+      "excerpt": "Amazon is not a retailer \u2014 it is three high-quality compounding businesses sharing a logistics backbone. AWS at 21% growth, Advertising at 19%, and retail margins expanding to record 11.8% operating margin. We model the $105B capex supercycle and when FCF recovers.",
+      "date": "May 10, 2026",
+      "read_time": "18 min",
+      "author": "Balaji N, CFP",
+      "report_file": "equity-research-AMZN-2026-05-10.html",
+      "rating": "Buy",
+      "pt": "$245",
+      "tags": [
+        "Amazon",
+        "AWS",
+        "Cloud",
+        "Advertising",
+        "Retail"
+      ]
+    }
   ]
 }
