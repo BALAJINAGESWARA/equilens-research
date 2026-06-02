@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Credo Technology (CRDO) — Equity Research | EquiLens Research</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+:root{
+  --bg:#0a0e14;--p1:#121821;--p2:#1a2230;--p3:#243042;
+  --t1:#e6edf3;--t2:#8b98a9;--t3:#5a6675;
+  --acc:#4da3ff;--pos:#3ad29f;--neg:#ff6b6b;--neu:#f5c451;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--t1);font-family:var(--font);font-size:14px;line-height:1.6;}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 20px 80px;}
+.panel{background:var(--p1);border:1px solid var(--p3);border-radius:10px;padding:22px;margin:16px 0;}
+h1{font-size:26px;font-weight:700;margin:0 0 4px;letter-spacing:-.02em;}
+h2{font-size:16px;font-weight:700;margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+h2::before{content:"";width:3px;height:16px;background:var(--acc);border-radius:2px;flex-shrink:0;}
+h3{font-size:13px;font-weight:700;margin:0 0 8px;}
+p{margin-bottom:9px;color:var(--t2);line-height:1.75;}
+p:last-child{margin-bottom:0;}
+strong{color:var(--t1);}
+ul{padding-left:16px;color:var(--t2);}
+li{padding:3px 0;line-height:1.6;}
+.muted{color:var(--t2);}.faint{color:var(--t3);}
+.pos{color:var(--pos);font-weight:600;}.neg{color:var(--neg);font-weight:600;}.neu{color:var(--neu);}
+.mono{font-family:var(--mono);}
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+th,td{padding:9px 11px;text-align:right;border-bottom:1px solid var(--p3);}
+th:first-child,td:first-child{text-align:left;}
+th{color:var(--t2);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.kpi{background:var(--p2);border:1px solid var(--p3);border-radius:10px;padding:14px 16px;}
+.kpi .lbl{font-size:10px;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.kpi .val{font-size:20px;font-weight:700;font-family:var(--mono);margin-bottom:3px;}
+.kpi .delta{font-size:11.5px;color:var(--t2);}
+.kpi .note{font-size:10.5px;color:var(--t3);margin-top:2px;}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;}
+.p-bull{background:rgba(58,210,159,.15);color:var(--pos);border:1px solid rgba(58,210,159,.3);}
+.p-bear{background:rgba(255,107,107,.15);color:var(--neg);border:1px solid rgba(255,107,107,.3);}
+.p-blue{background:rgba(77,163,255,.13);color:var(--acc);border:1px solid rgba(77,163,255,.3);}
+.p-neu{background:rgba(245,196,81,.15);color:var(--neu);border:1px solid rgba(245,196,81,.3);}
+.p-gray{background:var(--p2);color:var(--t2);border:1px solid var(--p3);}
+.bull{background:rgba(58,210,159,.06);border:1px solid rgba(58,210,159,.2);border-radius:10px;padding:16px;}
+.bear{background:rgba(255,107,107,.06);border:1px solid rgba(255,107,107,.2);border-radius:10px;padding:16px;}
+.bull h3{color:var(--pos);}.bear h3{color:var(--neg);}
+.blist{list-style:none;padding:0;}
+.blist li{padding:5px 0;border-bottom:1px solid var(--p3);font-size:12.5px;color:var(--t2);display:flex;gap:7px;line-height:1.5;}
+.blist li:last-child{border-bottom:none;}
+.snote{font-size:11.5px;color:var(--t3);border-left:2px solid var(--p3);padding-left:9px;margin-bottom:12px;line-height:1.6;}
+.dev-row{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--p3);}
+.dev-row:last-child{border-bottom:none;}
+.dev-date{font-size:11px;color:var(--t3);font-family:var(--mono);width:110px;flex-shrink:0;margin-top:2px;}
+.dev-body{font-size:12.5px;color:var(--t2);line-height:1.6;}
+.dev-body strong{color:var(--t1);}
+.verdict{font-size:20px;font-weight:800;padding:7px 18px;border-radius:10px;display:inline-block;}
+@media(max-width:720px){.g2,.g3,.g4{grid-template-columns:1fr!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="panel" style="background:linear-gradient(135deg,#0d1a2d,#1a2235);">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
+    <div>
+      <div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px;">EquiLens Research · Equity Research · Generated June 2, 2026</div>
+      <h1>Credo Technology Group Holding Ltd</h1>
+      <div style="font-size:13px;color:var(--t2);margin-bottom:10px;">
+        <strong style="color:var(--t1)">CRDO</strong> · NASDAQ · Semiconductors (Fabless) · San Jose, CA · FY ends first Saturday of May
+      </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;">
+        <span class="pill p-bull">AI Cluster Interconnect Leader</span>
+        <span class="pill p-blue">AEC — 1000x Reliability Advantage</span>
+        <span class="pill p-blue">Optical Inflection FY2027</span>
+        <span class="pill p-gray">FY2026 Revenue +218% to $1.3B</span>
+        <span class="pill p-neu">5 Hyperscaler Customers</span>
+      </div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:10px;color:var(--t3);margin-bottom:5px;">Stance</div>
+      <div class="verdict" style="background:rgba(58,210,159,.18);color:var(--pos);">CONSTRUCTIVE</div>
+      <div style="margin-top:8px;font-family:var(--mono);font-size:17px;font-weight:700;">~$197</div>
+      <div style="font-size:11px;color:var(--t3);">Post Q4 FY2026 earnings</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: COMPANY OVERVIEW -->
+<div class="panel">
+  <h2>1. Company Identification &amp; Business Overview</h2>
+  <div class="g2" style="margin-bottom:16px;align-items:start;">
+    <div>
+      <table>
+        <tbody>
+          <tr><td><strong>Legal Name</strong></td><td>Credo Technology Group Holding Ltd</td></tr>
+          <tr><td><strong>Ticker</strong></td><td>NASDAQ: CRDO</td></tr>
+          <tr><td><strong>Sector / Industry</strong></td><td>IT / Semiconductors (Fabless)</td></tr>
+          <tr><td><strong>Fiscal Year</strong></td><td>Ends first Saturday of May</td></tr>
+          <tr><td><strong>Reporting Currency</strong></td><td>USD</td></tr>
+          <tr><td><strong>Market Cap</strong></td><td class="mono">~$39B (June 2, 2026)</td></tr>
+          <tr><td><strong>Shares (diluted)</strong></td><td class="mono">~199M</td></tr>
+          <tr><td><strong>CEO</strong></td><td>Bill Brennan (President &amp; CEO)</td></tr>
+          <tr><td><strong>IPO</strong></td><td>January 2022 · $10/share</td></tr>
+          <tr><td><strong>HQ</strong></td><td>San Jose, California</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p>Credo Technology Group is a <strong>fabless semiconductor company</strong> providing high-speed, secure, and power-efficient connectivity solutions for AI data infrastructure. Founded in 2008 and publicly listed in January 2022, Credo has undergone a rapid transformation from a diversified connectivity supplier into a focused <strong>AI cluster interconnect pure-play</strong>.</p>
+      <p>The company's core product — the <strong>Active Electrical Cable (AEC)</strong> — uses Credo's proprietary SerDes (Serializer/Deserializer) technology to deliver copper-based interconnect with up to 1,000× greater reliability than conventional laser-based optical modules, at lower power consumption. This reliability advantage has driven rapid adoption by hyperscalers building massive AI training clusters where a single cable failure can halt a 100,000-GPU training run.</p>
+      <p>Credo's business model is <strong>fabless</strong>: it designs all products internally but outsources manufacturing to TSMC and other foundries, creating an asset-light, high-gross-margin model when scale is achieved. Revenue has tripled in FY2026 to $1.3B and management guides to another year of 80%+ growth in FY2027.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: BUSINESS ANALYSIS -->
+<div class="panel">
+  <h2>2. Business Analysis</h2>
+  <div class="g2" style="margin-bottom:18px;">
+    <div>
+      <h3>Revenue Model</h3>
+      <ul>
+        <li><strong>Product Revenue (97%):</strong> Chip and cable assembly sales to hyperscalers and cloud operators. Revenue is per-unit shipped × ASP. AEC ASPs are in the low-double-digit dollars per cable (100G); ZeroFlap Optics have three-digit ASPs (vs two-digit for discrete DSP components).</li>
+        <li><strong>IP Licensing (3%):</strong> SerDes IP licensed to custom silicon designers. Recurring but declining as a percentage of total.</li>
+        <li><strong>No subscription recurring revenue</strong> — pure semiconductor product company with typical hyperscaler order-driven revenue profile.</li>
+      </ul>
+      <h3 style="margin-top:14px;">Product Lines</h3>
+      <ul>
+        <li><strong>AEC:</strong> Core revenue driver (~85% of Q4 FY2026 revenue). 100G per lane dominant; 200G per lane emerging. Purple-branded "ZeroFlap" reliability is the key differentiator.</li>
+        <li><strong>Optical ICs / DSPs:</strong> Retimers for optical transceivers; growing. Optical revenue doubled YoY in FY2026.</li>
+        <li><strong>ZeroFlap Optics:</strong> Full optical module product — combines Credo SerDes with optics. Three-digit ASPs. FY2027 major ramp planned.</li>
+        <li><strong>SerDes Chiplets / IP:</strong> Licensed to hyperscaler custom AI chip designers. Small but strategic.</li>
+        <li><strong>PCIe Gen6 AEC:</strong> Extension of AEC to PCIe server connectivity. Production revenue beginning 2026.</li>
+        <li><strong>DustPhotonics (acq. May 2026):</strong> Silicon photonics PICs. Vertical integration of optical manufacturing stack.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Competitive Moat Assessment</h3>
+      <p><strong>Moat Rating: Narrow (building toward Wide)</strong></p>
+      <ul>
+        <li><strong>SerDes technology leadership:</strong> Credo's proprietary SerDes architecture delivers a rare combination of reach, latency, and power efficiency. This is the foundational IP across all products — AEC, optical DSPs, ZeroFlap Optics — creating a deep technical moat that is hard to replicate in 1-2 years.</li>
+        <li><strong>AEC reliability advantage:</strong> 1,000× reliability vs commodity optical modules is a measurable, demonstrable claim — not marketing. For hyperscalers running 100,000+ GPU clusters where downtime costs millions per hour, this creates real switching costs: once qualified, incumbency is durable.</li>
+        <li><strong>Hyperscaler co-development relationships:</strong> Custom AEC designs co-developed with hyperscaler engineering teams create sticky relationships. Switching requires re-qualification — a 6-18 month process that creates inertia favouring Credo.</li>
+        <li><strong>Vertical integration progress:</strong> DustPhotonics acquisition adds PIC manufacturing capability — progressing toward owning SerDes + DSP + PIC + system integration in optical. Competitors cannot easily replicate this vertical stack.</li>
+      </ul>
+      <h3 style="margin-top:14px;">Management Quality</h3>
+      <ul>
+        <li><strong>Bill Brennan (CEO):</strong> Previously held senior roles at Cavium and QLogic. Track record of executing on product roadmap — every quarterly guidance beat by large margins. Has successfully managed the transition from diversified connectivity to AI-focused pure-play.</li>
+        <li><strong>Capital allocation:</strong> DustPhotonics $750M acquisition is the largest commitment. Aggressive but strategically justified. Prior Hyperlume acquisition (FY2025) was smaller and additive.</li>
+        <li><strong>Governance flag:</strong> 124 insider net sell transactions since March 2026 with zero purchases. CTO and other executives sold above the analyst consensus price target. This is a yellow flag worth monitoring.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:10px;">Market Share &amp; Competitive Position</h3>
+  <table>
+    <thead><tr><th>Product</th><th>Credo Position</th><th>Primary Competitors</th><th>Trend</th></tr></thead>
+    <tbody>
+      <tr><td><strong>AEC (100G/200G per lane)</strong></td><td class="pos">Market leader</td><td>Broadcom, InnoLight, Luxtera</td><td class="pos">Gaining share</td></tr>
+      <tr><td><strong>Optical DSPs (50G/100G)</strong></td><td>Significant player</td><td>Marvell, Broadcom, MaxLinear</td><td class="pos">Growing</td></tr>
+      <tr><td><strong>SerDes IP Licensing</strong></td><td>Niche leader</td><td>Synopsys, Cadence, Alphawave</td><td class="neu">Stable</td></tr>
+      <tr><td><strong>ZeroFlap Optics</strong></td><td>Emerging</td><td>InnoLight, Fabrinet ODMs, II-VI</td><td class="neu">Building</td></tr>
+      <tr><td><strong>PCIe Gen6 AEC</strong></td><td>Early mover</td><td>Broadcom, Amphenol</td><td class="pos">Establishing</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 3: KPI ANALYSIS -->
+<div class="panel">
+  <h2>3. Industry KPI Analysis — AI Interconnect Semiconductors (Fabless)</h2>
+  <div class="snote">Key KPIs for fabless AI interconnect semiconductors: revenue growth rate, gross margin trajectory, customer concentration, design win velocity, book-to-bill, and product ASP mix. Sources: SEC 8-K filings, earnings call transcripts (Benzinga, June 1, 2026; Yahoo Finance, June 1, 2026).</div>
+  <div class="g4" style="margin-bottom:18px;">
+    <div class="kpi">
+      <div class="lbl">Revenue CAGR (FY22-FY26)</div>
+      <div class="val pos">+87%</div>
+      <div class="delta">$107M → $1,300M in 4 years</div>
+      <div class="note">FY2026 alone +218% YoY</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Non-GAAP Gross Margin</div>
+      <div class="val">64–68%</div>
+      <div class="delta">Q4 FY26: 64.5% · Q3: 68.6%</div>
+      <div class="note">Long-term target: mid-60% range</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Hyperscaler Customers >10%</div>
+      <div class="val pos">3+</div>
+      <div class="delta">5 total hyperscaler customers</div>
+      <div class="note">Customer 5 contributing initial rev</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">FY2027 Revenue Guide</div>
+      <div class="val pos">>80%</div>
+      <div class="delta">Implies ~$2.3B+ revenue</div>
+      <div class="note">H2 optical inflection key</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Non-GAAP Operating Margin</div>
+      <div class="val">~49%</div>
+      <div class="delta">Q3 FY2026 record</div>
+      <div class="note">Q4 slightly lower — OpEx ahead of optical ramp</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Avg EPS Beat (4 Qtrs)</div>
+      <div class="val pos">+31.6%</div>
+      <div class="delta">Beat every quarter since inflection</div>
+      <div class="note">Beat range: +13.75% to +44.20%</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">R&D as % of Revenue</div>
+      <div class="val">~22%</div>
+      <div class="delta">FY2026 est. ~$280M R&D</div>
+      <div class="note">Declining % as revenue scales rapidly</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Optical Revenue Growth</div>
+      <div class="val pos">2× FY26</div>
+      <div class="delta">Per management guidance</div>
+      <div class="note">FY2027 optical = ~half of incremental growth</div>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>KPI</th><th>Latest</th><th>Year-Ago</th><th>Trend</th><th>Why It Matters</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Revenue Growth YoY</strong></td><td class="pos">+157% (Q4 FY26)</td><td>+179.7% (Q4 FY25)</td><td class="neg">Decelerating from peak</td><td>Growth rate normalising as base grows; still extraordinary at scale</td></tr>
+      <tr><td><strong>Non-GAAP Gross Margin</strong></td><td>64.5% (Q4 FY26)</td><td>67.4% (Q4 FY25)</td><td class="neg">Declining — mix shift</td><td>ZeroFlap optics and ALCs carry lower initial margins; recovers at scale</td></tr>
+      <tr><td><strong>Non-GAAP EPS Growth</strong></td><td class="pos">+194% (Q4 FY26)</td><td>$0.39 (Q4 FY25)</td><td class="pos">Accelerating</td><td>Demonstrates operating leverage as revenue scales</td></tr>
+      <tr><td><strong>Customer Count (10%+)</strong></td><td class="pos">3 (Q4 FY26)</td><td>2–3 (Q4 FY25)</td><td class="pos">Improving</td><td>Diversification reduces single-customer risk; 5 hyperscalers total</td></tr>
+      <tr><td><strong>Cash &amp; Investments</strong></td><td class="pos">$1.3B+</td><td>$380M (Q4 FY25)</td><td class="pos">Strong increase</td><td>ATM equity offering $384.6M + operating cash flow. Funds DustPhotonics.</td></tr>
+      <tr><td><strong>Book-to-bill</strong></td><td>Not disclosed</td><td>—</td><td>—</td><td>CEO commentary suggests "demand and forecasts have strengthened broadly"</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 4: REVENUE ANALYSIS -->
+<div class="panel">
+  <h2>4. Revenue Analysis — 5-Year Trend &amp; Margin Trajectory</h2>
+  <div class="g2" style="margin-bottom:20px;">
+    <div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:8px;">Annual Revenue ($M) — FY2022 to FY2026</div>
+      <canvas id="revChart" height="240"></canvas>
+    </div>
+    <div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:8px;">Quarterly Revenue Run-Rate ($M) — 8 Quarters</div>
+      <canvas id="qRevChart" height="240"></canvas>
+    </div>
+  </div>
+
+  <table style="margin-bottom:16px;">
+    <thead><tr><th>Fiscal Year</th><th>Revenue</th><th>YoY</th><th>Non-GAAP GM</th><th>Non-GAAP EPS</th><th>Key Driver</th></tr></thead>
+    <tbody>
+      <tr><td><strong>FY2022</strong></td><td class="mono">$106.5M</td><td class="muted">n/a base</td><td class="mono">60.7%</td><td class="mono">$0.09</td><td>IC diversified — optical DSPs, retimers</td></tr>
+      <tr><td><strong>FY2023</strong></td><td class="mono">$196.3M</td><td class="pos">+84%</td><td class="mono">60.9%</td><td class="mono">$0.09</td><td>AEC early adoption; IP licensing</td></tr>
+      <tr><td><strong>FY2024</strong></td><td class="mono">$181.3M</td><td class="neg">-8%</td><td class="mono">60.5%</td><td class="mono">$0.10</td><td>Inventory correction; AEC early-stage</td></tr>
+      <tr><td><strong>FY2025</strong></td><td class="mono">$408.3M</td><td class="pos">+125%</td><td class="mono">64.4%</td><td class="mono">$0.78</td><td>AEC hyperscaler inflection — Q3 FY25 breakout</td></tr>
+      <tr><td><strong>FY2026</strong></td><td class="mono pos">$1,300M</td><td class="pos">+218%</td><td class="mono">~66%</td><td class="mono pos">~$3.36 est.</td><td>AEC volume ramp — 5 hyperscaler customers</td></tr>
+      <tr><td><strong>FY2027E</strong></td><td class="mono pos">~$2,300M+</td><td class="pos">>80%</td><td class="mono">Mid-60%</td><td class="mono">~$3.50+</td><td>AEC 200G ramp + Optical inflection H2</td></tr>
+    </tbody>
+  </table>
+
+  <div class="g2">
+    <div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:8px;">Gross Margin Trend (Non-GAAP, %)</div>
+      <canvas id="marginChart" height="200"></canvas>
+    </div>
+    <div>
+      <p style="margin-top:8px;"><strong>Revenue trajectory analysis:</strong> Credo went from $106M in FY2022 to $1.3B in FY2026 — a 12× increase in four fiscal years — driven entirely by AEC adoption in AI hyperscaler clusters. The FY2024 dip (-8%) reflected broader semiconductor inventory correction; the AEC business was growing even then.</p>
+      <p><strong>Gross margin dynamics:</strong> Non-GAAP gross margins have expanded from 60.7% in FY2022 to ~66% in FY2026, reflecting the mix-shift to higher-value AEC and optical products. The Q3→Q4 decline from 68.6% to 64.5% is product mix (ZeroFlap optics and ALC ramp at lower initial margins). Recovery to 67–69% guided in Q1 FY2027 as scale improves optical margins.</p>
+      <p><strong>Operating leverage is real:</strong> Non-GAAP EPS grew from $0.09 in FY2022 to an estimated ~$3.36 in FY2026 — a ~37× increase in EPS on a 12× revenue increase. R&D as a percentage of revenue has declined from ~45% to ~22% as the top line has scaled, creating substantial operating leverage.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: VALUATION -->
+<div class="panel">
+  <h2>5. Valuation Analysis</h2>
+  <div class="snote">All multiples as of ~$197 post-earnings (June 2, 2026). NTM = FY2027 (ending May 2027). Non-GAAP EPS consensus ~$3.50 for FY2027E. Sources: StockAnalysis, MarketBeat, 24/7 Wall St, CNN Markets.</div>
+
+  <div class="g4" style="margin-bottom:18px;">
+    <div class="kpi">
+      <div class="lbl">NTM P/E (non-GAAP)</div>
+      <div class="val">~56x</div>
+      <div class="delta">$197 / FY27E EPS ~$3.50</div>
+      <div class="note">vs pre-earnings ~130x trailing</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">NTM EV/Revenue</div>
+      <div class="val">~9x</div>
+      <div class="delta">EV ~$39B / FY27E ~$2.3B</div>
+      <div class="note">Discount to MRVL at 17x</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">PEG Ratio</div>
+      <div class="val pos">~0.7x</div>
+      <div class="delta">56x P/E / 80% growth</div>
+      <div class="note">Inexpensive vs growth rate</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">IPO Return (Jan 2022)</div>
+      <div class="val pos">+1,870%</div>
+      <div class="delta">$10/share → $197 post-Q4</div>
+      <div class="note">4.5 years since IPO</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:18px;align-items:start;">
+    <div>
+      <h3 style="margin-bottom:10px;">Peer Valuation Table</h3>
+      <table>
+        <thead><tr><th>Company</th><th>Mkt Cap</th><th>NTM P/E</th><th>NTM EV/Rev</th><th>Rev Growth</th></tr></thead>
+        <tbody>
+          <tr style="background:rgba(77,163,255,.06)"><td><strong>CRDO</strong></td><td class="mono">~$39B</td><td class="mono">~56x</td><td class="mono">~9x</td><td class="pos">+80%</td></tr>
+          <tr><td>MRVL</td><td class="mono">~$190B</td><td class="mono">~56x</td><td class="mono">~17x</td><td class="pos">+40%</td></tr>
+          <tr><td>AVGO</td><td class="mono">~$980B</td><td class="mono">~28x</td><td class="mono">~14x</td><td class="pos">+25%</td></tr>
+          <tr><td>ALAB</td><td class="mono">~$18B</td><td class="mono">~80x</td><td class="mono">~25x</td><td class="pos">+50%</td></tr>
+          <tr><td>NVDA</td><td class="mono">~$2.7T</td><td class="mono">~35x</td><td class="mono">~12x</td><td class="pos">+50%</td></tr>
+          <tr><td>AMD</td><td class="mono">~$240B</td><td class="mono">~25x</td><td class="mono">~6x</td><td class="pos">+14%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">DCF Framework (Illustrative)</h3>
+      <table>
+        <thead><tr><th>Assumption</th><th>Input</th></tr></thead>
+        <tbody>
+          <tr><td>FY2027E Revenue</td><td class="mono">$2.3B (co. guide)</td></tr>
+          <tr><td>FY2028E Revenue</td><td class="mono">~$3.2B (optical ramp)</td></tr>
+          <tr><td>FY2029–32 CAGR</td><td class="mono">20%</td></tr>
+          <tr><td>Terminal growth rate</td><td class="mono">3.0%</td></tr>
+          <tr><td>Non-GAAP op. margin (FY28+)</td><td class="mono">45%</td></tr>
+          <tr><td>WACC</td><td class="mono">12.0%</td></tr>
+          <tr><td>Implied equity value range</td><td class="mono">$150–$240/share</td></tr>
+        </tbody>
+      </table>
+      <p class="faint" style="font-size:11px;margin-top:6px;line-height:1.6">Highly sensitive to WACC and optical ramp assumptions. At 11% WACC / 3.5% terminal growth, implied value ~$220. At 13% WACC / 2.5% terminal growth, ~$150. These are illustrative; not price targets.</p>
+    </div>
+  </div>
+
+  <div style="background:var(--p2);border:1px solid var(--p3);padding:14px;font-size:12.5px;color:var(--t2);line-height:1.7;">
+    <strong style="color:var(--t1)">Historical P/E range (since Jan 2022 IPO):</strong> Trough ~15x (inventory correction FY2024) · Median ~35x · Peak ~130x (pre-Q4 FY2026 earnings). At ~56x NTM, CRDO trades well above its IPO-to-date median but has reset dramatically from the 130x trailing P/E pre-earnings. The -14% post-earnings re-rating is a healthy valuation correction — PEG of 0.7x on 80%+ growth is genuinely inexpensive relative to the growth rate, particularly when compared to MRVL (PEG ~1.4x at 40% growth) and ALAB (PEG ~1.6x at 50% growth).
+  </div>
+</div>
+
+<!-- SECTION 6: RECENT DEVELOPMENTS -->
+<div class="panel">
+  <h2>6. Recent Developments (Last 12 Months)</h2>
+  <div>
+    <div class="dev-row">
+      <div class="dev-date">June 1, 2026</div>
+      <div class="dev-body"><strong>Q4 FY2026 Beat + FY2027 >80% Guidance:</strong> Revenue $437M (+157% YoY) beat consensus $431.8M. EPS $1.16 beat $1.02 by $0.14. FY2026 full year revenue tripled to $1.3B; non-GAAP net income 5× to $662M. Q1 FY2027 guided $465–475M (beat consensus). FY2027 guided >80% growth. Stock -14% on valuation. <span class="pill p-bull" style="font-size:10px">Beat &amp; Raise</span></div>
+    </div>
+    <div class="dev-row">
+      <div class="dev-date">May 27, 2026</div>
+      <div class="dev-body"><strong>DustPhotonics Acquisition ($750M) Closed:</strong> Silicon photonics PIC manufacturer acquired. Adds vertical integration — Credo now owns SerDes, DSP, PIC, and ZeroFlap system integration. CEO described as enabling full optical module supply chain independence. <span class="pill p-blue" style="font-size:10px">Strategic</span></div>
+    </div>
+    <div class="dev-row">
+      <div class="dev-date">May 20, 2026</div>
+      <div class="dev-body"><strong>Rebellions Partnership:</strong> Integration of ZeroFlap AECs into Rebellions RebelPOD AI clusters. First major NEO cloud operator design win. Signals TAM expansion beyond US big-5 hyperscalers into international AI infrastructure. <span class="pill p-bull" style="font-size:10px">TAM Expansion</span></div>
+    </div>
+    <div class="dev-row">
+      <div class="dev-date">March 2, 2026</div>
+      <div class="dev-body"><strong>Q3 FY2026 Record — $407M +200% YoY:</strong> Revenue $407M massively beat guidance midpoint of ~$260M. Non-GAAP gross margin 68.6% — record high. Non-GAAP operating margin ~49.6%. Non-GAAP EPS $1.07 beat $0.94 consensus by 14%. Four hyperscalers each above 10% of revenue. <span class="pill p-bull" style="font-size:10px">Massive Beat</span></div>
+    </div>
+    <div class="dev-row">
+      <div class="dev-date">Q4 FY2026</div>
+      <div class="dev-body"><strong>Fifth Hyperscaler Customer Secured:</strong> Three of five hyperscaler customers each contributed more than 10% of Q4 FY2026 revenue. Customer diversification is a critical risk reducer for a company where top-3 customers represent an estimated 70–80% of revenue. <span class="pill p-bull" style="font-size:10px">Risk Reduction</span></div>
+    </div>
+    <div class="dev-row">
+      <div class="dev-date">Dec 2025</div>
+      <div class="dev-body"><strong>Q2 FY2026 — $268M +272% YoY:</strong> Four hyperscalers each above 10% of revenue. $384.6M ATM equity offering strengthened balance sheet to fund DustPhotonics acquisition. Non-GAAP GM 67.5%. <span class="pill p-blue" style="font-size:10px">Inflection Confirmed</span></div>
+    </div>
+    <div class="dev-row">
+      <div class="dev-date">FY2026</div>
+      <div class="dev-body"><strong>ZeroFlap Optics Product Launch:</strong> New optical module product with three-digit ASPs (vs two-digit for discrete DSP components). Built on Credo SerDes + optics system integration. FY2027 guidance implies ~half of annual incremental revenue growth from optical portfolio. <span class="pill p-neu" style="font-size:10px">FY2027 Catalyst</span></div>
+    </div>
+    <div class="dev-row">
+      <div class="dev-date">Calendar 2025-26</div>
+      <div class="dev-body"><strong>PCIe Gen6 AEC Development:</strong> Demonstrated 1 Tbps PCIe AEC at OCP Summit. Customer sampling 2025; production revenue beginning 2026. Extends AEC TAM beyond Ethernet to PCIe server connectivity — a large new vertical. <span class="pill p-neu" style="font-size:10px">Emerging</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: BULL VS BEAR -->
+<div class="panel">
+  <h2>7. Bull vs Bear</h2>
+  <div class="g2" style="margin-bottom:16px;">
+    <div class="bull">
+      <h3>Bull Case</h3>
+      <ul class="blist">
+        <li><span style="color:var(--pos)">✦</span><span><strong>AEC structural dominance in AI clusters:</strong> 1,000× reliability advantage is measurable and real — not marketing. As GPU cluster sizes grow to 100,000+, the operational cost of link failures makes Credo's AEC the only rational choice. This is a durable competitive position that takes years to erode.</span></li>
+        <li><span style="color:var(--pos)">✦</span><span><strong>FY2027 guided >80% revenue growth on a $1.3B base:</strong> Achieving $2.3B+ in FY2027 would make Credo one of the fastest-growing semiconductor companies at this scale. The combination of 200G AEC ramp + optical portfolio inflection + fifth hyperscaler revenue provides multiple growth levers simultaneously.</span></li>
+        <li><span style="color:var(--pos)">✦</span><span><strong>Optical inflection in H2 FY2027 — structural TAM expansion:</strong> ZeroFlap optics, silicon photonics PICs (DustPhotonics), and optical DSPs transform Credo from an AEC copper company to a full AI interconnect platform company — a dramatically larger TAM and a higher-multiple business model.</span></li>
+        <li><span style="color:var(--pos)">✦</span><span><strong>PEG 0.7x is inexpensive on growth-adjusted basis:</strong> At ~56x NTM P/E on 80%+ revenue growth, Credo is cheaper on PEG than MRVL (1.4x), ALAB (1.6x), and most growth semiconductor peers. The -14% post-earnings reset creates a more attractive entry than pre-earnings levels.</span></li>
+        <li><span style="color:var(--pos)">✦</span><span><strong>Four consecutive quarters of large EPS beats:</strong> Beat range +13.75% to +44.20% with average +31.6%. The consistency of execution gives credibility to management guidance — when Credo guides, it typically beats materially.</span></li>
+      </ul>
+    </div>
+    <div class="bear">
+      <h3>Bear Case</h3>
+      <ul class="blist">
+        <li><span style="color:var(--neg)">✦</span><span><strong>Hyperscaler concentration is existential near-term risk:</strong> Three customers representing an estimated 70–80% of revenue. Any AI capex pause, cluster upgrade delay, or AEC dual-sourcing decision from a top-3 customer would materially impair FY2027 revenue with no short-term offset from smaller customers.</span></li>
+        <li><span style="color:var(--neg)">✦</span><span><strong>H2 FY2027 optical inflection is entirely unproven:</strong> DustPhotonics (closed May 27) must be integrated, ZeroFlap optics must ramp in volume, and silicon photonics PICs must achieve yield and reliability targets — all within 6 months. Any of these failing delays the most important investment catalyst.</span></li>
+        <li><span style="color:var(--neg)">✦</span><span><strong>Insider selling acceleration at elevated prices:</strong> 124 net sell transactions, zero purchases since March 2026. The CTO sold above the analyst consensus target price. Insiders have better visibility into the H2 optical ramp. This level of net selling immediately before a catalyst is a meaningful yellow flag.</span></li>
+        <li><span style="color:var(--neg)">✦</span><span><strong>Gross margin ceiling in mid-60% range:</strong> Long-term non-GAAP gross margin framework is guided ~mid-60% — below NVIDIA (78%), Marvell (59%), and Broadcom (65% optical). The AEC model shares economics with hyperscaler customers; significant margin expansion beyond 68% is structurally limited.</span></li>
+        <li><span style="color:var(--neg)">✦</span><span><strong>Broadcom and Marvell competitive pressure:</strong> Both have larger R&D budgets, broader product portfolios, and incumbent hyperscaler relationships. Dual-sourcing of AEC or optical components at even one hyperscaler would cap Credo's market share growth — this risk grows as the AEC market becomes strategically important enough to attract more investment from incumbents.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <h3 style="margin-bottom:8px;">Key Risks</h3>
+      <ul>
+        <li><strong>Execution:</strong> DustPhotonics silicon photonics yield and integration; ZeroFlap optics volume ramp; 200G per lane qualification timelines at hyperscalers.</li>
+        <li><strong>Concentration:</strong> 70–80% revenue from 3 customers. Revenue cliff risk if any pauses or dual-sources.</li>
+        <li><strong>Foundry:</strong> TSMC dependency for advanced node manufacturing (3nm for optical DSPs). Any TSMC supply disruption has outsized impact.</li>
+        <li><strong>Valuation:</strong> Even at post-earnings ~56x NTM P/E, any guidance miss triggers significant multiple de-rating. CRDO fell -14% on a beat-and-raise quarter — the bar is high.</li>
+        <li><strong>Dilution:</strong> ATM equity offering used to fund DustPhotonics. Future acquisitions may require additional equity dilution.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-bottom:8px;">Growth Catalysts</h3>
+      <ul>
+        <li><strong>Q2 FY2027 earnings (Aug 2026):</strong> First confirmation of H2 optical ramp trajectory. Guidance above $510M would signal H2 inflection building.</li>
+        <li><strong>Hyperscaler AI capex announcements (Jul 2026):</strong> AWS, Azure, Google Q2 2026 earnings — any capex raise directly implies higher CRDO demand.</li>
+        <li><strong>200G per lane AEC volume ramp:</strong> CEO commentary indicates 200G customer engagement is growing. First volume production win at a hyperscaler is a major re-rating event.</li>
+        <li><strong>DustPhotonics integration milestones:</strong> First public presentation of the integrated optical roadmap (ZeroFlap + DustPhotonics PICs) at an investor event would confirm the vertical integration thesis.</li>
+        <li><strong>Sixth hyperscaler customer:</strong> International hyperscaler or sovereign AI infrastructure program win would confirm the TAM expansion story beyond US big-5.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:18px;padding:16px;background:var(--p2);border:1px solid var(--p3);border-left:3px solid var(--acc);">
+    <h3 style="color:var(--acc);margin-bottom:8px;">The Central Debate &amp; Investment Stance</h3>
+    <p><strong>Stance: CONSTRUCTIVE.</strong> The bull case for Credo is anchored in a genuine technical advantage (AEC reliability), exceptional execution track record (4 consecutive large beats), and a credible optical growth platform (ZeroFlap + DustPhotonics). PEG of 0.7x on 80%+ guided growth is inexpensive on a growth-adjusted basis relative to comparable AI semiconductor companies.</p>
+    <p><strong>The central debate:</strong> Does the H2 FY2027 optical inflection materialise on the timeline management has guided — adding ~$600M+ of incremental annualised optical revenue by Q4 FY2027? If yes, the stock re-rates materially from $197. If the optical ramp slips to FY2028 due to DustPhotonics integration challenges or ZeroFlap volume qualification delays, the stock has limited upside on AEC alone at current levels.</p>
+    <p style="font-size:11.5px;color:var(--t3);margin-top:8px;">Prepared by EquiLens Research · Balaji N, CFP · Educational use only · Data sourced from public filings · Independent verification recommended</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+Chart.defaults.color = '#8b98a9';
+Chart.defaults.borderColor = '#243042';
+const TIP = {backgroundColor:'#121821',titleColor:'#e6edf3',bodyColor:'#8b98a9',borderColor:'#243042',borderWidth:1};
+const sc = {
+  x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#5a6675',font:{size:10}}},
+  y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#5a6675',font:{size:10}}}
+};
+
+// Annual revenue chart
+new Chart(document.getElementById('revChart'),{
+  type:'bar',
+  data:{
+    labels:['FY2022','FY2023','FY2024','FY2025','FY2026','FY2027E'],
+    datasets:[{
+      label:'Revenue ($M)',
+      data:[106.5,196.3,181.3,408.3,1300,2300],
+      backgroundColor:(ctx)=>ctx.dataIndex===5?'rgba(77,163,255,0.45)':ctx.dataIndex===4?'rgba(27,79,138,0.85)':'rgba(77,163,255,0.5)',
+      borderRadius:4,borderWidth:1.5,borderColor:'rgba(77,163,255,0.7)'
+    }]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TIP,callbacks:{label:c=>`$${c.parsed.y.toLocaleString()}M`}}},
+    scales:{x:sc.x,y:{...sc.y,ticks:{...sc.y.ticks,callback:v=>'$'+v+'M'}}}}
+});
+
+// Quarterly revenue chart
+new Chart(document.getElementById('qRevChart'),{
+  type:'line',
+  data:{
+    labels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26','Q4 FY26'],
+    datasets:[{
+      label:'Quarterly Revenue ($M)',
+      data:[59.7,72.0,135.0,170.0,175.0,268.0,407.0,437.0],
+      borderColor:'#3ad29f',backgroundColor:'rgba(58,210,159,.08)',
+      fill:true,tension:0.3,borderWidth:2.5,pointRadius:5,
+      pointBackgroundColor:(ctx)=>ctx.dataIndex===7?'#4da3ff':'#3ad29f'
+    }]
+  },
+  options:{responsive:true,plugins:{legend:{display:false},tooltip:{...TIP,callbacks:{label:c=>`$${c.parsed.y}M`}}},
+    scales:{x:sc.x,y:{...sc.y,ticks:{...sc.y.ticks,callback:v=>'$'+v+'M'}}}}
+});
+
+// Margin chart
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:['FY2022','FY2023','FY2024','FY2025','FY2026'],
+    datasets:[
+      {label:'Non-GAAP GM%',data:[60.7,60.9,60.5,64.4,66.0],borderColor:'#4da3ff',backgroundColor:'rgba(77,163,255,.08)',fill:true,tension:0.3,borderWidth:2,pointRadius:4},
+      {label:'Non-GAAP OpMgn%',data:[-21,-14,-34,1,45],borderColor:'#3ad29f',fill:false,tension:0.3,borderWidth:2,borderDash:[4,3],pointRadius:4},
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{labels:{color:'#8b98a9',font:{size:11},boxWidth:8}},tooltip:{...TIP,callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y}%`}}},
+    scales:{x:sc.x,y:{...sc.y,ticks:{...sc.y.ticks,callback:v=>v+'%'}}}}
+});
+</script>
+</body>
+</html>
