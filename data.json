@@ -662,6 +662,22 @@
   ],
   "articles": [
     {
+  "id": "art-crdo-2026-06-02",
+  "ticker": "CRDO",
+  "emoji": "⚡",
+  "cat": "EQUITY RESEARCH",
+  "tag": "NEW",
+  "title": "Credo Technology — AEC Leadership & Optical Inflection: Full Equity Research",
+  "excerpt": "Credo has built an unmatched AEC reliability advantage that has captured dominant hyperscaler share in AI cluster interconnect. Revenue tripled to $1.3B in FY2026. FY2027 guided over 80% growth. We analyse the business quality, optical platform thesis, valuation at 56x NTM P/E, and the central H2 FY2027 optical ramp debate.",
+  "date": "June 2, 2026",
+  "read_time": "20 min",
+  "author": "Balaji N, CFP",
+  "report_file": "equity-research-CRDO-2026-06-02.html",
+  "rating": "Constructive",
+  "pt": "~$197–$220",
+  "tags": ["CRDO", "AEC", "Optical Interconnect", "AI", "Semiconductors"]
+},
+    {
       "id": "art-mrvl-2026-05-31",
       "ticker": "MRVL",
       "emoji": "\u26a1",
