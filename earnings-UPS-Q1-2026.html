@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UPS Q1 2026 — Earnings Dashboard | EquiLens Research</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+:root{
+  --bg:#0a0e14;--p1:#121821;--p2:#1a2230;--p3:#243042;
+  --t1:#e6edf3;--t2:#8b98a9;--t3:#5a6675;
+  --acc:#4da3ff;--pos:#3ad29f;--neg:#ff6b6b;--neu:#f5c451;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--t1);font-family:var(--font);font-size:14px;line-height:1.6;}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 18px 80px;}
+.panel{background:var(--p1);border:1px solid var(--p3);border-radius:10px;padding:20px;margin:14px 0;}
+h2{font-size:15px;font-weight:700;margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+h2::before{content:"";width:3px;height:15px;background:var(--acc);border-radius:2px;flex-shrink:0;}
+h3{font-size:13px;font-weight:700;margin:0 0 8px;}
+p{margin-bottom:8px;color:var(--t2);font-size:13px;line-height:1.7;}
+strong{color:var(--t1);}
+.muted{color:var(--t2);}.faint{color:var(--t3);}
+.pos{color:var(--pos);font-weight:600;}.neg{color:var(--neg);font-weight:600;}
+.neu{color:var(--neu);}.mono{font-family:var(--mono);}
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--p3);}
+th:first-child,td:first-child{text-align:left;}
+th{color:var(--t2);font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;background:rgba(255,255,255,.02);}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+.beat{color:var(--pos);font-weight:600;}.miss{color:var(--neg);font-weight:600;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.kpi{background:var(--p2);border:1px solid var(--p3);border-radius:10px;padding:14px;}
+.kpi .lbl{font-size:9.5px;color:var(--t2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+.kpi .val{font-size:21px;font-weight:700;font-family:var(--mono);margin-bottom:3px;}
+.kpi .delta{font-size:11px;color:var(--t2);}
+.kpi .note{font-size:10px;color:var(--t3);margin-top:2px;}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;}
+.p-bull{background:rgba(58,210,159,.15);color:var(--pos);border:1px solid rgba(58,210,159,.3);}
+.p-bear{background:rgba(255,107,107,.15);color:var(--neg);border:1px solid rgba(255,107,107,.3);}
+.p-blue{background:rgba(77,163,255,.13);color:var(--acc);border:1px solid rgba(77,163,255,.3);}
+.p-neu{background:rgba(245,196,81,.15);color:var(--neu);border:1px solid rgba(245,196,81,.3);}
+.bull-box{background:rgba(58,210,159,.06);border:1px solid rgba(58,210,159,.22);border-radius:10px;padding:16px;}
+.bear-box{background:rgba(255,107,107,.06);border:1px solid rgba(255,107,107,.22);border-radius:10px;padding:16px;}
+.bull-box h3{color:var(--pos);}.bear-box h3{color:var(--neg);}
+.blist{list-style:none;padding:0;}
+.blist li{padding:5px 0;border-bottom:1px solid var(--p3);font-size:12px;color:var(--t2);display:flex;gap:7px;line-height:1.5;}
+.blist li:last-child{border-bottom:none;}
+.snote{font-size:11px;color:var(--t3);border-left:2px solid var(--p3);padding-left:9px;margin-bottom:12px;line-height:1.6;}
+.risk-item{padding:8px 0;border-bottom:1px solid var(--p3);display:flex;gap:10px;font-size:12.5px;color:var(--t2);line-height:1.5;}
+.risk-item:last-child{border-bottom:none;}
+.risk-icon{flex-shrink:0;width:20px;text-align:center;margin-top:1px;}
+.guide-box{background:var(--p2);border:1px solid var(--p3);border-radius:10px;padding:16px;}
+@media(max-width:720px){.g2,.g3,.g4,.g5{grid-template-columns:1fr 1fr!important;}}
+@media(max-width:480px){.g2,.g3,.g4,.g5{grid-template-columns:1fr!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="panel" style="background:linear-gradient(135deg,#0a1628,#0d1e38);border-color:rgba(77,163,255,.3);">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div style="font-size:10px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;">
+        EquiLens Research · Earnings Dashboard · Source: SEC Form 10-Q · June 3, 2026
+      </div>
+      <div style="font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px;">
+        UPS &nbsp;<span style="color:var(--t2);font-size:16px;font-weight:400;">United Parcel Service, Inc.</span>
+      </div>
+      <div style="font-size:13px;color:var(--t2);margin-bottom:10px;">
+        Q1 FY2026 · Period ended March 31, 2026 · Reported May 6, 2026 · NYSE: UPS
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="pill p-bear">Revenue Miss −1.6% YoY</span>
+        <span class="pill p-bear">Op Profit −23.9% YoY</span>
+        <span class="pill p-bear">EPS $1.02 vs $1.40 Prior Year</span>
+        <span class="pill p-neu">Non-GAAP EPS $1.07</span>
+        <span class="pill p-blue">Strategic Transformation Ongoing</span>
+      </div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:10px;color:var(--t3);margin-bottom:4px;">All figures from SEC 10-Q filing</div>
+      <div style="font-size:11px;color:var(--t2);">Prepared by Balaji N, CFP</div>
+      <div style="font-size:10px;color:var(--t3);">EquiLens Research</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: REVENUE GROWTH -->
+<div class="panel">
+  <h2>1. Revenue Growth &amp; P&amp;L Summary</h2>
+  <div class="g5" style="margin-bottom:16px;">
+    <div class="kpi">
+      <div class="lbl">Revenue</div>
+      <div class="val neg">$21.2B</div>
+      <div class="delta neg">▼ −1.6% YoY</div>
+      <div class="note">vs $21.5B in Q1 2025</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Operating Profit</div>
+      <div class="val neg">$1.27B</div>
+      <div class="delta neg">▼ −23.9% YoY</div>
+      <div class="note">vs $1.67B in Q1 2025</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Operating Margin</div>
+      <div class="val neg">6.0%</div>
+      <div class="delta neg">▼ −170 bps YoY</div>
+      <div class="note">vs 7.7% in Q1 2025</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Net Income</div>
+      <div class="val neg">$864M</div>
+      <div class="delta neg">▼ −27.2% YoY</div>
+      <div class="note">vs $1,187M in Q1 2025</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Diluted EPS</div>
+      <div class="val neg">$1.02</div>
+      <div class="delta neg">▼ −27.1% YoY</div>
+      <div class="note">Non-GAAP: $1.07 (adj. for $55M TSC)</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:16px;">
+    <div>
+      <div style="font-size:11px;color:var(--t2);margin-bottom:8px;">Quarterly Revenue ($M)</div>
+      <canvas id="qRevChart" height="220"></canvas>
+    </div>
+    <div>
+      <div style="font-size:11px;color:var(--t2);margin-bottom:8px;">Operating Profit &amp; Margin Trend</div>
+      <canvas id="opProfitChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Income Statement ($M)</th>
+        <th>Q1 2026</th>
+        <th>Q1 2025</th>
+        <th>YoY Change</th>
+        <th>YoY %</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Revenue</strong></td><td>$21,202</td><td>$21,546</td><td class="neg">−$344</td><td class="neg">−1.6%</td></tr>
+      <tr><td style="padding-left:18px;color:var(--t2);">Compensation &amp; Benefits</td><td>$11,545</td><td>$11,827</td><td class="pos">−$282</td><td class="pos">−2.4%</td></tr>
+      <tr><td style="padding-left:18px;color:var(--t2);">Repairs &amp; Maintenance</td><td>$792</td><td>$732</td><td class="neg">+$60</td><td class="neg">+8.2%</td></tr>
+      <tr><td style="padding-left:18px;color:var(--t2);">Depreciation &amp; Amortization</td><td>$985</td><td>$912</td><td class="neg">+$73</td><td class="neg">+8.0%</td></tr>
+      <tr><td style="padding-left:18px;color:var(--t2);">Purchased Transportation</td><td>$2,764</td><td>$2,730</td><td class="neg">+$34</td><td class="neg">+1.2%</td></tr>
+      <tr><td style="padding-left:18px;color:var(--t2);">Fuel</td><td>$1,083</td><td>$1,058</td><td class="neg">+$25</td><td class="neg">+2.4%</td></tr>
+      <tr><td style="padding-left:18px;color:var(--t2);">Other Occupancy</td><td>$674</td><td>$607</td><td class="neg">+$67</td><td class="neg">+11.0%</td></tr>
+      <tr><td style="padding-left:18px;color:var(--t2);">Other Expenses</td><td>$2,092</td><td>$2,014</td><td class="neg">+$78</td><td class="neg">+3.9%</td></tr>
+      <tr style="background:rgba(255,255,255,.03);"><td><strong>Total Operating Expenses</strong></td><td>$19,935</td><td>$19,880</td><td class="neg">+$55</td><td class="neg">+0.3%</td></tr>
+      <tr style="background:rgba(255,107,107,.05);"><td><strong>Operating Profit</strong></td><td class="neg">$1,267</td><td>$1,666</td><td class="neg">−$399</td><td class="neg">−23.9%</td></tr>
+      <tr><td style="color:var(--t2);">Operating Margin</td><td class="neg">6.0%</td><td>7.7%</td><td class="neg">−1.7 ppts</td><td>—</td></tr>
+      <tr><td style="padding-left:18px;color:var(--t2);">Investment Income &amp; Other</td><td>$123</td><td>$79</td><td class="pos">+$44</td><td class="pos">+55.7%</td></tr>
+      <tr><td style="padding-left:18px;color:var(--t2);">Interest Expense</td><td>($266)</td><td>($222)</td><td class="neg">−$44</td><td class="neg">+19.8%</td></tr>
+      <tr><td style="color:var(--t2);">Income Before Taxes</td><td>$1,124</td><td>$1,523</td><td class="neg">−$399</td><td class="neg">−26.2%</td></tr>
+      <tr><td style="color:var(--t2);">Income Tax Expense</td><td>$260</td><td>$336</td><td class="pos">−$76</td><td class="pos">−22.6%</td></tr>
+      <tr><td style="color:var(--t2);">Effective Tax Rate</td><td>23.1%</td><td>22.1%</td><td class="neg">+1.0 ppt</td><td>—</td></tr>
+      <tr style="background:rgba(255,107,107,.05);"><td><strong>Net Income (GAAP)</strong></td><td class="neg">$864</td><td>$1,187</td><td class="neg">−$323</td><td class="neg">−27.2%</td></tr>
+      <tr><td><strong>Basic EPS</strong></td><td class="neg">$1.02</td><td>$1.40</td><td class="neg">−$0.38</td><td class="neg">−27.1%</td></tr>
+      <tr><td><strong>Diluted EPS (GAAP)</strong></td><td class="neg">$1.02</td><td>$1.40</td><td class="neg">−$0.38</td><td class="neg">−27.1%</td></tr>
+      <tr style="background:rgba(245,196,81,.05);"><td><strong>Non-GAAP Diluted EPS</strong></td><td class="neu">$1.07</td><td>$1.51</td><td class="neg">−$0.44</td><td class="neg">−29.1%</td></tr>
+      <tr><td style="color:var(--t2);">Transformation Strategy Costs (after-tax)</td><td class="neu">$42M</td><td>$83M</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:12px;">
+    <div class="snote">Non-GAAP EPS of $1.07 adjusts GAAP EPS of $1.02 for after-tax Transformation Strategy Costs of $42M ($0.05/share) related to Network Reconfiguration &amp; Efficiency Reimagined programs. Q1 2025 non-GAAP adjustments also included goodwill/asset impairment charges and a tax valuation allowance reversal.</div>
+  </div>
+</div>
+
+<!-- SECTION 2: SEGMENT REVENUE -->
+<div class="panel">
+  <h2>2. Segment Revenue &amp; Product Analysis</h2>
+  <div class="snote">UPS reports three segments: U.S. Domestic Package, International Package, and Supply Chain Solutions (SCS). Full disaggregation per Note 3 and Note 12 of the 10-Q.</div>
+
+  <div class="g3" style="margin-bottom:16px;">
+    <div class="kpi">
+      <div class="lbl">U.S. Domestic Package</div>
+      <div class="val neg">$14,125M</div>
+      <div class="delta neg">▼ −2.3% YoY</div>
+      <div class="note">Op Profit: $515M vs $979M</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">International Package</div>
+      <div class="val pos">$4,540M</div>
+      <div class="delta pos">▲ +3.8% YoY</div>
+      <div class="note">Op Profit: $547M vs $641M</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Supply Chain Solutions</div>
+      <div class="val neg">$2,537M</div>
+      <div class="delta neg">▼ −6.5% YoY</div>
+      <div class="note">Op Profit: $205M vs $46M ▲+345%</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:16px;">
+    <div>
+      <canvas id="segChart" height="240"></canvas>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">Segment Operating Profit &amp; Margin</h3>
+      <table>
+        <thead>
+          <tr><th>Segment</th><th>Q1 2026</th><th>Q1 2025</th><th>YoY</th><th>Margin</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>U.S. Domestic Package</td><td class="neg">$515M</td><td>$979M</td><td class="neg">−47.4%</td><td class="neg">3.6%</td></tr>
+          <tr><td style="padding-left:12px;font-size:11.5px;color:var(--t3);">Non-GAAP Adjusted</td><td class="neu">$565M</td><td>$1,011M</td><td class="neg">−44.1%</td><td class="neg">4.0%</td></tr>
+          <tr><td>International Package</td><td class="neg">$547M</td><td>$641M</td><td class="neg">−14.7%</td><td class="neg">12.0%</td></tr>
+          <tr><td style="padding-left:12px;font-size:11.5px;color:var(--t3);">Non-GAAP Adjusted</td><td class="neu">$551M</td><td>$654M</td><td class="neg">−15.7%</td><td class="neg">12.1%</td></tr>
+          <tr><td>Supply Chain Solutions</td><td class="pos">$205M</td><td>$46M</td><td class="pos">+345.7%</td><td class="pos">8.1%</td></tr>
+          <tr><td style="padding-left:12px;font-size:11.5px;color:var(--t3);">Non-GAAP Adjusted</td><td class="pos">$206M</td><td>$98M</td><td class="pos">+110.2%</td><td class="pos">8.1%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:10px;">U.S. Domestic Package — Product Detail</h3>
+  <table style="margin-bottom:16px;">
+    <thead>
+      <tr><th>Product</th><th>Rev Q1 2026</th><th>Rev Q1 2025</th><th>YoY</th><th>Avg Daily Vol (K)</th><th>Rev/Piece</th><th>Rev/Piece YoY</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Next Day Air</td><td>$2,354M</td><td>$2,361M</td><td class="neg">−0.3%</td><td>1,366</td><td>$27.79</td><td class="pos">+10.9%</td></tr>
+      <tr><td>Deferred</td><td>$1,045M</td><td>$1,049M</td><td class="neg">−0.4%</td><td>806</td><td>$20.91</td><td class="pos">+7.0%</td></tr>
+      <tr><td>Ground</td><td>$10,438M</td><td>$10,709M</td><td class="neg">−2.5%</td><td>13,868</td><td>$12.14</td><td class="pos">+5.8%</td></tr>
+      <tr><td>Cargo &amp; Other</td><td>$288M</td><td>$341M</td><td class="neg">−15.5%</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr style="background:rgba(255,255,255,.03);"><td><strong>Total U.S. Domestic</strong></td><td><strong>$14,125M</strong></td><td>$14,460M</td><td class="neg">−2.3%</td><td>16,040</td><td>$13.91</td><td class="pos">+6.5%</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-bottom:10px;">International Package — Product Detail</h3>
+  <table style="margin-bottom:16px;">
+    <thead>
+      <tr><th>Product</th><th>Rev Q1 2026</th><th>Rev Q1 2025</th><th>YoY</th><th>Avg Daily Vol (K)</th><th>Rev/Piece</th><th>Rev/Piece YoY</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Domestic</td><td>$835M</td><td>$771M</td><td class="pos">+8.3%</td><td>1,471</td><td>$9.16</td><td class="pos">+15.9%</td></tr>
+      <tr><td>Export</td><td>$3,548M</td><td>$3,444M</td><td class="pos">+3.0%</td><td>1,673</td><td>$34.21</td><td class="pos">+9.1%</td></tr>
+      <tr><td>Cargo &amp; Other</td><td>$157M</td><td>$158M</td><td class="neg">−0.6%</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr style="background:rgba(255,255,255,.03);"><td><strong>Total International</strong></td><td><strong>$4,540M</strong></td><td>$4,373M</td><td class="pos">+3.8%</td><td>3,144</td><td>$22.49</td><td class="pos">+10.7%</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-bottom:10px;">Supply Chain Solutions — Revenue Detail</h3>
+  <table>
+    <thead>
+      <tr><th>Business</th><th>Q1 2026</th><th>Q1 2025</th><th>YoY</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Forwarding</td><td>$656M</td><td>$726M</td><td class="neg">−9.6%</td></tr>
+      <tr><td>Logistics</td><td>$1,409M</td><td>$1,572M</td><td class="neg">−10.4%</td></tr>
+      <tr><td>Other SCS (Roadie, Happy Returns, etc.)</td><td>$472M</td><td>$415M</td><td class="pos">+13.7%</td></tr>
+      <tr style="background:rgba(255,255,255,.03);"><td><strong>Total SCS</strong></td><td><strong>$2,537M</strong></td><td>$2,713M</td><td class="neg">−6.5%</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 3: GUIDANCE & OUTLOOK -->
+<div class="panel">
+  <h2>3. Guidance &amp; Outlook</h2>
+  <div class="snote">Note: UPS does not provide quarterly guidance in this 10-Q. Management commentary and full-year operational targets referenced below are from the MD&amp;A and Notes sections of the 10-Q filing. Consensus estimates are not present in the filing and are marked n.a.</div>
+
+  <div class="g2" style="margin-bottom:16px;">
+    <div class="guide-box">
+      <h3 style="color:var(--neu);margin-bottom:10px;">📋 FY2026 Operational Targets (from MD&amp;A)</h3>
+      <table>
+        <thead><tr><th>Item</th><th>FY2026 Target</th></tr></thead>
+        <tbody>
+          <tr><td>Capital Expenditures</td><td class="neu">~$3.0 billion</td></tr>
+          <tr><td>Capex Allocation — Network/Tech</td><td class="neu">~80% of total</td></tr>
+          <tr><td>Transformation Costs (excl. from Non-GAAP)</td><td class="neu">$1.3–$1.5 billion</td></tr>
+          <tr><td>Driver Choice Program separation costs</td><td class="neu">~$1.2 billion (mostly Q2)</td></tr>
+          <tr><td>Network Reconfiguration Savings (FY YoY)</td><td class="pos">~$3 billion</td></tr>
+          <tr><td>Buildings closed (YTD Q1 2026)</td><td>23 (22 permanent)</td></tr>
+          <tr><td>Additional buildings identified for closure in 2026</td><td>27 more</td></tr>
+          <tr><td>Pension contribution (remainder of 2026)</td><td class="neg">~$1.1 billion</td></tr>
+          <tr><td>Postretirement medical contribution (remainder 2026)</td><td class="neg">~$120 million</td></tr>
+          <tr><td>Largest customer volume reduction by June 2026</td><td class="neu">&gt;50% from 2024 levels</td></tr>
+          <tr><td>Network Reconfiguration program end</td><td>Expected 2027</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="guide-box">
+      <h3 style="color:var(--neu);margin-bottom:10px;">📊 Beat/Miss vs. Prior Year (No Consensus in Filing)</h3>
+      <div class="snote" style="margin-bottom:12px;">Consensus estimates are not stated in the 10-Q. Beat/miss comparison below is year-over-year vs. Q1 2025.</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Q1 2026</th><th>Q1 2025</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Revenue</td><td>$21,202M</td><td>$21,546M</td><td class="miss">MISS −1.6%</td></tr>
+          <tr><td>Operating Profit</td><td>$1,267M</td><td>$1,666M</td><td class="miss">MISS −23.9%</td></tr>
+          <tr><td>Operating Margin</td><td>6.0%</td><td>7.7%</td><td class="miss">−170 bps</td></tr>
+          <tr><td>Net Income</td><td>$864M</td><td>$1,187M</td><td class="miss">MISS −27.2%</td></tr>
+          <tr><td>Diluted EPS (GAAP)</td><td>$1.02</td><td>$1.40</td><td class="miss">MISS −27.1%</td></tr>
+          <tr><td>Int'l Package Revenue</td><td>$4,540M</td><td>$4,373M</td><td class="beat">BEAT +3.8%</td></tr>
+          <tr><td>SCS Operating Profit</td><td>$205M</td><td>$46M</td><td class="beat">BEAT +345%</td></tr>
+          <tr><td>U.S. Dom Rev/Piece</td><td>$13.91</td><td>$13.06</td><td class="beat">BEAT +6.5%</td></tr>
+          <tr><td>Operating Cash Flow</td><td>$2,224M</td><td>$2,318M</td><td class="miss">MISS −4.1%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="guide-box">
+    <h3 style="color:var(--acc);margin-bottom:10px;">💬 Management Commentary (from CEO Carol B. Tomé &amp; CFO Brian Dykes, MD&amp;A)</h3>
+    <p><strong>Strategic Direction:</strong> Management is executing a "Customer First, People Led and Innovation Driven" strategy targeting growth in healthcare, small and medium-sized businesses (SMBs), and international. Deliberate volume reduction from the largest customer (expected &gt;50% reduction by June 2026 vs. 2024) is being offset by a shift to higher-yielding volume.</p>
+    <p><strong>Revenue Quality:</strong> Revenue per piece in U.S. Domestic increased 6.5%, driven by an average 5.9% net increase in base and accessorial rates implemented throughout 2025, favorable customer/product mix, and higher fuel surcharges. Management cited this as "several consecutive quarters of product and customer mix improvements."</p>
+    <p><strong>Cost Environment:</strong> Operating expenses increased due to: (1) USPS outsourcing transition costs and excess staffing for Ground Saver product; (2) higher third-party lease expense from aircraft capacity constraints following Q4 2025 MD-11 fleet retirement; (3) higher workers' compensation; (4) weather-related costs. These were partially offset by headcount reductions and labor savings from volume decline.</p>
+    <p><strong>Transformation Program:</strong> Network Reconfiguration &amp; Efficiency Reimagined achieved approximately $600 million in program cost savings in Q1 2026. Full-year 2026 expected savings of ~$3 billion YoY. The Driver Choice Program (voluntary separation for full-time U.S. drivers) will generate ~$1.2 billion in separation costs, mostly in Q2 2026.</p>
+    <p><strong>Tariff Situation:</strong> UPS has begun filing refund requests for ~$500 million in IEEPA tariffs paid. No amounts recognized as of March 31, 2026. Ongoing monitoring — material developments could emerge in subsequent quarters.</p>
+    <p><strong>International Strength:</strong> Investments in Incheon hub expansion, new Taiwan logistics center, and European ground speed improvements are intended to support premium volume growth. AHG (healthcare) acquisition from Q4 2025 contributing to logistics revenue.</p>
+  </div>
+</div>
+
+<!-- SECTION 4: BULL & BEAR -->
+<div class="panel">
+  <h2>4. Bull &amp; Bear Points</h2>
+  <div class="g2">
+    <div class="bull-box">
+      <h3>🟢 Bull Case</h3>
+      <ul class="blist">
+        <li><span>▲</span><span><strong>Revenue quality improving:</strong> U.S. Domestic revenue per piece +6.5% YoY to $13.91, driven by 5.9% rate increases and favorable customer/product mix shift. International rev/piece up 10.7% to $22.49.</span></li>
+        <li><span>▲</span><span><strong>SCS turnaround impressive:</strong> Supply Chain Solutions operating profit surged from $46M to $205M YoY (+345.7%), with margin expanding from 1.7% to 8.1%. Healthcare logistics (AHG) contributed $188M in incremental logistics revenue.</span></li>
+        <li><span>▲</span><span><strong>International revenue growing:</strong> International Package revenue up +3.8% to $4.54B, driven by export revenue per piece +9.1% and strong domestic per-piece growth of +15.9% in EMEA/Americas.</span></li>
+        <li><span>▲</span><span><strong>$3B annualized savings target:</strong> Network Reconfiguration program delivered ~$600M savings in Q1 alone, on track for ~$3B full-year savings. 23 buildings closed, 27 more identified — structural cost base shrinking.</span></li>
+        <li><span>▲</span><span><strong>Strong liquidity:</strong> $5.8B in cash and equivalents as of March 31, 2026. Operating cash flow of $2.22B in the quarter. Maintains access to $3B in revolving credit facilities.</span></li>
+        <li><span>▲</span><span><strong>IEEPA tariff refund optionality:</strong> UPS has filed for ~$500M in tariff refunds under the Supreme Court IEEPA ruling. Not yet recognized — upside if recovered in future periods.</span></li>
+      </ul>
+    </div>
+    <div class="bear-box">
+      <h3>🔴 Bear Case</h3>
+      <ul class="blist">
+        <li><span>▼</span><span><strong>Volume collapse in U.S. Domestic:</strong> Average daily package volume fell 8.0% YoY to 16,040K — driven by deliberate exit from largest customer (Amazon) and e-commerce pruning. Ground volume down 7.9%, Air down 9.0%.</span></li>
+        <li><span>▼</span><span><strong>Operating margin compression severe:</strong> U.S. Domestic operating margin collapsed from 6.8% to 3.6% (−320 bps), with operating profit down 47.4%. Even non-GAAP adjusted margin of 4.0% signals structural pressure.</span></li>
+        <li><span>▼</span><span><strong>USPS outsourcing transition costly:</strong> Ground Saver outsourcing to USPS drove facility/transportation costs up $341M and created excess operational staffing. Benefits expected only later in 2026.</span></li>
+        <li><span>▼</span><span><strong>Driver Choice Program to hurt Q2:</strong> ~$1.2B in separation costs expected primarily in Q2 2026. This will significantly impact reported earnings in the next quarter — investors should expect a noisy quarter.</span></li>
+        <li><span>▼</span><span><strong>Debt load rising:</strong> Total debt at $24.4B vs. $24.1B at year-end 2025. Interest expense up +19.8% YoY to $266M. Finance lease obligations jumped from $781M to $1,085M due to new aircraft finance leases ($305M of new aircraft leases in Q1).</span></li>
+        <li><span>▼</span><span><strong>Goodwill impairment risk in SCS:</strong> GFF and HLD reporting units within SCS (combined goodwill ~$1.6B) have limited excess fair value over carrying value. Macro deterioration or volume declines could trigger non-cash impairment charges.</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: BUSINESS RISKS -->
+<div class="panel">
+  <h2>5. Business Risks</h2>
+  <div class="g2">
+    <div>
+      <h3 style="margin-bottom:10px;color:var(--neg);">⚡ Near-Term Risks (1–2 Quarters)</h3>
+      <div class="risk-item"><div class="risk-icon">🚛</div><div><strong>Q2 2026 earnings disruption:</strong> ~$1.2B in Driver Choice Program separation costs expected mostly in Q2, plus ongoing USPS outsourcing transition. Q2 GAAP earnings will likely show another significant decline.</div></div>
+      <div class="risk-item"><div class="risk-icon">✈️</div><div><strong>Aircraft capacity constraints:</strong> Following MD-11 fleet retirement in Q4 2025, UPS is leasing third-party aircraft at higher cost. While three 767-300s were delivered in Q1, full normalization expected only in Q4 2026.</div></div>
+      <div class="risk-item"><div class="risk-icon">🌍</div><div><strong>Middle East conflict &amp; fuel:</strong> Higher jet fuel costs from Middle East conflict pressured fuel expense (+$25M YoY). If conflict escalates, further fuel cost headwinds are likely, as UPS uses weekly indexed pricing.</div></div>
+      <div class="risk-item"><div class="risk-icon">⚖️</div><div><strong>Tariff policy uncertainty:</strong> ~$500M in IEEPA tariff refund requests are pending — outcome unclear. Additional phases of refund process may not cover all entry types. Customer tariff pass-through creates receivable risk.</div></div>
+      <div class="risk-item"><div class="risk-icon">🧾</div><div><strong>Workers' compensation reserve deterioration:</strong> Workers' compensation expense increased $67M in Q1 due to unfavorable development in prior year claims. If claims continue to develop adversely, expense could persist.</div></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;color:var(--neu);">🏗️ Structural / Long-Term Risks</h3>
+      <div class="risk-item"><div class="risk-icon">📦</div><div><strong>Amazon volume exit &amp; mix shift:</strong> Volume from the largest customer (Amazon) is being deliberately cut &gt;50% by June 2026. Revenue quality can partially offset, but total volume may remain structurally lower for several years.</div></div>
+      <div class="risk-item"><div class="risk-icon">🤝</div><div><strong>Labor negotiations exposure:</strong> Pilot CBA with IPA is past amendable date (Sep 2025) — negotiations ongoing. Mechanic CBA (Teamsters Local 2727) amendable Nov 2026. Work stoppages or costly settlements could materially impact operations.</div></div>
+      <div class="risk-item"><div class="risk-icon">📉</div><div><strong>SCS goodwill impairment risk:</strong> GFF (~$877M) and HLD (~$738M) reporting units have limited valuation headroom. Tariff changes, volume shifts, or macro deterioration could trigger impairments — both failed to meaningfully beat their carrying values at Jul 2025 test.</div></div>
+      <div class="risk-item"><div class="risk-icon">🏦</div><div><strong>Pension obligations:</strong> Pension &amp; postretirement obligations of $6.67B on balance sheet. Company expects to contribute an additional ~$1.2B through 2026. Rate sensitivity and demographic changes can increase obligations.</div></div>
+      <div class="risk-item"><div class="risk-icon">🌐</div><div><strong>De minimis trade policy changes:</strong> International volumes, particularly China-to-U.S. and EMEA, were negatively impacted by de minimis exclusions and global trade policy shifts. Further tightening could reduce cross-border small-parcel volumes.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: BALANCE SHEET & VALUATION -->
+<div class="panel">
+  <h2>6. Balance Sheet Highlights &amp; Valuation</h2>
+
+  <h3 style="margin-bottom:10px;">Balance Sheet Snapshot</h3>
+  <table style="margin-bottom:20px;">
+    <thead>
+      <tr><th>($M)</th><th>Mar 31, 2026</th><th>Dec 31, 2025</th><th>Change</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Cash &amp; Cash Equivalents</td><td>$5,802</td><td>$5,887</td><td class="neg">−$85</td></tr>
+      <tr><td>Accounts Receivable, Net</td><td>$9,948</td><td>$11,209</td><td class="pos">−$1,261</td></tr>
+      <tr><td>Total Current Assets</td><td>$17,794</td><td>$19,045</td><td class="neg">−$1,251</td></tr>
+      <tr><td>PP&amp;E, Net</td><td>$38,029</td><td>$37,731</td><td class="neg">+$298</td></tr>
+      <tr><td>Goodwill</td><td>$5,796</td><td>$5,837</td><td class="neg">−$41</td></tr>
+      <tr><td>Total Assets</td><td>$71,809</td><td>$73,090</td><td class="neg">−$1,281</td></tr>
+      <tr><td>Total Current Liabilities</td><td>$14,674</td><td>$15,620</td><td class="pos">−$946</td></tr>
+      <tr><td>Long-Term Debt &amp; Finance Leases</td><td>$23,749</td><td>$23,519</td><td class="neg">+$230</td></tr>
+      <tr><td>Total Debt Outstanding</td><td>$24,386</td><td>$24,127</td><td class="neg">+$259</td></tr>
+      <tr><td>Pension &amp; Postretirement Obligations</td><td>$6,665</td><td>$6,567</td><td class="neg">+$98</td></tr>
+      <tr><td>Total Shareowners' Equity</td><td>$15,791</td><td>$16,255</td><td class="neg">−$464</td></tr>
+      <tr><td>Retained Earnings</td><td>$19,622</td><td>$20,151</td><td class="neg">−$529</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-bottom:10px;">Cash Flow Summary</h3>
+  <table style="margin-bottom:20px;">
+    <thead>
+      <tr><th>($M)</th><th>Q1 2026</th><th>Q1 2025</th><th>YoY</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Operating Cash Flow</td><td class="neg">$2,224</td><td>$2,318</td><td class="neg">−$94</td></tr>
+      <tr><td>Capital Expenditures</td><td>($1,031)</td><td>($876)</td><td class="neg">+$155</td></tr>
+      <tr><td>Free Cash Flow (est.)</td><td>$1,193</td><td>$1,442</td><td class="neg">−$249</td></tr>
+      <tr><td>Dividends Paid</td><td>($1,352)</td><td>($1,348)</td><td class="neg">+$4</td></tr>
+      <tr><td>Share Repurchases</td><td>$0</td><td>($1,000)</td><td class="pos">Suspended</td></tr>
+      <tr><td>Dividend Per Share</td><td class="neu">$1.64</td><td>$1.64</td><td>Maintained</td></tr>
+    </tbody>
+  </table>
+
+  <div class="g4" style="margin-bottom:16px;">
+    <div class="kpi">
+      <div class="lbl">Stock Price (Grant Date)</div>
+      <div class="val">$116.74</div>
+      <div class="delta muted">Feb 4, 2026 stock option grant price</div>
+      <div class="note">Source: Note 4, 10-Q</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Trailing P/E (GAAP)</div>
+      <div class="val">~28×</div>
+      <div class="delta muted">Based on LTM EPS est. ~$4.08</div>
+      <div class="note">Estimate — verify independently</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Dividend Yield</div>
+      <div class="val pos">~5.6%</div>
+      <div class="delta muted">$6.56 annualized / ~$116 price</div>
+      <div class="note">Based on grant date price</div>
+    </div>
+    <div class="kpi">
+      <div class="lbl">Market Cap (est.)</div>
+      <div class="val">~$99B</div>
+      <div class="delta muted">850M diluted shares × $116.74</div>
+      <div class="note">Approximate — verify current price</div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <canvas id="peChart" height="220"></canvas>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px;">Peer P/E Comparison (Approximate)</h3>
+      <div class="snote">Peer multiples are approximate estimates as of June 2026. Verify via Bloomberg, FactSet, or StockAnalysis.</div>
+      <table>
+        <thead>
+          <tr><th>Company</th><th>Ticker</th><th>NTM P/E (est.)</th><th>Div. Yield</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>UPS</strong></td><td>UPS</td><td class="neg">~28×</td><td class="pos">~5.6%</td></tr>
+          <tr><td>FedEx</td><td>FDX</td><td>~13×</td><td>~2.1%</td></tr>
+          <tr><td>Deutsche Post DHL</td><td>DPW</td><td>~12×</td><td>~4.5%</td></tr>
+          <tr><td>XPO Logistics</td><td>XPO</td><td>~20×</td><td>—</td></tr>
+          <tr><td>Old Dominion Freight</td><td>ODFL</td><td>~27×</td><td>~0.5%</td></tr>
+          <tr><td style="color:var(--t3);">Peer Median</td><td>—</td><td>~18×</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:24px;padding-top:14px;border-top:1px solid var(--p3);text-align:center;font-size:11px;color:var(--t3);line-height:1.7;">
+  Prepared by <strong style="color:var(--t2);">EquiLens Research · Balaji N, CFP</strong> · For informational and educational purposes only · Not investment advice<br>
+  All financial data sourced from United Parcel Service, Inc. Form 10-Q for Q1 2026 (period ended March 31, 2026), filed May 6, 2026<br>
+  Peer multiples are approximate estimates and should be independently verified · Stock price based on Feb 4, 2026 option grant date price of $116.74<br>
+  © 2026 EquiLens Research · research@equilens.in · <a href="https://equilens-research.vercel.app" style="color:var(--acc);">equilens-research.vercel.app</a>
+</div>
+
+</div>
+
+<script>
+Chart.defaults.color='#8b98a9';
+Chart.defaults.borderColor='#243042';
+const TIP={backgroundColor:'#121821',titleColor:'#e6edf3',bodyColor:'#8b98a9',borderColor:'#243042',borderWidth:1};
+
+// Chart 1: Quarterly Revenue
+new Chart(document.getElementById('qRevChart'),{
+  type:'bar',
+  data:{
+    labels:['Q1 2025','Q1 2026'],
+    datasets:[{
+      label:'Revenue ($M)',
+      data:[21546,21202],
+      backgroundColor:['rgba(77,163,255,0.5)','rgba(27,79,138,0.9)'],
+      borderRadius:4,borderWidth:1
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{display:false},tooltip:{...TIP,callbacks:{label:c=>`$${c.parsed.y.toLocaleString()}M`}}},
+    scales:{
+      x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5a6675',font:{size:10}}},
+      y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5a6675',font:{size:10},callback:v=>'$'+v.toLocaleString()+'M'},min:20000}
+    }
+  }
+});
+
+// Chart 2: Operating Profit & Margin
+new Chart(document.getElementById('opProfitChart'),{
+  type:'bar',
+  data:{
+    labels:['Q1 2025','Q1 2026'],
+    datasets:[
+      {label:'Op Profit ($M)',data:[1666,1267],backgroundColor:['rgba(77,163,255,0.5)','rgba(255,107,107,0.6)'],borderRadius:4,yAxisID:'y'},
+      {label:'Op Margin %',data:[7.7,6.0],type:'line',borderColor:'#f5c451',backgroundColor:'transparent',tension:0.3,borderWidth:2,pointRadius:6,yAxisID:'y2'}
+    ]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{labels:{color:'#8b98a9',font:{size:10},boxWidth:8}},tooltip:{...TIP}},
+    scales:{
+      x:{grid:{display:false},ticks:{color:'#5a6675',font:{size:10}}},
+      y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5a6675',font:{size:10},callback:v=>'$'+v+'M'},position:'left'},
+      y2:{grid:{display:false},ticks:{color:'#f5c451',font:{size:10},callback:v=>v+'%'},position:'right',min:0,max:15}
+    }
+  }
+});
+
+// Chart 3: Segment Donut
+new Chart(document.getElementById('segChart'),{
+  type:'doughnut',
+  data:{
+    labels:['U.S. Domestic Package 66.6%','International Package 21.4%','Supply Chain Solutions 12.0%'],
+    datasets:[{
+      data:[14125,4540,2537],
+      backgroundColor:['#1B4F8A','#3ad29f','#f5c451'],
+      borderColor:'#121821',borderWidth:2
+    }]
+  },
+  options:{
+    responsive:true,cutout:'62%',
+    plugins:{
+      legend:{position:'bottom',labels:{color:'#8b98a9',font:{size:11},boxWidth:10,padding:8}},
+      tooltip:{...TIP,callbacks:{label:c=>`$${c.parsed.toLocaleString()}M`}}
+    }
+  }
+});
+
+// Chart 4: P/E Comparison
+new Chart(document.getElementById('peChart'),{
+  type:'bar',
+  data:{
+    labels:['UPS (est.)','FedEx','DHL','XPO','ODFL','Peer Median'],
+    datasets:[{
+      label:'NTM P/E (×)',
+      data:[28,13,12,20,27,18],
+      backgroundColor:['rgba(255,107,107,0.7)','rgba(77,163,255,0.6)','rgba(77,163,255,0.6)','rgba(77,163,255,0.6)','rgba(77,163,255,0.6)','rgba(107,122,141,0.5)'],
+      borderRadius:4,borderWidth:1
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{display:false},tooltip:{...TIP,callbacks:{label:c=>`${c.parsed.y}× P/E`}}},
+    scales:{
+      x:{grid:{display:false},ticks:{color:'#5a6675',font:{size:10}}},
+      y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#5a6675',font:{size:10},callback:v=>v+'×'}}
+    }
+  }
+});
+</script>
+</body>
+</html>
