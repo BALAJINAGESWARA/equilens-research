@@ -1,6 +1,34 @@
 {
   "earnings": [
     {
+  "id": "ups-q1-2026",
+  "ticker": "UPS",
+  "co": "United Parcel Service",
+  "q": "Q1 2026",
+  "flag": "us",
+  "sector": "Industrials",
+  "cat": "logistics",
+  "emoji": "📦",
+  "date": "June 3, 2026",
+  "beatMiss": "Miss",
+  "rating": "Hold",
+  "pt": "n.a.",
+  "ptBull": "n.a.",
+  "ptBear": "n.a.",
+  "rev": "$21.2B",
+  "revGr": "-1.6%",
+  "eps": "$1.02",
+  "epsGr": "-27.1%",
+  "gm": "n.a.",
+  "gmN": "GAAP only · Operating Margin 6.0% vs 7.7%",
+  "ocf": "$2,224M",
+  "ocfN": "OCF down 4.1% YoY · Capex $1.03B",
+  "ebitda": "n.a.",
+  "netInc": "$864M",
+  "cash": "$5.8B",
+  "file": "earnings-UPS-Q1-2026.html"
+}
+    {
   "id": "crdo-q4-fy2026",
   "ticker": "CRDO",
   "co": "Credo Technology Group",
