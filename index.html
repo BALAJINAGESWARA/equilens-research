@@ -1534,6 +1534,7 @@ let activeCharts = [];
 function openRpt(id) {
   const e = earningsData.find(r => r.id === id);
   if (!e) return;
+   if (e.file) { window.open(e.file, '_blank'); return; }
   activeCharts.forEach(c => c.destroy()); activeCharts = [];
 
   const ratingColor = e.rating.includes('Strong') ? 'var(--ei-pos)' : 'var(--ei-accent)';
