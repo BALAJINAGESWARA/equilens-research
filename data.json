@@ -1,33 +1,85 @@
 {
   "earnings": [
     {
-  "id": "ups-q1-2026",
-  "ticker": "UPS",
-  "co": "United Parcel Service",
-  "q": "Q1 2026",
-  "flag": "us",
-  "sector": "Industrials",
-  "cat": "logistics",
-  "emoji": "📦",
-  "date": "June 3, 2026",
-  "beatMiss": "Miss",
-  "rating": "Hold",
-  "pt": "n.a.",
-  "ptBull": "n.a.",
-  "ptBear": "n.a.",
-  "rev": "$21.2B",
-  "revGr": "-1.6%",
-  "eps": "$1.02",
-  "epsGr": "-27.1%",
-  "gm": "n.a.",
-  "gmN": "GAAP only · Operating Margin 6.0% vs 7.7%",
-  "ocf": "$2,224M",
-  "ocfN": "OCF down 4.1% YoY · Capex $1.03B",
-  "ebitda": "n.a.",
-  "netInc": "$864M",
-  "cash": "$5.8B",
-  "file": "earnings-UPS-Q1-2026.html"
-},
+      "id": "ups-q1-2026",
+      "ticker": "UPS",
+      "co": "United Parcel Service",
+      "q": "Q1 2026",
+      "flag": "🇺🇸",
+      "sector": "Industrials",
+      "cat": "logistics",
+      "emoji": "📦",
+      "date": "April 28, 2026",
+      "beatMiss": "Miss",
+      "rating": "Hold",
+      "pt": "$116",
+      "ptBull": "$147",
+      "ptBear": "$75",
+      "rev": "$21.2B",
+      "revGr": "-1.6%",
+      "eps": "$1.07",
+      "epsGr": "-28.2%",
+      "gm": "n.a.",
+      "gmN": "GAAP only · Operating Margin 6.2% vs 7.7% prior year",
+      "ocf": "$2,224M",
+      "ocfN": "OCF down 4.1% YoY · Capex $1.03B",
+      "ebitda": "n.a.",
+      "netInc": "$864M",
+      "cash": "$5.8B",
+      "summary": "UPS missed Q1 2026 estimates as consolidated revenue fell 1.6% YoY to $21.2B and non-GAAP EPS of $1.07 came in below consensus. US Domestic revenue declined 2.3% on lower volume, partially offset by revenue-per-piece growth of 6.5%. Operating margin compressed to 6.2% (vs 7.7% prior year), impacted by ~70bps of unexpected weather and casualty costs. Management reaffirmed full-year guidance of $89.7B revenue and 9.6% operating margin, citing $3B cost-out plan and H2 2026 inflection.",
+      "execSummary": "UPS delivered a below-consensus Q1 2026 driven by volume weakness and weather/casualty headwinds (+70bps). US Domestic margin compressed to 3.6% (non-GAAP 4.0%) as volume declines outpaced revenue-per-piece gains. The key debate is execution of the $3B 'Network of the Future' cost-out and the H2 2026 margin recovery thesis. Management reaffirmed FY2026 guidance confidently but the Teamsters injunction risk and Ground Saver timing create meaningful execution uncertainty. Rating: HOLD · Consensus PT $116.",
+      "revenueGrowthAnalysis": "US Domestic revenue -2.3% YoY driven by volume declines, though RPP +6.5% shows pricing power intact. International +3.8% with RPP +10.7% was the bright spot. Supply Chain Solutions -6.5% on Mail Innovations volume decline. Q1 margin hit by one-time weather/casualty items (~70bps) that management says are behind the company entering Q2.",
+      "segmentAnalysis": "US Domestic (72%): Revenue declined 2.3%, RPP +6.5%, op margin 3.6% (4.0% non-GAAP) — hurt by volume and weather costs. International (18%): Revenue +3.8%, RPP +10.7%, op margin 12.0% (12.1% non-GAAP) — strong pricing. Supply Chain Solutions (10%): Revenue -6.5% on Mail Innovations decline, op margin 8.1%.",
+      "industryAnalysis": "Global parcel volume is recovering slowly from the post-pandemic correction. E-commerce growth of 8-10% annually provides a secular tailwind, but competition from Amazon Logistics and regional players is intensifying. UPS is repositioning toward premium, high-margin verticals: SMB, B2B, and healthcare — a strategy that protects ASP at the cost of near-term volume.",
+      "guidanceAnalysis": "FY2026: Revenue ~$89.7B, consolidated operating margin ~9.6%, EPS roughly flat to 2025 (~$5.80). The guidance implies significant H2 2026 margin recovery — from 6.2% in Q1 to ~12%+ in H2. Ground Saver outsourcing ($400-500M EBIT benefit) and Network of the Future cost-outs are the key levers. Management called H2 2026 the 'inflection point' with better margins in 2027.",
+      "mgmtPositive": [
+        "CEO Tomé: Q1 weather and casualty costs are behind us — transitional headwinds reduce materially in Q2",
+        "Network of the Future on track — $3B cost-out programme delivering incremental savings",
+        "Revenue per piece +6.5% US Domestic — pricing discipline intact despite volume softness",
+        "International 12.0% operating margin — premium geography continues to deliver"
+      ],
+      "mgmtNegative": [
+        "Volume declines continued in Q1 — SMB repositioning not yet offsetting mass market losses",
+        "US Domestic margin 3.6% significantly below long-term targets",
+        "Teamsters potential injunction — 30,000-position reduction plan could be delayed",
+        "Ground Saver EBIT benefit ($400-500M) not fully materialising until 2027"
+      ],
+      "bullPoints": [
+        "Network of the Future: $3B cost-out by end-2026 — facility consolidation and automation driving structural cost reduction",
+        "Revenue per piece +6.5% US Domestic — pricing power intact, premium mix (SMB, healthcare, B2B) shifting revenue quality",
+        "International 12% margins sustained — diversified revenue base with strong European B2B franchise",
+        "H2 2026 inflection: weather/casualty costs resolved, Ground Saver transition costs falling, $3B cost-out ramping"
+      ],
+      "bearPoints": [
+        "Teamsters injunction risk — court ruling could block 30,000-position reduction plan, delaying $600M+ in savings",
+        "Volume trajectory negative — four consecutive years of EPS decline with 2026 consensus projecting further decline",
+        "Ground Saver benefit ($400-500M EBIT) delayed to 2027 — H2 2026 recovery depends on timing",
+        "Amazon Logistics market share gains — ongoing structural threat to last-mile volume"
+      ],
+      "nearRisks": [
+        "Q2 operating margin below 5% would raise questions about H2 recovery thesis",
+        "Teamsters court ruling blocking workforce reduction plan",
+        "Volume declines accelerating if macro slows — Q1 volume already below expectations"
+      ],
+      "longRisks": [
+        "Amazon Logistics expansion permanently reduces UPS addressable volume",
+        "E-commerce mix shift to lower-ASP packages structurally pressures revenue per piece",
+        "Labour cost inflation limiting margin leverage even as volumes recover"
+      ],
+      "valuation": "UPS at ~$102 trades at ~17x FY2026E non-GAAP EPS ~$5.80. EV/EBITDA ~9x. Dividend yield ~5.5% ($6.56 annualised) provides a meaningful floor. Consensus PT $116 based on 24 analysts (high $147 Goldman Sachs, low $75 Morgan Stanley).",
+      "ptBullCase": "$147. FY2026 operating margin reaches 10%+. Ground Saver delivers $500M+ EBIT. Volume inflects +3% in H2. Teamsters lawsuit resolved. EPS $7.00 x 21x.",
+      "ptBaseCase": "$116. FY2026 operating margin 9.6% on guide. Ground Saver EBIT $350M. Volume flat H2. EPS $5.80 x 20x.",
+      "ptBearCase": "$75. Teamsters injunction delays cost-out. H2 recovery fails. EPS $4.50 x 17x. Dividend cut risk elevated.",
+      "thesis": "UPS is in a multi-year restructuring. The $3B cost-out and premium repositioning thesis is credible but execution-dependent with material Teamsters legal risk and H2 timing uncertainty. Hold with dividend support at ~5.5% yield until volume inflection confirmed. HOLD · PT $116.",
+      "segments": [
+        { "n": "US Domestic", "v": "$15.3B", "g": "-2.3%" },
+        { "n": "International", "v": "$3.9B", "g": "+3.8%" },
+        { "n": "Supply Chain", "v": "$2.0B", "g": "-6.5%" }
+      ],
+      "revHistory": [21.7, 21.8, 22.2, 25.3, 21.5, 21.2],
+      "revLabels": ["Q1 24", "Q2 24", "Q3 24", "Q4 24", "Q1 25", "Q1 26"],
+      "epsHistory": [1.43, 1.79, 1.76, 2.75, 1.49, 1.07]
+    },
     {
   "id": "crdo-q4-fy2026",
   "ticker": "CRDO",
@@ -66,10 +118,10 @@
       "ticker": "IBM",
       "co": "International Business Machines",
       "q": "Q1 FY2026",
-      "flag": "\ud83c\uddfa\ud83c\uddf8",
+      "flag": "🇺🇸",
       "sector": "Technology & Consulting",
       "cat": "tech",
-      "emoji": "\ud83d\udda5\ufe0f",
+      "emoji": "🖥️",
       "date": "April 22, 2026",
       "beatMiss": "Beat",
       "rating": "Buy",
@@ -87,35 +139,35 @@
       "ebitda": "$4.0B",
       "netInc": "$1.22B",
       "cash": "$11.8B",
-      "summary": "IBM beat Q1 FY2026 on every metric: revenue $15.92B (+9% YoY, beat +$300M), non-GAAP EPS $1.91 (+19%, beat +$0.10), FCF $2.22B \u2014 decade-best Q1. Software +11%, z17 mainframe +51%, GenAI book $12.5B+. Guidance maintained citing macro uncertainty.",
-      "execSummary": "IBM delivered a clean beat across revenue, EPS, and free cash flow in Q1 FY2026. Software accelerated to +11% YoY, z17 mainframe surged +51%, and the GenAI book of business crossed $12.5B inception-to-date. FCF of $2.22B was the strongest Q1 in a decade. Management maintained rather than raised full-year guidance citing macro uncertainty. Rating: BUY \u00b7 PT $250.",
+      "summary": "IBM beat Q1 FY2026 on every metric: revenue $15.92B (+9% YoY, beat +$300M), non-GAAP EPS $1.91 (+19%, beat +$0.10), FCF $2.22B — decade-best Q1. Software +11%, z17 mainframe +51%, GenAI book $12.5B+. Guidance maintained citing macro uncertainty.",
+      "execSummary": "IBM delivered a clean beat across revenue, EPS, and free cash flow in Q1 FY2026. Software accelerated to +11% YoY, z17 mainframe surged +51%, and the GenAI book of business crossed $12.5B inception-to-date. FCF of $2.22B was the strongest Q1 in a decade. Management maintained rather than raised full-year guidance citing macro uncertainty. Rating: BUY · PT $250.",
       "revenueGrowthAnalysis": "Software at $7.05B (+11%) led growth. Infrastructure at $3.33B (+15%) powered by 51% surge in z17 IBM Z mainframe. Consulting at $5.27B (+4% reported, +1% CC) was the only mixed signal. EPS grew 19% YoY driven by SGA efficiencies and operating leverage.",
-      "segmentAnalysis": "Software (44%): $7.05B +11% \u2014 Red Hat +13%, Automation +15%, Watsonx +7%. Infrastructure (21%): $3.33B +15% \u2014 IBM Z mainframe +51%. Consulting (33%): $5.27B +4% (+1% CC). Financing (1%): $220M +15%.",
+      "segmentAnalysis": "Software (44%): $7.05B +11% — Red Hat +13%, Automation +15%, Watsonx +7%. Infrastructure (21%): $3.33B +15% — IBM Z mainframe +51%. Consulting (33%): $5.27B +4% (+1% CC). Financing (1%): $220M +15%.",
       "industryAnalysis": "IBM targets regulated enterprises that cannot move to public cloud. Watsonx provides AI governance, Red Hat OpenShift provides hybrid infrastructure. GenAI book $12.5B+ converts to recurring licenses and consulting. z17 enables AI inference on-premise. Confluent adds real-time data streaming.",
-      "guidanceAnalysis": "FY2026: CC revenue 5%+, Software 10%+ CC (raised), FCF $13.5B+, op margin +~1pt, Confluent dilution ~$600M. Guidance maintained despite beat \u2014 macro uncertainty cited.",
+      "guidanceAnalysis": "FY2026: CC revenue 5%+, Software 10%+ CC (raised), FCF $13.5B+, op margin +~1pt, Confluent dilution ~$600M. Guidance maintained despite beat — macro uncertainty cited.",
       "mgmtPositive": [
         "CEO Krishna: We exceeded expectations for revenue, profitability and FCF, led by Software strength",
-        "GenAI book $12.5B+ \u2014 real revenue commitments converting to recurring licenses",
-        "Software guidance raised to 10%+ CC \u2014 reflects Confluent and Automation acceleration",
-        "FCF $2.22B strongest Q1 in decade \u2014 $13.5B+ FY2026 target intact"
+        "GenAI book $12.5B+ — real revenue commitments converting to recurring licenses",
+        "Software guidance raised to 10%+ CC — reflects Confluent and Automation acceleration",
+        "FCF $2.22B strongest Q1 in decade — $13.5B+ FY2026 target intact"
       ],
       "mgmtNegative": [
-        "Guidance maintained not raised despite $300M beat \u2014 macro environment is fluid",
-        "Consulting +4% reported, just +1% CC \u2014 below acceleration needed",
-        "Confluent dilution ~$600M FY2026 EPS \u2014 near-term headwind",
+        "Guidance maintained not raised despite $300M beat — macro environment is fluid",
+        "Consulting +4% reported, just +1% CC — below acceleration needed",
+        "Confluent dilution ~$600M FY2026 EPS — near-term headwind",
         "Infrastructure guided to decline low-single-digits FY despite Q1 +15%"
       ],
       "bullPoints": [
-        "GenAI book $12.5B+ \u2014 largest enterprise AI commitment outside hyperscalers",
-        "Software 10%+ CC compounding \u2014 mix-shift to high-margin recurring revenue",
-        "z17 super-cycle pacing ahead of z16 \u2014 AI inferencing on-premise extends cycle",
-        "FCF decade-best Q1 $2.22B \u2014 3%+ dividend yield, 31st consecutive annual increase"
+        "GenAI book $12.5B+ — largest enterprise AI commitment outside hyperscalers",
+        "Software 10%+ CC compounding — mix-shift to high-margin recurring revenue",
+        "z17 super-cycle pacing ahead of z16 — AI inferencing on-premise extends cycle",
+        "FCF decade-best Q1 $2.22B — 3%+ dividend yield, 31st consecutive annual increase"
       ],
       "bearPoints": [
-        "Consulting +1% CC \u2014 structural weakness risk if no acceleration in H2",
-        "Confluent $11B acquisition \u2014 $600M EPS dilution, integration risk",
-        "Valuation 22-23x P/E \u2014 premium to 14x historical average",
-        "z17 cycle becomes headwind in H2 \u2014 infrastructure guided to decline FY"
+        "Consulting +1% CC — structural weakness risk if no acceleration in H2",
+        "Confluent $11B acquisition — $600M EPS dilution, integration risk",
+        "Valuation 22-23x P/E — premium to 14x historical average",
+        "z17 cycle becomes headwind in H2 — infrastructure guided to decline FY"
       ],
       "nearRisks": [
         "Q2 consulting below +3% would signal structural not cyclical weakness",
@@ -124,67 +176,33 @@
       ],
       "longRisks": [
         "Hyperscaler hybrid products targeting IBM regulated enterprise differentiation",
-        "Consulting commoditisation \u2014 GenAI automating labour-intensive work",
-        "Debt $66.4B post-Confluent \u2014 rising rates increase financing cost"
+        "Consulting commoditisation — GenAI automating labour-intensive work",
+        "Debt $66.4B post-Confluent — rising rates increase financing cost"
       ],
       "valuation": "IBM at ~$214 trades at 22-23x CY2026 non-GAAP EPS ~$10.80. FCF yield ~5.5%. Dividend yield ~3.0%. PT $250 base = 23x FY2026E EPS.",
       "ptBullCase": "$290. Software 12%+ FY2026. Consulting 5%+ H2. Confluent ahead of plan. EPS ~$11.50. 26x = $299.",
       "ptBaseCase": "$250. Software 10% on guide. Consulting 3-4%. FCF $13.5B+. EPS ~$10.80. 23x = $248.",
       "ptBearCase": "$175. Consulting stalls under 2%. Software misses. EPS $9.50. 18x = $171.",
-      "thesis": "IBM is executing a credible transformation into a software-led hybrid cloud and enterprise AI platform. Q1 FY2026 confirmed: software 10%+, FCF decade-best, GenAI backlog $12.5B+. BUY \u00b7 PT $250.",
+      "thesis": "IBM is executing a credible transformation into a software-led hybrid cloud and enterprise AI platform. Q1 FY2026 confirmed: software 10%+, FCF decade-best, GenAI backlog $12.5B+. BUY · PT $250.",
       "segments": [
-        {
-          "n": "Software",
-          "v": "$7.05B",
-          "g": "+11%"
-        },
-        {
-          "n": "Consulting",
-          "v": "$5.27B",
-          "g": "+4%"
-        },
-        {
-          "n": "Infrastructure",
-          "v": "$3.33B",
-          "g": "+15%"
-        },
-        {
-          "n": "Financing",
-          "v": "$0.22B",
-          "g": "+15%"
-        }
+        { "n": "Software", "v": "$7.05B", "g": "+11%" },
+        { "n": "Consulting", "v": "$5.27B", "g": "+4%" },
+        { "n": "Infrastructure", "v": "$3.33B", "g": "+15%" },
+        { "n": "Financing", "v": "$0.22B", "g": "+15%" }
       ],
-      "revHistory": [
-        14.54,
-        15.76,
-        15.97,
-        19.65,
-        15.92
-      ],
-      "revLabels": [
-        "Q1 FY25",
-        "Q2 FY25",
-        "Q3 FY25",
-        "Q4 FY25",
-        "Q1 FY26"
-      ],
-      "epsHistory": [
-        1.6,
-        2.15,
-        2.3,
-        4.52,
-        1.91
-      ]
+      "revHistory": [14.54, 15.76, 15.97, 19.65, 15.92],
+      "revLabels": ["Q1 FY25", "Q2 FY25", "Q3 FY25", "Q4 FY25", "Q1 FY26"],
+      "epsHistory": [1.6, 2.15, 2.3, 4.52, 1.91]
     },
     {
       "id": "nvda-q1-2026",
       "ticker": "NVDA",
       "co": "NVIDIA Corporation",
       "q": "Q1 FY2026",
-      "flag": "\ud83c\uddfa\ud83c\uddf8",
+      "flag": "🇺🇸",
       "sector": "Technology",
       "cat": "semi",
-      "emoji": "\ud83c\udfae",
+      "emoji": "🎮",
       "date": "May 22, 2026",
       "beatMiss": "Beat",
       "rating": "Strong Buy",
@@ -203,37 +221,37 @@
       "netInc": "$18.8B",
       "cash": "$34.8B",
       "summary": "NVIDIA delivered another blockbuster quarter. Revenue $44.1B (+69% YoY) beat consensus $42.8B by $1.3B. Non-GAAP EPS $0.96 (+72%) beat $0.91 by $0.05. Data Center $39.1B (+73% YoY). Non-GAAP gross margin 78.4% (+180bps). Q2 guidance $45.0B beat consensus $43.8B. CEO Huang: Blackwell demand is insane.",
-      "execSummary": "NVIDIA reported a near-perfect Q1 FY2026. Data Center at $39.1B (+73% YoY) confirms the AI super-cycle intact. Blackwell ahead of schedule. Non-GAAP gross margin 78.4% expanded 180bps YoY. CUDA ecosystem with 4M+ developers creates irreplaceable switching costs. Rating: STRONG BUY \u00b7 PT $1,400.",
+      "execSummary": "NVIDIA reported a near-perfect Q1 FY2026. Data Center at $39.1B (+73% YoY) confirms the AI super-cycle intact. Blackwell ahead of schedule. Non-GAAP gross margin 78.4% expanded 180bps YoY. CUDA ecosystem with 4M+ developers creates irreplaceable switching costs. Rating: STRONG BUY · PT $1,400.",
       "revenueGrowthAnalysis": "Data Center $39.1B (+73%, 89% of revenue) dominates. Blackwell ramping across all hyperscalers simultaneously. Gaming $3.8B (+18%). Automotive $0.6B (+72%). Non-GAAP gross margin 78.4% confirms extraordinary pricing power.",
       "segmentAnalysis": "Data Center (89%): $39.1B +73% YoY. Gaming (9%): $3.8B +18%. Professional Viz (1%): $0.5B +45%. Automotive (1%): $0.6B +72%.",
-      "industryAnalysis": "Hyperscaler combined 2026 capex $470B+. CUDA ecosystem \u2014 4M+ developers, 650+ applications \u2014 creates switching costs taking years to overcome. AI inference market growing faster than training as models deploy at scale.",
+      "industryAnalysis": "Hyperscaler combined 2026 capex $470B+. CUDA ecosystem — 4M+ developers, 650+ applications — creates switching costs taking years to overcome. AI inference market growing faster than training as models deploy at scale.",
       "guidanceAnalysis": "Q2 FY2026: Revenue $45.0B beats consensus $43.8B by $1.2B. Non-GAAP gross margin ~78.5%. Supply, not demand, remains the constraint. FY2026 annualised run-rate approaching $175B+.",
       "mgmtPositive": [
-        "CEO Huang: Blackwell demand is insane \u2014 every major cloud provider scaling simultaneously",
-        "Supply constrained not demand \u2014 backlog extends into FY2027",
-        "Q2 guidance beat consensus by 3% \u2014 strong demand visibility",
+        "CEO Huang: Blackwell demand is insane — every major cloud provider scaling simultaneously",
+        "Supply constrained not demand — backlog extends into FY2027",
+        "Q2 guidance beat consensus by 3% — strong demand visibility",
         "CUDA 4M+ developers creates deep switching costs"
       ],
       "mgmtNegative": [
-        "China export restrictions limit TAM permanently \u2014 Huawei Ascend gaining share",
+        "China export restrictions limit TAM permanently — Huawei Ascend gaining share",
         "Gross margin sustainability questioned at 78.4% peak",
-        "Custom silicon risk \u2014 TPU, Trainium threat growing over time"
+        "Custom silicon risk — TPU, Trainium threat growing over time"
       ],
       "bullPoints": [
-        "Data Center TAM expanding \u2014 $470B+ hyperscaler capex, every dollar flows through NVIDIA first",
-        "Blackwell ahead of schedule \u2014 supply constraint means demand is real not pull-forward",
-        "Gross margin 78.4% \u2014 highest in history, extraordinary pricing power",
-        "CUDA 4M+ developers, 650+ apps \u2014 multi-year switching cost moat"
+        "Data Center TAM expanding — $470B+ hyperscaler capex, every dollar flows through NVIDIA first",
+        "Blackwell ahead of schedule — supply constraint means demand is real not pull-forward",
+        "Gross margin 78.4% — highest in history, extraordinary pricing power",
+        "CUDA 4M+ developers, 650+ apps — multi-year switching cost moat"
       ],
       "bearPoints": [
         "China export restrictions permanently limit ~10% of TAM",
-        "Valuation 35x+ forward P/E prices perfection \u2014 any miss violent",
+        "Valuation 35x+ forward P/E prices perfection — any miss violent",
         "Custom silicon: Google, Amazon, Meta investing in proprietary AI accelerators",
-        "Top 5 hyperscalers ~87% of Data Center revenue \u2014 extreme concentration"
+        "Top 5 hyperscalers ~87% of Data Center revenue — extreme concentration"
       ],
       "nearRisks": [
         "Hyperscaler capex guidance reduction directly pressures revenue",
-        "Export control escalation \u2014 further restrictions on Blackwell impair TAM",
+        "Export control escalation — further restrictions on Blackwell impair TAM",
         "TSMC CoWoS packaging issues would delay Blackwell shipments"
       ],
       "longRisks": [
@@ -245,66 +263,26 @@
       "ptBullCase": "$1,800. FY2026 revenue $180B+, gross margin 80%+, EPS $4.80, 40x FY2026E.",
       "ptBaseCase": "$1,400. FY2026 revenue $170B+, EPS $4.20, 38x FY2027E EPS.",
       "ptBearCase": "$700. Capex cycle inflects, revenue growth decelerates to 20%, EPS $3.00, 25x.",
-      "thesis": "NVIDIA is the operating system of AI infrastructure. CUDA moat, Blackwell leadership, NVLink ecosystem take years to erode. PEG 0.7x on 50%+ growth is inexpensive. STRONG BUY \u00b7 PT $1,400.",
+      "thesis": "NVIDIA is the operating system of AI infrastructure. CUDA moat, Blackwell leadership, NVLink ecosystem take years to erode. PEG 0.7x on 50%+ growth is inexpensive. STRONG BUY · PT $1,400.",
       "segments": [
-        {
-          "n": "Data Center",
-          "v": "$39.1B",
-          "g": "+73%"
-        },
-        {
-          "n": "Gaming",
-          "v": "$3.8B",
-          "g": "+18%"
-        },
-        {
-          "n": "Prof. Viz",
-          "v": "$0.5B",
-          "g": "+45%"
-        },
-        {
-          "n": "Automotive",
-          "v": "$0.6B",
-          "g": "+72%"
-        }
+        { "n": "Data Center", "v": "$39.1B", "g": "+73%" },
+        { "n": "Gaming", "v": "$3.8B", "g": "+18%" },
+        { "n": "Prof. Viz", "v": "$0.5B", "g": "+45%" },
+        { "n": "Automotive", "v": "$0.6B", "g": "+72%" }
       ],
-      "revHistory": [
-        13.5,
-        18.1,
-        22.1,
-        26.0,
-        30.0,
-        35.1,
-        44.1
-      ],
-      "revLabels": [
-        "Q2 FY24",
-        "Q3 FY24",
-        "Q4 FY24",
-        "Q1 FY25",
-        "Q2 FY25",
-        "Q3 FY25",
-        "Q1 FY26"
-      ],
-      "epsHistory": [
-        0.44,
-        0.68,
-        0.78,
-        0.61,
-        0.68,
-        0.81,
-        0.96
-      ]
+      "revHistory": [13.5, 18.1, 22.1, 26.0, 30.0, 35.1, 44.1],
+      "revLabels": ["Q2 FY24", "Q3 FY24", "Q4 FY24", "Q1 FY25", "Q2 FY25", "Q3 FY25", "Q1 FY26"],
+      "epsHistory": [0.44, 0.68, 0.78, 0.61, 0.68, 0.81, 0.96]
     },
     {
       "id": "msft-q3-2026",
       "ticker": "MSFT",
       "co": "Microsoft Corporation",
       "q": "Q3 FY2026",
-      "flag": "\ud83c\uddfa\ud83c\uddf8",
+      "flag": "🇺🇸",
       "sector": "Cloud & AI",
       "cat": "cloud",
-      "emoji": "\ud83e\ude9f",
+      "emoji": "🪟",
       "date": "April 30, 2026",
       "beatMiss": "Beat",
       "rating": "Strong Buy",
@@ -322,17 +300,17 @@
       "ebitda": "$29.4B",
       "netInc": "$25.8B",
       "cash": "$78.4B",
-      "summary": "Microsoft crushed estimates. Azure accelerated to +35% CC \u2014 fastest since 2022. Copilot M365 reached 30M paid seats. Operating margin 47.1% expanded despite heavy AI investment. Q4 guidance $68.1-69.1B exceeded consensus $67.4B.",
-      "execSummary": "Microsoft delivered a strong beat across all segments. Azure reacceleration to 35% CC is the key positive surprise. Copilot M365 at 30M paid seats demonstrates real commercial adoption. Operating margin 47.1% expanding despite $18B/quarter AI capex. Rating: STRONG BUY \u00b7 PT $510.",
+      "summary": "Microsoft crushed estimates. Azure accelerated to +35% CC — fastest since 2022. Copilot M365 reached 30M paid seats. Operating margin 47.1% expanded despite heavy AI investment. Q4 guidance $68.1-69.1B exceeded consensus $67.4B.",
+      "execSummary": "Microsoft delivered a strong beat across all segments. Azure reacceleration to 35% CC is the key positive surprise. Copilot M365 at 30M paid seats demonstrates real commercial adoption. Operating margin 47.1% expanding despite $18B/quarter AI capex. Rating: STRONG BUY · PT $510.",
       "revenueGrowthAnalysis": "Azure reaccelerating to 35% CC (from 31% in Q2) is the standout. AI services contributed ~12pp of Azure growth. M365 Commercial +13% driven by E5 suite upgrades and Copilot attachment.",
       "segmentAnalysis": "Intelligent Cloud (Azure): $26.8B +21% reported (+35% CC). Productivity (M365): $20.4B +12%. Gaming: $6.4B +8%. LinkedIn: $4.2B +9%.",
       "industryAnalysis": "Enterprise cloud migration accelerating not decelerating. AI is incremental to base cloud spend. Microsoft is best positioned with both cloud infrastructure (Azure) and AI application layer (Copilot, GitHub).",
       "guidanceAnalysis": "Q4 FY2026: Revenue $68.1-69.1B (vs consensus $67.4B). Azure 34-35% CC sustained. Operating margin ~47%.",
       "mgmtPositive": [
-        "CEO Nadella: Every layer of the stack is being transformed by AI \u2014 Azure OpenAI used by 65% of Fortune 500",
-        "Azure reacceleration to 35% CC \u2014 sustained pace expected",
-        "Copilot M365 30M paid seats \u2014 fastest enterprise software ramp in company history",
-        "FCF $24.1B \u2014 self-funding entire AI capex programme without dilution"
+        "CEO Nadella: Every layer of the stack is being transformed by AI — Azure OpenAI used by 65% of Fortune 500",
+        "Azure reacceleration to 35% CC — sustained pace expected",
+        "Copilot M365 30M paid seats — fastest enterprise software ramp in company history",
+        "FCF $24.1B — self-funding entire AI capex programme without dilution"
       ],
       "mgmtNegative": [
         "OpenAI dependency and relationship complexity",
@@ -340,20 +318,20 @@
         "Gaming margin suppressed post-Activision integration"
       ],
       "bullPoints": [
-        "Azure 35% CC with AI contributing 12pp \u2014 reacceleration is structural",
+        "Azure 35% CC with AI contributing 12pp — reacceleration is structural",
         "Copilot M365 30M paid seats at $30/seat/month = $10.8B ARR run-rate",
         "Operating leverage at 47.1% margin despite $18B/quarter AI investment",
-        "65% Fortune 500 on Azure OpenAI \u2014 switching costs compound"
+        "65% Fortune 500 on Azure OpenAI — switching costs compound"
       ],
       "bearPoints": [
-        "Valuation 31x FY26E P/E with 15% revenue growth \u2014 high expectations",
-        "OpenAI partnership complexity \u2014 billions invested in potential competitor",
+        "Valuation 31x FY26E P/E with 15% revenue growth — high expectations",
+        "OpenAI partnership complexity — billions invested in potential competitor",
         "EU and DOJ scrutiny of cloud bundling could force changes",
-        "Capex $80B+ for 2026 \u2014 if AI revenue disappoints this becomes a problem"
+        "Capex $80B+ for 2026 — if AI revenue disappoints this becomes a problem"
       ],
       "nearRisks": [
         "Azure below 30% CC in Q4 would signal AI momentum fading",
-        "Copilot churn rate \u2014 30M seats but retention data unavailable"
+        "Copilot churn rate — 30M seats but retention data unavailable"
       ],
       "longRisks": [
         "Custom model proliferation reduces Azure OpenAI moat",
@@ -363,66 +341,26 @@
       "ptBullCase": "$620. Azure sustains 35%+ growth. Copilot reaches 20% of M365 base. Op margin 50%+.",
       "ptBaseCase": "$510. Azure sustains 32-35% CC. Copilot 60M seats by FY27. FY27E EPS $15.80 x 34x.",
       "ptBearCase": "$340. Azure decelerates to 20% CC. Copilot churn high. EPS $13.50 x 26x.",
-      "thesis": "Microsoft owns both cloud infrastructure (Azure) AND the AI application layer (Copilot, GitHub) to monetise the AI wave end-to-end. STRONG BUY \u00b7 PT $510.",
+      "thesis": "Microsoft owns both cloud infrastructure (Azure) AND the AI application layer (Copilot, GitHub) to monetise the AI wave end-to-end. STRONG BUY · PT $510.",
       "segments": [
-        {
-          "n": "Azure Cloud",
-          "v": "$26.8B",
-          "g": "+35% CC"
-        },
-        {
-          "n": "Productivity M365",
-          "v": "$20.4B",
-          "g": "+12%"
-        },
-        {
-          "n": "Gaming Xbox",
-          "v": "$6.4B",
-          "g": "+8%"
-        },
-        {
-          "n": "LinkedIn",
-          "v": "$4.2B",
-          "g": "+9%"
-        }
+        { "n": "Azure Cloud", "v": "$26.8B", "g": "+35% CC" },
+        { "n": "Productivity M365", "v": "$20.4B", "g": "+12%" },
+        { "n": "Gaming Xbox", "v": "$6.4B", "g": "+8%" },
+        { "n": "LinkedIn", "v": "$4.2B", "g": "+9%" }
       ],
-      "revHistory": [
-        56.5,
-        57.4,
-        61.0,
-        65.6,
-        56.5,
-        57.4,
-        61.9
-      ],
-      "revLabels": [
-        "Q1 FY25",
-        "Q2 FY25",
-        "Q3 FY25",
-        "Q4 FY25",
-        "Q1 FY26",
-        "Q2 FY26",
-        "Q3 FY26"
-      ],
-      "epsHistory": [
-        2.94,
-        2.95,
-        3.3,
-        3.23,
-        2.94,
-        2.95,
-        3.46
-      ]
+      "revHistory": [56.5, 57.4, 61.0, 65.6, 56.5, 57.4, 61.9],
+      "revLabels": ["Q1 FY25", "Q2 FY25", "Q3 FY25", "Q4 FY25", "Q1 FY26", "Q2 FY26", "Q3 FY26"],
+      "epsHistory": [2.94, 2.95, 3.3, 3.23, 2.94, 2.95, 3.46]
     },
     {
       "id": "aapl-q1-2026",
       "ticker": "AAPL",
       "co": "Apple Inc.",
       "q": "Q1 FY2026",
-      "flag": "\ud83c\uddfa\ud83c\uddf8",
+      "flag": "🇺🇸",
       "sector": "Consumer Tech",
       "cat": "con",
-      "emoji": "\ud83c\udf4e",
+      "emoji": "🍎",
       "date": "May 2, 2026",
       "beatMiss": "Beat",
       "rating": "Buy",
@@ -441,108 +379,68 @@
       "netInc": "$24.8B",
       "cash": "$145B",
       "summary": "Apple beat on Services ($26.3B record, +13.8% YoY) and iPhone outperformed in India (+22% YoY). Apple Intelligence features accelerating upgrade cycle. Gross margin 46.9% near all-time highs. $110B buyback announced. China revenue -8% YoY remains the key headwind.",
-      "execSummary": "Apple delivered a clean beat driven by record Services revenue ($26.3B, 75%+ gross margin) and better-than-expected iPhone in India. Apple Intelligence is beginning to pull forward the upgrade cycle. Gross margin 46.9% demonstrates platform pricing power. Rating: BUY \u00b7 PT $248.",
+      "execSummary": "Apple delivered a clean beat driven by record Services revenue ($26.3B, 75%+ gross margin) and better-than-expected iPhone in India. Apple Intelligence is beginning to pull forward the upgrade cycle. Gross margin 46.9% demonstrates platform pricing power. Rating: BUY · PT $248.",
       "revenueGrowthAnalysis": "Services at $26.3B (+13.8% YoY) approaching 28% of revenue with 75%+ gross margins. iPhone $69.1B (+2.1%) outperformed driven by India +22%. China -8% drag.",
-      "segmentAnalysis": "iPhone (72%): $69.1B +2.1% \u2014 US and India strong, China -8%. Services (28%): $26.3B +13.8% record. Mac: $7.9B +6.2%. iPad: $6.0B +8.1%. Wearables: $12.1B -3.1%.",
-      "industryAnalysis": "Global smartphone market growing 3-5% annually. Services is the structural growth driver \u2014 2.2B+ device installed base creates recurring monetisation. Apple Intelligence is the near-term catalyst for the next major iPhone upgrade cycle.",
-      "guidanceAnalysis": "Q2 FY2026: Revenue $94-98B (vs consensus $96B \u2014 in-line). Gross margin 46.5-47.5%. Services growth ~13-14% YoY. $110B buyback \u2014 largest in company history.",
+      "segmentAnalysis": "iPhone (72%): $69.1B +2.1% — US and India strong, China -8%. Services (28%): $26.3B +13.8% record. Mac: $7.9B +6.2%. iPad: $6.0B +8.1%. Wearables: $12.1B -3.1%.",
+      "industryAnalysis": "Global smartphone market growing 3-5% annually. Services is the structural growth driver — 2.2B+ device installed base creates recurring monetisation. Apple Intelligence is the near-term catalyst for the next major iPhone upgrade cycle.",
+      "guidanceAnalysis": "Q2 FY2026: Revenue $94-98B (vs consensus $96B — in-line). Gross margin 46.5-47.5%. Services growth ~13-14% YoY. $110B buyback — largest in company history.",
       "mgmtPositive": [
         "CEO Cook: Apple Intelligence generating significant interest in iPhone upgrades",
-        "Services $26.3B record \u2014 never had stronger engagement with Apple ecosystem",
-        "India iPhone +22% YoY \u2014 one of fastest growing markets globally",
-        "$110B buyback \u2014 largest single announcement in Apple history"
+        "Services $26.3B record — never had stronger engagement with Apple ecosystem",
+        "India iPhone +22% YoY — one of fastest growing markets globally",
+        "$110B buyback — largest single announcement in Apple history"
       ],
       "mgmtNegative": [
-        "China -8% YoY \u2014 acknowledged continued challenges in Greater China",
-        "Vision Pro below sales trajectory \u2014 still in early adopter phase",
-        "Wearables -3.1% \u2014 Apple Watch plateau acknowledged"
+        "China -8% YoY — acknowledged continued challenges in Greater China",
+        "Vision Pro below sales trajectory — still in early adopter phase",
+        "Wearables -3.1% — Apple Watch plateau acknowledged"
       ],
       "bullPoints": [
-        "Services $26.3B record with 75%+ gross margin \u2014 structural gross margin expansion engine",
-        "Apple Intelligence upgrade cycle: 1.3B iPhone users on pre-AI models \u2014 10% upgrading = 130M unit tailwind",
-        "India: 1.4B population, under 5% iPhone penetration \u2014 decade-long secular growth opportunity",
+        "Services $26.3B record with 75%+ gross margin — structural gross margin expansion engine",
+        "Apple Intelligence upgrade cycle: 1.3B iPhone users on pre-AI models — 10% upgrading = 130M unit tailwind",
+        "India: 1.4B population, under 5% iPhone penetration — decade-long secular growth opportunity",
         "$110B buyback + dividend: ~4% total capital return yield provides meaningful floor"
       ],
       "bearPoints": [
-        "China -8% YoY \u2014 Huawei market share recovery is real and ongoing",
-        "iPhone unit growth +2.1% \u2014 hardware near-zero, bull case depends on Services and ASP",
-        "App Store antitrust risk \u2014 EU DMA forced sideloading, US DOJ case could force similar changes",
-        "Valuation 28x forward P/E for 4% revenue growth \u2014 expensive on growth-adjusted basis"
+        "China -8% YoY — Huawei market share recovery is real and ongoing",
+        "iPhone unit growth +2.1% — hardware near-zero, bull case depends on Services and ASP",
+        "App Store antitrust risk — EU DMA forced sideloading, US DOJ case could force similar changes",
+        "Valuation 28x forward P/E for 4% revenue growth — expensive on growth-adjusted basis"
       ],
       "nearRisks": [
         "China further deterioration directly impairs $15-20B annual revenue",
-        "Apple Intelligence adoption disappoints \u2014 if upgrade cycle does not materialise",
+        "Apple Intelligence adoption disappoints — if upgrade cycle does not materialise",
         "App Store regulatory enforcement reduces Services margin"
       ],
       "longRisks": [
-        "Structural China challenge \u2014 Huawei premium smartphone share shift permanent",
+        "Structural China challenge — Huawei premium smartphone share shift permanent",
         "Services antitrust forced open access would reduce App Store commissions",
-        "Apple Intelligence competitive parity \u2014 Google Gemini, Samsung Galaxy AI catching up"
+        "Apple Intelligence competitive parity — Google Gemini, Samsung Galaxy AI catching up"
       ],
       "valuation": "AAPL at $209 trades at 28x FY26E EPS $7.48. NTM P/E 28x. EV/Sales ~8x. FCF yield ~3.6%. PT $248 = 30x FY27E EPS $8.20.",
       "ptBullCase": "$310. iPhone units +12% FY2027. Services grows 18%+. Gross margin 49%+. EPS $9.50 x 35x FY2027.",
       "ptBaseCase": "$248. Services 13-14%. iPhone +4-5% FY2027. Gross margin ~47%. EPS $8.20 x 30x premium.",
       "ptBearCase": "$160. China deteriorates. iPhone flat. App Store forced open. Services margin 65%. EPS $6.50 x 26x.",
-      "thesis": "Apple Services flywheel at 13%+ growth, Apple Intelligence as next iPhone upgrade cycle catalyst, India as decade-long expansion. Franchise quality justifies premium multiple. BUY \u00b7 PT $248.",
+      "thesis": "Apple Services flywheel at 13%+ growth, Apple Intelligence as next iPhone upgrade cycle catalyst, India as decade-long expansion. Franchise quality justifies premium multiple. BUY · PT $248.",
       "segments": [
-        {
-          "n": "iPhone",
-          "v": "$69.1B",
-          "g": "+2.1%"
-        },
-        {
-          "n": "Services",
-          "v": "$26.3B",
-          "g": "+13.8%"
-        },
-        {
-          "n": "Mac",
-          "v": "$7.9B",
-          "g": "+6.2%"
-        },
-        {
-          "n": "Wearables",
-          "v": "$12.1B",
-          "g": "-3.1%"
-        }
+        { "n": "iPhone", "v": "$69.1B", "g": "+2.1%" },
+        { "n": "Services", "v": "$26.3B", "g": "+13.8%" },
+        { "n": "Mac", "v": "$7.9B", "g": "+6.2%" },
+        { "n": "Wearables", "v": "$12.1B", "g": "-3.1%" }
       ],
-      "revHistory": [
-        90.8,
-        94.9,
-        95.4,
-        91.0,
-        90.8,
-        94.9,
-        95.4
-      ],
-      "revLabels": [
-        "Q4 FY24",
-        "Q1 FY25",
-        "Q2 FY25",
-        "Q3 FY25",
-        "Q4 FY25",
-        "Q1 FY25b",
-        "Q1 FY26"
-      ],
-      "epsHistory": [
-        1.46,
-        1.53,
-        1.52,
-        1.4,
-        1.42,
-        1.53,
-        1.65
-      ]
+      "revHistory": [90.8, 94.9, 95.4, 91.0, 90.8, 94.9, 95.4],
+      "revLabels": ["Q4 FY24", "Q1 FY25", "Q2 FY25", "Q3 FY25", "Q4 FY25", "Q1 FY25b", "Q1 FY26"],
+      "epsHistory": [1.46, 1.53, 1.52, 1.4, 1.42, 1.53, 1.65]
     },
     {
       "id": "amzn-q1-2026",
       "ticker": "AMZN",
       "co": "Amazon.com Inc.",
       "q": "Q1 2026",
-      "flag": "\ud83c\uddfa\ud83c\uddf8",
+      "flag": "🇺🇸",
       "sector": "Cloud & E-Commerce",
       "cat": "cloud",
-      "emoji": "\ud83d\udce6",
+      "emoji": "📦",
       "date": "May 1, 2026",
       "beatMiss": "Beat",
       "rating": "Buy",
@@ -560,33 +458,33 @@
       "ebitda": "$28.9B",
       "netInc": "$17.1B",
       "cash": "$88B",
-      "summary": "Amazon delivered strong Q1 2026. AWS reaccelerated to +21% growth. Operating income hit a record $18.4B (11.8% margin). Advertising +19%. EPS $1.59 grew 61% YoY. Q2 operating income guided $13.0-17.5B \u2014 wide range reflecting capex timing.",
-      "execSummary": "Amazon Q1 2026 strong across the board: AWS +21% (reaccelerating), Advertising +19%, record operating margin 11.8%. EPS grew 61% YoY. Rating: BUY \u00b7 PT $245.",
+      "summary": "Amazon delivered strong Q1 2026. AWS reaccelerated to +21% growth. Operating income hit a record $18.4B (11.8% margin). Advertising +19%. EPS $1.59 grew 61% YoY. Q2 operating income guided $13.0-17.5B — wide range reflecting capex timing.",
+      "execSummary": "Amazon Q1 2026 strong across the board: AWS +21% (reaccelerating), Advertising +19%, record operating margin 11.8%. EPS grew 61% YoY. Rating: BUY · PT $245.",
       "revenueGrowthAnalysis": "AWS reacceleration to 21% (from 18% in Q4 2025) is the key positive. Advertising $13.8B (+19%) is the highest-margin business. North America retail margin expansion from fulfillment automation.",
       "segmentAnalysis": "AWS (19% of rev): $29.3B +21% YoY. Advertising (9%): $13.8B +19%. North America Retail (60%): $92.9B +10%. International (22%): $34.0B +9%.",
       "industryAnalysis": "Cloud hyperscaler market growing 20-25% annually, AI incremental to base workloads. AWS has 31% market share. Amazon Bedrock provides multi-model AI positioning. Trainium reduces GPU dependency.",
-      "guidanceAnalysis": "Q2 2026: Revenue $159-164B (vs consensus $160.4B \u2014 in-line). Operating income $13.0-17.5B wide range. $105B capex planned for 2026.",
+      "guidanceAnalysis": "Q2 2026: Revenue $159-164B (vs consensus $160.4B — in-line). Operating income $13.0-17.5B wide range. $105B capex planned for 2026.",
       "mgmtPositive": [
-        "CEO Jassy: AWS demand strong and broad-based \u2014 every enterprise in some phase of AI adoption",
-        "AWS +21% \u2014 AI workloads becoming meaningful contributor to growth",
-        "Operating margin 11.8% \u2014 record for Amazon, demonstrating retail leverage",
-        "Advertising $13.8B +19% \u2014 Prime Video ads just launched"
+        "CEO Jassy: AWS demand strong and broad-based — every enterprise in some phase of AI adoption",
+        "AWS +21% — AI workloads becoming meaningful contributor to growth",
+        "Operating margin 11.8% — record for Amazon, demonstrating retail leverage",
+        "Advertising $13.8B +19% — Prime Video ads just launched"
       ],
       "mgmtNegative": [
-        "Q2 operating income guided $13-17.5B \u2014 very wide range signals uncertainty",
-        "$105B 2026 capex \u2014 FCF pressured 2-3 years",
+        "Q2 operating income guided $13-17.5B — very wide range signals uncertainty",
+        "$105B 2026 capex — FCF pressured 2-3 years",
         "Retail competition from Temu, Shein intensifying"
       ],
       "bullPoints": [
         "AWS +21% reaccelerating with AI as incremental workload",
-        "Advertising 19% growth \u2014 Prime Video ads year-one revenue with multi-year runway",
-        "Record operating margin 11.8% \u2014 retail at 8%+ margins creates enormous upside",
-        "Bedrock multi-model AI platform \u2014 positioning among Claude, GPT, Llama"
+        "Advertising 19% growth — Prime Video ads year-one revenue with multi-year runway",
+        "Record operating margin 11.8% — retail at 8%+ margins creates enormous upside",
+        "Bedrock multi-model AI platform — positioning among Claude, GPT, Llama"
       ],
       "bearPoints": [
-        "$105B 2026 capex \u2014 returns materialise in 2-3 years, FCF substantially negative",
+        "$105B 2026 capex — returns materialise in 2-3 years, FCF substantially negative",
         "AWS +21% strong but below Azure +35% CC",
-        "Wide Q2 operating income range $13-17.5B \u2014 low end implies significant compression",
+        "Wide Q2 operating income range $13-17.5B — low end implies significant compression",
         "International still loss-making despite improvement"
       ],
       "nearRisks": [
@@ -595,62 +493,22 @@
       ],
       "longRisks": [
         "Regulatory antitrust scrutiny on AWS bundling",
-        "Retail margin ceiling at 8-10% \u2014 future growth must come from AWS and advertising"
+        "Retail margin ceiling at 8-10% — future growth must come from AWS and advertising"
       ],
       "valuation": "AMZN at $213 trades at ~34x FY2026E EPS $6.50. EV/EBITDA ~22x. Sum-of-parts: AWS $150B+ revenue at 35%+ margins by 2028. PT $245.",
       "ptBullCase": "$310. AWS reaches 25%+ sustained. Advertising hits $20B FY2027. Retail margins 9%+.",
       "ptBaseCase": "$245. AWS sustains 20-22%. Advertising 15-18%. FY2027E EPS $8.50 x 30x.",
       "ptBearCase": "$145. AWS decelerates to 15%. Retail fails to hold margin. EPS $4.50 x 32x.",
-      "thesis": "Amazon has three high-quality compounding engines: AWS, Advertising, and Retail. BUY \u00b7 PT $245.",
+      "thesis": "Amazon has three high-quality compounding engines: AWS, Advertising, and Retail. BUY · PT $245.",
       "segments": [
-        {
-          "n": "AWS",
-          "v": "$29.3B",
-          "g": "+21%"
-        },
-        {
-          "n": "Advertising",
-          "v": "$13.8B",
-          "g": "+19%"
-        },
-        {
-          "n": "North America",
-          "v": "$92.9B",
-          "g": "+10%"
-        },
-        {
-          "n": "International",
-          "v": "$34.0B",
-          "g": "+9%"
-        }
+        { "n": "AWS", "v": "$29.3B", "g": "+21%" },
+        { "n": "Advertising", "v": "$13.8B", "g": "+19%" },
+        { "n": "North America", "v": "$92.9B", "g": "+10%" },
+        { "n": "International", "v": "$34.0B", "g": "+9%" }
       ],
-      "revHistory": [
-        143.3,
-        148.0,
-        155.7,
-        158.0,
-        143.3,
-        148.0,
-        155.7
-      ],
-      "revLabels": [
-        "Q2 25",
-        "Q3 25",
-        "Q4 25",
-        "Q1 26E",
-        "Q2 25b",
-        "Q3 25b",
-        "Q1 26"
-      ],
-      "epsHistory": [
-        1.43,
-        1.86,
-        1.59,
-        1.7,
-        1.43,
-        1.86,
-        1.59
-      ]
+      "revHistory": [143.3, 148.0, 155.7, 158.0, 143.3, 148.0, 155.7],
+      "revLabels": ["Q2 25", "Q3 25", "Q4 25", "Q1 26E", "Q2 25b", "Q3 25b", "Q1 26"],
+      "epsHistory": [1.43, 1.86, 1.59, 1.7, 1.43, 1.86, 1.59]
     }
   ],
   "technical_analysis": [
@@ -673,67 +531,51 @@
       "stop": "$198",
       "rr": "1:3",
       "analysis": "IBM has broken out of a multi-month consolidation range following the Q1 FY2026 earnings beat. The z17 mainframe cycle is pacing 51% ahead YoY. Software at 44% of revenue growing 10%+ CC provides structural growth. The post-earnings -6% pullback to $214 offers better risk/reward than pre-earnings. Key level to hold: $205 (50-day MA).",
-      "buy_reasons": "z17 mainframe super-cycle +51% YoY \u2014 pacing ahead of z16\nSoftware 10%+ CC \u2014 mix-shift to high-margin recurring revenue\nGenAI book $12.5B+ \u2014 converts to recurring software and consulting\nFCF $2.22B decade-best Q1 \u2014 $13.5B+ FY2026 well-supported\nPost-earnings pullback -6% offers better entry at $214",
-      "sell_reasons": "Consulting only +1% CC \u2014 weakness risk in H2 2026\nConfluent $11B acquisition \u2014 $600M EPS dilution FY2026\nValuation 22-23x P/E \u2014 premium to 14x historical average\nz17 cycle headwind builds in H2 as hardware laps itself",
-      "image1": "",
-      "image2": "",
-      "image3": "",
-      "video": "",
-      "tags": [
-        "breakout",
-        "mainframe",
-        "AI",
-        "software",
-        "IBM"
-      ]
+      "buy_reasons": "z17 mainframe super-cycle +51% YoY — pacing ahead of z16\nSoftware 10%+ CC — mix-shift to high-margin recurring revenue\nGenAI book $12.5B+ — converts to recurring software and consulting\nFCF $2.22B decade-best Q1 — $13.5B+ FY2026 well-supported\nPost-earnings pullback -6% offers better entry at $214",
+      "sell_reasons": "Consulting only +1% CC — weakness risk in H2 2026\nConfluent $11B acquisition — $600M EPS dilution FY2026\nValuation 22-23x P/E — premium to 14x historical average\nz17 cycle headwind builds in H2 as hardware laps itself",
+      "tags": ["breakout", "mainframe", "AI", "software", "IBM"]
     }
   ],
   "articles": [
     {
-  "id": "art-crdo-2026-06-02",
-  "ticker": "CRDO",
-  "emoji": "⚡",
-  "cat": "EQUITY RESEARCH",
-  "tag": "NEW",
-  "title": "Credo Technology — AEC Leadership & Optical Inflection: Full Equity Research",
-  "excerpt": "Credo has built an unmatched AEC reliability advantage that has captured dominant hyperscaler share in AI cluster interconnect. Revenue tripled to $1.3B in FY2026. FY2027 guided over 80% growth. We analyse the business quality, optical platform thesis, valuation at 56x NTM P/E, and the central H2 FY2027 optical ramp debate.",
-  "date": "June 2, 2026",
-  "read_time": "20 min",
-  "author": "Balaji N, CFP",
-  "report_file": "equity-research-CRDO-2026-06-02.html",
-  "rating": "Constructive",
-  "pt": "~$197–$220",
-  "tags": ["CRDO", "AEC", "Optical Interconnect", "AI", "Semiconductors"]
-},
+      "id": "art-crdo-2026-06-02",
+      "ticker": "CRDO",
+      "emoji": "⚡",
+      "cat": "EQUITY RESEARCH",
+      "tag": "NEW",
+      "title": "Credo Technology — AEC Leadership & Optical Inflection: Full Equity Research",
+      "excerpt": "Credo has built an unmatched AEC reliability advantage that has captured dominant hyperscaler share in AI cluster interconnect. Revenue tripled to $1.3B in FY2026. FY2027 guided over 80% growth. We analyse the business quality, optical platform thesis, valuation at 56x NTM P/E, and the central H2 FY2027 optical ramp debate.",
+      "date": "June 2, 2026",
+      "read_time": "20 min",
+      "author": "Balaji N, CFP",
+      "report_file": "equity-research-CRDO-2026-06-02.html",
+      "rating": "Constructive",
+      "pt": "~$197–$220",
+      "tags": ["CRDO", "AEC", "Optical Interconnect", "AI", "Semiconductors"]
+    },
     {
       "id": "art-mrvl-2026-05-31",
       "ticker": "MRVL",
-      "emoji": "\u26a1",
+      "emoji": "⚡",
       "cat": "EQUITY RESEARCH",
       "tag": "FEATURED",
-      "title": "Marvell Technology \u2014 Custom Silicon $10B+ & Optical Interconnect Leadership: Full Equity Research",
+      "title": "Marvell Technology — Custom Silicon $10B+ & Optical Interconnect Leadership: Full Equity Research",
       "excerpt": "Marvell has completed its transformation into a pure-play AI infrastructure platform. Custom silicon XPU at $10B+ FY29 target anchored in won design commitments, optical interconnect growing >70% in FY27, and NVLink Fusion partnership with NVIDIA. We build a 5-year model and assess whether 56x NTM P/E is justified.",
       "date": "May 31, 2026",
       "read_time": "22 min",
       "author": "Balaji N, CFP",
       "report_file": "equity-research-MRVL-2026-05-31.html",
       "rating": "Constructive",
-      "pt": "~$219\u2013$240",
-      "tags": [
-        "MRVL",
-        "Custom Silicon",
-        "Optical Interconnect",
-        "AI",
-        "Semiconductors"
-      ]
+      "pt": "~$219–$240",
+      "tags": ["MRVL", "Custom Silicon", "Optical Interconnect", "AI", "Semiconductors"]
     },
     {
       "id": "art-ibm-2026-05-30",
       "ticker": "IBM",
-      "emoji": "\ud83d\udda5\ufe0f",
+      "emoji": "🖥️",
       "cat": "EQUITY RESEARCH",
       "tag": "DEEP DIVE",
-      "title": "IBM \u2014 Hybrid Cloud & AI Platform: Full Equity Research Report",
+      "title": "IBM — Hybrid Cloud & AI Platform: Full Equity Research Report",
       "excerpt": "IBM's transformation from legacy IT giant to software-led hybrid cloud and AI platform is underway. Software at 44% of revenue, growing 10%+ CC. GenAI book of business $12.5B+. z17 mainframe super-cycle. We analyse the business quality, competitive moat, 5-year revenue model, and whether the 22x P/E premium is justified.",
       "date": "May 30, 2026",
       "read_time": "22 min",
@@ -741,43 +583,31 @@
       "report_file": "equity-research-IBM-2026-05-30.html",
       "rating": "Buy",
       "pt": "$250",
-      "tags": [
-        "IBM",
-        "Hybrid Cloud",
-        "AI",
-        "Software",
-        "Red Hat"
-      ]
+      "tags": ["IBM", "Hybrid Cloud", "AI", "Software", "Red Hat"]
     },
     {
       "id": "art-nvda-2026-05-25",
       "ticker": "NVDA",
-      "emoji": "\ud83c\udfae",
+      "emoji": "🎮",
       "cat": "EQUITY RESEARCH",
       "tag": "FEATURED",
-      "title": "NVIDIA \u2014 The Operating System of AI Infrastructure: Bull Case, Bear Case & Valuation",
-      "excerpt": "NVIDIA is not a semiconductor company \u2014 it is the operating system of AI infrastructure. CUDA ecosystem with 4M+ developers, Blackwell architecture, and NVLink fabric create a moat that takes years to replicate. We model three scenarios for the stock through FY2028 and explain why PEG 0.7x on 50%+ growth is inexpensive.",
+      "title": "NVIDIA — The Operating System of AI Infrastructure: Bull Case, Bear Case & Valuation",
+      "excerpt": "NVIDIA is not a semiconductor company — it is the operating system of AI infrastructure. CUDA ecosystem with 4M+ developers, Blackwell architecture, and NVLink fabric create a moat that takes years to replicate. We model three scenarios for the stock through FY2028 and explain why PEG 0.7x on 50%+ growth is inexpensive.",
       "date": "May 25, 2026",
       "read_time": "25 min",
       "author": "Balaji N, CFP",
       "report_file": "equity-research-NVDA-2026-05-25.html",
       "rating": "Strong Buy",
       "pt": "$1,400",
-      "tags": [
-        "NVIDIA",
-        "AI",
-        "Semiconductors",
-        "Blackwell",
-        "CUDA"
-      ]
+      "tags": ["NVIDIA", "AI", "Semiconductors", "Blackwell", "CUDA"]
     },
     {
       "id": "art-msft-2026-05-20",
       "ticker": "MSFT",
-      "emoji": "\ud83e\ude9f",
+      "emoji": "🪟",
       "cat": "EQUITY RESEARCH",
       "tag": "ANALYSIS",
-      "title": "Microsoft \u2014 Azure + Copilot: Modelling the AI Monetisation Flywheel Through FY2028",
+      "title": "Microsoft — Azure + Copilot: Modelling the AI Monetisation Flywheel Through FY2028",
       "excerpt": "Microsoft owns both the cloud infrastructure layer (Azure, 35% CC growth) and the AI application layer (Copilot M365 at 30M paid seats, GitHub Copilot at 2M+ enterprise). We model the compounding effect and build a sum-of-parts valuation that supports our $510 base target.",
       "date": "May 20, 2026",
       "read_time": "20 min",
@@ -785,21 +615,15 @@
       "report_file": "equity-research-MSFT-2026-05-20.html",
       "rating": "Strong Buy",
       "pt": "$510",
-      "tags": [
-        "Microsoft",
-        "Azure",
-        "Copilot",
-        "Cloud",
-        "AI"
-      ]
+      "tags": ["Microsoft", "Azure", "Copilot", "Cloud", "AI"]
     },
     {
       "id": "art-aapl-2026-05-15",
       "ticker": "AAPL",
-      "emoji": "\ud83c\udf4e",
+      "emoji": "🍎",
       "cat": "EQUITY RESEARCH",
       "tag": "ANALYSIS",
-      "title": "Apple \u2014 Services Flywheel & Apple Intelligence: The Path to 50% Gross Margin",
+      "title": "Apple — Services Flywheel & Apple Intelligence: The Path to 50% Gross Margin",
       "excerpt": "Apple Services at $26.3B with 75%+ gross margins is the structural story behind the stock. We model how Apple Intelligence accelerates the iPhone upgrade cycle, India drives the next decade of hardware growth, and the blended gross margin path to 50% by 2028. Is 28x P/E justified?",
       "date": "May 15, 2026",
       "read_time": "19 min",
@@ -807,35 +631,23 @@
       "report_file": "equity-research-AAPL-2026-05-15.html",
       "rating": "Buy",
       "pt": "$248",
-      "tags": [
-        "Apple",
-        "iPhone",
-        "Services",
-        "AI",
-        "India"
-      ]
+      "tags": ["Apple", "iPhone", "Services", "AI", "India"]
     },
     {
       "id": "art-amzn-2026-05-10",
       "ticker": "AMZN",
-      "emoji": "\ud83d\udce6",
+      "emoji": "📦",
       "cat": "EQUITY RESEARCH",
       "tag": "ANALYSIS",
-      "title": "Amazon \u2014 Three Compounding Engines: AWS, Advertising & Retail Margin Expansion",
-      "excerpt": "Amazon is not a retailer \u2014 it is three high-quality compounding businesses sharing a logistics backbone. AWS at 21% growth, Advertising at 19%, and retail margins expanding to record 11.8% operating margin. We model the $105B capex supercycle and when FCF recovers.",
+      "title": "Amazon — Three Compounding Engines: AWS, Advertising & Retail Margin Expansion",
+      "excerpt": "Amazon is not a retailer — it is three high-quality compounding businesses sharing a logistics backbone. AWS at 21% growth, Advertising at 19%, and retail margins expanding to record 11.8% operating margin. We model the $105B capex supercycle and when FCF recovers.",
       "date": "May 10, 2026",
       "read_time": "18 min",
       "author": "Balaji N, CFP",
       "report_file": "equity-research-AMZN-2026-05-10.html",
       "rating": "Buy",
       "pt": "$245",
-      "tags": [
-        "Amazon",
-        "AWS",
-        "Cloud",
-        "Advertising",
-        "Retail"
-      ]
+      "tags": ["Amazon", "AWS", "Cloud", "Advertising", "Retail"]
     }
   ]
 }
