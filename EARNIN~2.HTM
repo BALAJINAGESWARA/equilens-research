@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Broadcom — Earnings Intelligence FQ2 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+:root{
+  --bg:#0a0e14; --panel:#121821; --panel-2:#1a2230; --border:#243042;
+  --text:#e6edf3; --muted:#8b98a9; --faint:#5a6675;
+  --accent:#4da3ff;
+  --pos:#3ad29f; --neg:#ff6b6b;
+  --bull:#3ad29f; --bear:#ff6b6b; --neutral:#f5c451;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);margin:0;line-height:1.6;}
+.wrap{max-width:1040px;margin:0 auto;padding:32px 20px 80px;}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;margin:18px 0;}
+h1{font-size:28px;font-weight:700;letter-spacing:-.02em;margin:0 0 4px;}
+h2{font-size:18px;font-weight:650;margin:0 0 16px;display:flex;align-items:center;gap:10px;}
+h2::before{content:"";width:4px;height:18px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+h3{font-size:15px;font-weight:600;margin:0 0 8px;}
+p{margin:0 0 12px;color:var(--text);}
+.muted{color:var(--muted);}
+.mono{font-family:var(--mono);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th,td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--border);}
+th:first-child,td:first-child{text-align:left;}
+th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
+tr:last-child td{border-bottom:none;}
+.beat{color:var(--pos);font-weight:600;}
+.miss{color:var(--neg);font-weight:600;}
+.neutral-val{color:var(--neutral);}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;}
+.pill-beat{background:rgba(58,210,159,.15);color:var(--pos);}
+.pill-miss{background:rgba(255,107,107,.15);color:var(--neg);}
+.pill-neutral{background:rgba(245,196,81,.15);color:var(--neutral);}
+.grid{display:grid;gap:16px;}
+.grid-2{grid-template-columns:1fr 1fr;}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+@media(max-width:720px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+.kpi{background:var(--panel-2);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.kpi .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.kpi .value{font-size:22px;font-weight:700;margin-top:6px;font-family:var(--mono);}
+.kpi .delta{font-size:12px;margin-top:4px;}
+.bullbear{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:680px){.bullbear{grid-template-columns:1fr;}}
+.verdict{font-size:22px;font-weight:750;padding:7px 18px;border-radius:10px;display:inline-block;}
+.disclaimer{color:var(--faint);font-size:12px;margin-top:40px;border-top:1px solid var(--border);padding-top:16px;line-height:1.7;}
+.tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;margin-right:4px;}
+.chart-wrap{position:relative;height:260px;margin-top:16px;}
+.signal-list{list-style:none;padding:0;margin:0;}
+.signal-list li{padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;display:flex;align-items:flex-start;gap:8px;}
+.signal-list li:last-child{border-bottom:none;}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.dot-pos{background:var(--pos);}
+.dot-neg{background:var(--neg);}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:680px){.risk-grid{grid-template-columns:1fr;}}
+.risk-item{background:var(--panel-2);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.risk-item .rtag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.risk-item p{font-size:13px;color:var(--muted);margin:0;}
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0;}
+.pt-row{background:var(--panel-2);border-radius:10px;padding:14px 16px;margin:10px 0;}
+.pt-row .scenario{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
+.pt-row .price{font-size:26px;font-weight:800;font-family:var(--mono);}
+.pt-row .prob{font-size:12px;color:var(--muted);margin-top:2px;}
+.pt-row .math{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
+.accent-text{color:var(--accent);}
+.section-note{font-size:13px;color:var(--muted);margin-bottom:16px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ── HEADER ─────────────────────────────────────────────── -->
+<header class="panel">
+  <h1>Broadcom — Earnings &amp; Valuation Intelligence</h1>
+  <div class="muted" style="font-size:13px;">AVGO · NASDAQ · Semiconductors &amp; Infrastructure Software &nbsp;|&nbsp; Quarter: FQ2 2026 (ended May 4, 2026) · Generated: June 4, 2026</div>
+  <div style="margin-top:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+    <span class="verdict" style="background:var(--bull);color:#06281d;">BUY</span>
+    <span class="mono" style="font-size:20px;font-weight:700;">PT $550</span>
+    <span class="muted" style="font-size:14px;">(base) · vs ~$415 today (post AH drop)</span>
+    <span class="pill pill-miss" style="font-size:13px;">Stock −13.8% AH on June 3</span>
+  </div>
+</header>
+
+<!-- ── 1. EXECUTIVE SUMMARY ──────────────────────────────── -->
+<section class="panel">
+  <h2>Executive Summary</h2>
+  <p>Broadcom delivered record FQ2 2026 revenue of <strong>$22.19B (+48% YoY)</strong> — narrowly missing the Street's $22.27B consensus by ~$80M — while non-GAAP EPS of <strong>$2.44 beat $2.40 estimates</strong>. The headline story was <strong>AI semiconductor revenue of $10.8B (+143% YoY)</strong>, fueled by insatiable hyperscaler demand for custom ASIC accelerators and AI networking silicon. Infrastructure software (VMware/CA/Symantec) disappointed at <strong>$7.18B vs. $7.32B expected</strong>, and CEO Hock Tan's decision to hold — rather than raise — the <strong>$56B FY2026 AI revenue target</strong> or the $100B FY2027 target proved the bigger catalyst for the sell-off. Q3 guidance of $29.4B (vs $28.53B expected, +84% YoY) was well above consensus, yet investors had priced in a blowout upward revision. Base price target: <strong>$550</strong> on 35× FY2027 non-GAAP EPS of ~$15.70; verdict: <strong>Buy</strong> — the pullback is an overreaction to whisper-number disappointment on a structurally sound AI compounder.</p>
+</section>
+
+<!-- ── 2. EARNINGS OVERVIEW ───────────────────────────────── -->
+<section class="panel">
+  <h2>Earnings Overview</h2>
+  <div class="grid grid-4" style="margin-bottom:20px;">
+    <div class="kpi">
+      <div class="label">Revenue</div>
+      <div class="value">$22.19B</div>
+      <div class="delta miss">vs $22.27B est · −$83M miss</div>
+      <div class="delta" style="color:var(--pos);">+48% YoY · +14.9% QoQ</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Non-GAAP EPS</div>
+      <div class="value">$2.44</div>
+      <div class="delta beat">vs $2.40 est · +$0.04 beat</div>
+      <div class="delta muted">GAAP EPS: $1.91</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Adj. EBITDA</div>
+      <div class="value">$15.24B</div>
+      <div class="delta beat">69% margin · +52% YoY</div>
+      <div class="delta muted">vs 68% in FQ1 2026</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Free Cash Flow</div>
+      <div class="value">$10.26B</div>
+      <div class="delta beat">46% FCF margin</div>
+      <div class="delta muted">$231M capex this quarter</div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Actual</th>
+        <th>Consensus</th>
+        <th>Beat / Miss</th>
+        <th>YoY</th>
+        <th>QoQ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Revenue</td>
+        <td class="mono">$22.19B</td>
+        <td class="mono">$22.27B</td>
+        <td class="miss">−$83M (−0.4%)</td>
+        <td class="beat">+48%</td>
+        <td class="beat">+14.9%</td>
+      </tr>
+      <tr>
+        <td>Non-GAAP EPS</td>
+        <td class="mono">$2.44</td>
+        <td class="mono">$2.40</td>
+        <td class="beat">+$0.04 (+1.7%)</td>
+        <td class="beat">~+25%</td>
+        <td class="beat">+10%</td>
+      </tr>
+      <tr>
+        <td>Adj. EBITDA Margin</td>
+        <td class="mono">69%</td>
+        <td class="mono">~68%</td>
+        <td class="beat">+100bps</td>
+        <td class="beat">+230bps</td>
+        <td class="beat">+100bps</td>
+      </tr>
+      <tr>
+        <td>Semis Revenue (AI)</td>
+        <td class="mono">$10.80B</td>
+        <td class="mono">~$10.5B</td>
+        <td class="beat">+$0.3B beat</td>
+        <td class="beat">+143%</td>
+        <td class="beat">+28.6%</td>
+      </tr>
+      <tr>
+        <td>Infra Software Revenue</td>
+        <td class="mono">$7.18B</td>
+        <td class="mono">$7.32B</td>
+        <td class="miss">−$140M (−1.9%)</td>
+        <td class="beat">+9%</td>
+        <td class="beat">~+1%</td>
+      </tr>
+      <tr>
+        <td>Free Cash Flow</td>
+        <td class="mono">$10.26B</td>
+        <td class="mono">n/a</td>
+        <td>—</td>
+        <td class="beat">~+55%</td>
+        <td class="beat">~+17%</td>
+      </tr>
+      <tr>
+        <td>Non-GAAP Op. Margin</td>
+        <td class="mono">~67%</td>
+        <td class="mono">~67%</td>
+        <td>In line</td>
+        <td class="beat">+~200bps</td>
+        <td>Flat</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:var(--faint);margin-top:10px;">Prior quarter (FQ1 2026) revenue: $19.311B. Prior year (FQ2 2025) revenue: ~$14.99B. GAAP net income FQ2 2026: $9.310B. Non-GAAP net income: $12.074B.</p>
+</section>
+
+<!-- ── 3. REVENUE & EARNINGS GROWTH ──────────────────────── -->
+<section class="panel">
+  <h2>Revenue &amp; Earnings Growth Analysis</h2>
+  <p><strong>What drove the top line:</strong> AI semiconductor revenue nearly doubled sequentially, from $8.4B in FQ1 to $10.8B in FQ2, powered by escalating orders for custom AI accelerators (XPUs) from hyperscaler customers — including at least two known large cloud providers — and AI networking ASICs. This segment alone accounted for ~49% of total company revenue, up from ~44% last quarter. Non-AI semiconductor revenue ($4.2B, +6% YoY) showed tentative recovery in broadband, industrial, and enterprise networking, though remains well below peak cycle levels.</p>
+  <p><strong>Infrastructure software</strong> grew a solid 9% YoY to $7.18B, reflecting VMware subscription migration progress (ARR +17%) and cross-selling of VCF (VMware Cloud Foundation). The miss vs. whisper expectations reflects a tougher comparison and slower-than-anticipated enterprise deal closures — not structural deterioration, but it dented sentiment given the high bar set by AI.</p>
+  <p><strong>What drove EPS:</strong> Operating leverage was the headline — the 69% EBITDA margin (vs. 68% in FQ1) reflects AI semiconductor gross margins (~70%) scaling while software margins hold near 93%. The EPS beat vs. consensus also benefited from continued share repurchases. GAAP vs. non-GAAP gap ($1.91 vs. $2.44) reflects ongoing amortization of VMware acquisition intangibles (~$3.3B this quarter, annualizing $13B+).</p>
+
+  <div class="chart-wrap">
+    <canvas id="revenueChart"></canvas>
+  </div>
+  <p style="font-size:11px;color:var(--faint);margin-top:6px;">* FQ3/FQ4 FY2025 figures are approximate based on public disclosures; FQ1–FQ2 FY2026 confirmed.</p>
+</section>
+
+<!-- ── 4. SEGMENT ANALYSIS ───────────────────────────────── -->
+<section class="panel">
+  <h2>Business Segment Analysis</h2>
+
+  <table style="margin-bottom:20px;">
+    <thead>
+      <tr>
+        <th>Segment</th>
+        <th>FQ2 2026 Rev</th>
+        <th>% of Total</th>
+        <th>YoY Growth</th>
+        <th>Consensus</th>
+        <th>Beat / Miss</th>
+        <th>Gross Margin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Semiconductor Solutions</strong></td>
+        <td class="mono">$15.00B</td>
+        <td class="mono">68%</td>
+        <td class="beat">+79%</td>
+        <td class="mono">~$14.9B</td>
+        <td class="beat">+$0.1B</td>
+        <td class="mono">~70%</td>
+      </tr>
+      <tr>
+        <td style="padding-left:24px;color:var(--muted);">↳ AI Semiconductor</td>
+        <td class="mono">$10.80B</td>
+        <td class="mono">49%</td>
+        <td class="beat">+143%</td>
+        <td class="mono">~$10.5B</td>
+        <td class="beat">Beat</td>
+        <td class="mono">~72%</td>
+      </tr>
+      <tr>
+        <td style="padding-left:24px;color:var(--muted);">↳ Non-AI Semiconductor</td>
+        <td class="mono">$4.20B</td>
+        <td class="mono">19%</td>
+        <td class="beat">+6%</td>
+        <td class="mono">~$4.2B</td>
+        <td>In line</td>
+        <td class="mono">~65%</td>
+      </tr>
+      <tr>
+        <td><strong>Infrastructure Software</strong></td>
+        <td class="mono">$7.18B</td>
+        <td class="mono">32%</td>
+        <td class="beat">+9%</td>
+        <td class="mono">$7.32B</td>
+        <td class="miss">−$140M</td>
+        <td class="mono">93%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid grid-2" style="margin-top:12px;">
+    <div class="kpi">
+      <div class="label">AI Semiconductors — Outlook</div>
+      <div style="margin-top:10px;font-size:13px;">The swing factor for the entire company. Broadcom's custom ASIC strategy gives hyperscalers lower TCO and better performance-per-watt than merchant GPUs for inference workloads. Q3 guide of $16.0B (+200%+ YoY) implies sequential acceleration continues at pace. Management has stated $56B full-year FY2026 AI target and >$100B for FY2027 — both backed by multi-year take-or-pay contracts. Key risk: customer concentration (~2-3 hyperscalers drive most AI revenue).</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Infrastructure Software (VMware) — Outlook</div>
+      <div style="margin-top:10px;font-size:13px;">The $140M miss reflects a slower pace of enterprise customers migrating to VCF subscription bundles. Positive: ARR growing 17% YoY, 93% gross margin, 79% operating margin — best-in-class SaaS economics. The software segment provides revenue predictability and cash generation that funds AI capex. Headwind: enterprise IT spend caution and longer deal cycles persist; Hock Tan acknowledged some elongation in deal closures. Medium-term, the VMware cross-sell opportunity ($30B+ software market) remains largely untapped.</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap" style="height:220px;margin-top:20px;">
+    <canvas id="segmentChart"></canvas>
+  </div>
+</section>
+
+<!-- ── 5. INDUSTRY & DEMAND ──────────────────────────────── -->
+<section class="panel">
+  <h2>Industry &amp; Demand Analysis</h2>
+  <p><strong>TAM &amp; cycle position:</strong> The AI ASIC/networking market is estimated to reach $150–200B+ by 2027–2028 (per multiple sell-side estimates), growing at 40–60% CAGR. Broadcom, with its custom XPU/ASIC platform, sits at an inflection point: hyperscaler AI capex is accelerating, not plateauing. Per the company's own guidance, Q3 AI semis of $16B implies run-rate AI revenue of ~$64B annualized — already ahead of the $56B FY2026 target by Q3.</p>
+  <p><strong>AI infrastructure spend:</strong> Google, Meta, Microsoft, and Amazon have all publicly committed to multi-hundred-billion dollar AI infrastructure capex cycles over 2025–2027. Each has or is developing custom AI silicon partnerships — Broadcom's ASIC design and packaging expertise positions it as a primary beneficiary. AI networking (Jericho/Tomahawk) is a high-margin adjacency benefiting from the scale-out of AI clusters.</p>
+  <p><strong>Non-AI semiconductor cycle:</strong> Recovery is tentative. Broadband and enterprise networking (+6% YoY in non-AI semis) are normalizing post-inventory correction, but below peak. Industrial and storage remain soft. The next catalyst for non-AI semis is an enterprise refresh cycle — likely late 2026.</p>
+  <p><strong>Competitive landscape:</strong> NVIDIA dominates merchant GPU; Broadcom differentiates by offering <em>custom</em> silicon with better energy efficiency for specific workloads. Marvell Technology is the closest ASIC competitor (custom NPUs for Microsoft Azure, Amazon Trainium), but trails Broadcom in design win volume and hyperscaler penetration depth. Intel and AMD have limited custom ASIC exposure at scale. The market is effectively a two-player race (Broadcom + Marvell) for custom AI silicon, a structural advantage.</p>
+</section>
+
+<!-- ── 6. GUIDANCE & OUTLOOK ─────────────────────────────── -->
+<section class="panel">
+  <h2>Guidance &amp; Outlook</h2>
+
+  <table style="margin-bottom:20px;">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Q3 FY2026 Guide</th>
+        <th>Consensus</th>
+        <th>vs. Consensus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Revenue</td>
+        <td class="mono beat">~$29.4B</td>
+        <td class="mono">$28.53B</td>
+        <td class="beat">+$870M (+3.1%)</td>
+      </tr>
+      <tr>
+        <td>YoY Revenue Growth</td>
+        <td class="mono beat">+84%</td>
+        <td class="mono">~+79%</td>
+        <td class="beat">Above</td>
+      </tr>
+      <tr>
+        <td>AI Semiconductor Revenue</td>
+        <td class="mono beat">~$16.0B</td>
+        <td class="mono">~$14.5B</td>
+        <td class="beat">+$1.5B (+10%)</td>
+      </tr>
+      <tr>
+        <td>Non-GAAP Op. Margin</td>
+        <td class="mono">~67%</td>
+        <td class="mono">~67%</td>
+        <td>In line</td>
+      </tr>
+      <tr>
+        <td>FY2026 AI Revenue (full year)</td>
+        <td class="mono neutral-val">$56B (reaffirmed)</td>
+        <td class="mono">~$58–60B hoped</td>
+        <td class="miss">Not raised — key disappointment</td>
+      </tr>
+      <tr>
+        <td>FY2027 AI Revenue (long-term)</td>
+        <td class="mono neutral-val">&gt;$100B (reaffirmed)</td>
+        <td class="mono">—</td>
+        <td class="miss">Not raised</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Why guidance moved markets:</strong> Q3 revenue guidance of $29.4B — implying 84% YoY growth — was meaningfully above consensus. Yet the stock fell because investors were betting on Hock Tan raising the $56B FY2026 and $100B FY2027 AI revenue targets, which he declined to do. With AVGO up ~40% YTD entering the print, the market was priced for upward revision. The guidance is objectively strong; the issue is relative to a very high whisper bar. The AI revenue run-rate by Q3 ($16B/quarter = $64B annualized) already implies full-year AI revenue could exceed $56B if Q4 is similarly strong — suggesting the guidance is conservatively set.</p>
+</section>
+
+<!-- ── 7. MANAGEMENT COMMENTARY ──────────────────────────── -->
+<section class="panel">
+  <h2>Management Commentary</h2>
+  <div class="grid grid-2">
+    <div>
+      <h3 style="color:var(--pos);">✦ Positive Signals</h3>
+      <ul class="signal-list">
+        <li><span class="dot dot-pos"></span><span>Hock Tan: "Broadcom achieved record revenue, operating profit and free cash flow in Q2 driven by accelerating growth in AI semiconductor revenue." AI semis up 143% YoY — structural, not cyclical.</span></li>
+        <li><span class="dot dot-pos"></span><span>Q3 AI semiconductor guide of $16B (+200%+ YoY) confirms the ramp is accelerating, not plateauing. Management's multi-year contract visibility gives high confidence in the trajectory.</span></li>
+        <li><span class="dot dot-pos"></span><span>FCF margin of 46% ($10.26B) is best-in-class — capital return capacity is enormous. Dividend and buyback runway remains strong at a $1.96T market cap.</span></li>
+        <li><span class="dot dot-pos"></span><span>VMware ARR growing 17% YoY; subscription model conversion is on track, providing durable recurring revenue that compounds independently of semis cycle.</span></li>
+        <li><span class="dot dot-pos"></span><span>EBITDA margin expansion to 69% (+100bps QoQ) demonstrates operating leverage at scale — as AI semis revenue grows, incremental margins accrete above the corporate average.</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:var(--neg);">✦ Cautious / Negative Signals</h3>
+      <ul class="signal-list">
+        <li><span class="dot dot-neg"></span><span>Infrastructure software missed consensus by $140M. Management cited elongated enterprise deal cycles — a macro sensitivity that could persist if corporate IT budgets tighten further.</span></li>
+        <li><span class="dot dot-neg"></span><span>FY2026 AI revenue target of $56B and FY2027 target of >$100B were held, not raised. Given the Q3 AI ramp, this is arguably conservative — but not raising frustrated investors priced for an upgrade.</span></li>
+        <li><span class="dot dot-neg"></span><span>Customer concentration risk: a significant proportion of AI semiconductor revenue derives from 2–3 hyperscalers. Any pullback in capex commitments (regulatory, macro, or internal ROI scrutiny) represents a binary risk.</span></li>
+        <li><span class="dot dot-neg"></span><span>Non-GAAP/GAAP spread remains wide at ~$0.53/share ($2.44 vs $1.91) due to VMware intangible amortization — dilutive to GAAP returns on equity even as cash earnings are strong.</span></li>
+        <li><span class="dot dot-neg"></span><span>Non-AI semiconductor recovery (+6% YoY) remains muted. Broadband and enterprise networking are not back to peak. A prolonged soft enterprise IT environment could keep this segment subdued through FY2026.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── 8. M&A ANALYSIS ───────────────────────────────────── -->
+<section class="panel">
+  <h2>M&amp;A Analysis</h2>
+  <p>No new material M&amp;A was announced in conjunction with FQ2 2026. The VMware acquisition (closed November 2023 for $69B) remains the dominant M&A story: integration is progressing well, ARR growing 17% YoY, and software operating margin at 79% demonstrates strong post-acquisition execution. VMware contributes roughly $28–29B in annualized run-rate software revenue (FQ2 annualized $7.18B × 4 = $28.7B). The VMware cross-sell into the broader enterprise base — CA Technologies, Symantec, Brocade assets — remains a multi-year incremental opportunity. No indication management is pursuing additional large-scale M&amp;A given leverage reduction priority.</p>
+</section>
+
+<!-- ── 9. BULL VS BEAR ────────────────────────────────────── -->
+<section class="panel">
+  <h2>Bull vs. Bear</h2>
+  <div class="bullbear">
+    <div class="kpi" style="border-color:var(--bull);">
+      <h3 style="color:var(--bull);margin-bottom:12px;">🐂 Bull Case</h3>
+      <ul class="signal-list">
+        <li><span class="dot dot-pos"></span><span><strong>AI secular compounder:</strong> $100B+ in FY2027 AI semiconductor revenue — backed by multi-year contracts — would make Broadcom one of the largest pure-play AI silicon suppliers. The custom ASIC moat is defensible and widening.</span></li>
+        <li><span class="dot dot-pos"></span><span><strong>FCF machine:</strong> $10.26B FCF in a single quarter (46% margin) compounds at high rates. Broadcom can return $30–40B per year to shareholders while still investing in R&amp;D and capacity.</span></li>
+        <li><span class="dot dot-pos"></span><span><strong>Margin expansion:</strong> Every dollar of AI semiconductor revenue adds above-average gross margin. As AI scales to 60–70% of semis revenue, blended corporate EBITDA margins could push toward 72–74%.</span></li>
+        <li><span class="dot dot-pos"></span><span><strong>Software compounding quietly:</strong> VMware ARR at 17% growth with 93% gross margins is a durable compounding engine that de-risks the overall business against semiconductor cyclicality.</span></li>
+        <li><span class="dot dot-pos"></span><span><strong>New hyperscaler wins:</strong> A third or fourth major hyperscaler ASIC design win would be a material upside surprise. Broadcom's design capacity is not yet fully disclosed.</span></li>
+      </ul>
+    </div>
+    <div class="kpi" style="border-color:var(--bear);">
+      <h3 style="color:var(--bear);margin-bottom:12px;">🐻 Bear Case</h3>
+      <ul class="signal-list">
+        <li><span class="dot dot-neg"></span><span><strong>Hyperscaler concentration risk:</strong> 2–3 customers driving the majority of AI revenue creates binary event risk. Google's TPU in-house development could reduce ASIC outsourcing over time; Meta and Amazon could do the same.</span></li>
+        <li><span class="dot dot-neg"></span><span><strong>AI capex pullback:</strong> If hyperscaler ROI scrutiny intensifies or macro deteriorates, AI infrastructure capex could stall faster than consensus expects. Broadcom has little revenue diversification outside these customers for AI.</span></li>
+        <li><span class="dot dot-neg"></span><span><strong>Valuation premium at risk:</strong> At 42× FY2026 non-GAAP EPS, even modest execution misses punish the stock severely. The stock entered earnings at all-time highs (+40% YTD) — re-rating risk is asymmetric.</span></li>
+        <li><span class="dot dot-neg"></span><span><strong>Software deceleration:</strong> If VMware migration stalls or enterprise IT spend tightens further, the 9% YoY software growth could decelerate — removing one of the two legs supporting the earnings story.</span></li>
+        <li><span class="dot dot-neg"></span><span><strong>NVIDIA risk to networking:</strong> NVIDIA's Spectrum-X networking platform competes directly with Broadcom's Tomahawk/Jericho AI networking franchise. NVIDIA's integrated GPU+NIC+switch ecosystem could gradually displace Broadcom's networking ASICs in GPU clusters.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── 10. VALUATION ──────────────────────────────────────── -->
+<section class="panel">
+  <h2>Valuation</h2>
+  <p class="section-note">Stock price reference: ~$415 (post-AH June 3, 2026). Pre-print close was $481.57 (all-time high). Market cap ~$1.70T post-drop. EV ~$1.75T (assumes ~$55B net debt).</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>AVGO (current)</th>
+        <th>AVGO (pre-drop)</th>
+        <th>Peer / Sector avg</th>
+        <th>Premium / Discount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Trailing P/E (GAAP)</td>
+        <td class="mono">~79×</td>
+        <td class="mono">~91×</td>
+        <td class="mono">~35×</td>
+        <td class="miss">+125% premium</td>
+      </tr>
+      <tr>
+        <td>Forward P/E (FY2026 non-GAAP)</td>
+        <td class="mono">~42×</td>
+        <td class="mono">~49×</td>
+        <td class="mono">~25×</td>
+        <td class="miss">+68% premium</td>
+      </tr>
+      <tr>
+        <td>Forward P/E (FY2027 non-GAAP)</td>
+        <td class="mono">~26×</td>
+        <td class="mono">~31×</td>
+        <td class="mono">~20×</td>
+        <td class="miss">+30% premium</td>
+      </tr>
+      <tr>
+        <td>EV/EBITDA (FY2026E)</td>
+        <td class="mono">~29×</td>
+        <td class="mono">~54× (trailing)</td>
+        <td class="mono">~20×</td>
+        <td class="miss">+45% premium</td>
+      </tr>
+      <tr>
+        <td>EV/Sales (FY2026E)</td>
+        <td class="mono">~17×</td>
+        <td class="mono">~20×</td>
+        <td class="mono">~8–10×</td>
+        <td class="miss">Significant premium</td>
+      </tr>
+      <tr>
+        <td>FCF Yield (annualized)</td>
+        <td class="mono">~2.4%</td>
+        <td class="mono">~2.1%</td>
+        <td class="mono">~3–5%</td>
+        <td class="neutral-val">Below sector</td>
+      </tr>
+      <tr>
+        <td>PEG (FY2026 growth ~76%)</td>
+        <td class="mono">~0.55×</td>
+        <td class="mono">~0.64×</td>
+        <td class="mono">~1.0–1.5×</td>
+        <td class="beat">Attractive on PEG</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:16px;"><strong>Verdict:</strong> On traditional multiples (P/E, EV/EBITDA, EV/Sales), Broadcom trades at a significant premium to the semiconductor sector. However, the PEG ratio (~0.55×) is genuinely attractive — reflecting that the company is growing non-GAAP EPS at 76% this year, a rate few at this market cap can match. The key question is whether 76% EPS growth is repeatable into FY2027. If Broadcom delivers ~$100B in AI revenue in FY2027 (its stated target), the valuation case becomes clear at current prices. The risk is paying a growth multiple before that growth is confirmed.</p>
+</section>
+
+<!-- ── 11. PRICE TARGETS ──────────────────────────────────── -->
+<section class="panel">
+  <h2>Price Targets</h2>
+  <p class="section-note">All scenarios based on FY2027 non-GAAP EPS and EV/EBITDA. Current price: ~$415. Shares outstanding: ~4.1B.</p>
+
+  <div class="pt-row" style="border-left:4px solid var(--bull);">
+    <div class="scenario" style="color:var(--bull);">Bull Case</div>
+    <div class="price">$720</div>
+    <div class="prob">Probability: ~20%</div>
+    <div class="math">
+      <strong>P/E method:</strong> FY2027 non-GAAP EPS of ~$17.20 (AI revs hit $120B+, software +12%) × 42× = $722.<br>
+      <strong>EV/EBITDA method:</strong> FY2027 EBITDA ~$100B (total rev $140B × 72% margin) × 30× = $3,000B EV; minus $50B net debt ÷ 4.1B shares ≈ $720.<br>
+      <em>Triggers: 3rd hyperscaler ASIC design win, AI capex upcycle accelerates beyond $100B target, software re-accelerates to 15%+ growth.</em>
+    </div>
+  </div>
+
+  <div class="pt-row" style="border-left:4px solid var(--accent);">
+    <div class="scenario" style="color:var(--accent);">Base Case</div>
+    <div class="price">$550</div>
+    <div class="prob">Probability: ~55%</div>
+    <div class="math">
+      <strong>P/E method:</strong> FY2027 non-GAAP EPS of ~$15.70 (AI revs ~$100B, software +10%) × 35× = $550.<br>
+      <strong>EV/EBITDA method:</strong> FY2027 EBITDA ~$92B ($130B revenue × 71% margin) × 28× = $2,576B EV; minus $50B net debt ÷ 4.1B shares ≈ $616. Blend of methods ≈ $550–$580.<br>
+      <em>Triggers: Broadcom delivers on $100B FY2027 AI target; software returns to 10–12% growth; multiple re-rates modestly from current discount-to-AI-peak.</em>
+    </div>
+  </div>
+
+  <div class="pt-row" style="border-left:4px solid var(--bear);">
+    <div class="scenario" style="color:var(--bear);">Bear Case</div>
+    <div class="price">$310</div>
+    <div class="prob">Probability: ~25%</div>
+    <div class="math">
+      <strong>P/E method:</strong> FY2027 non-GAAP EPS of ~$12.50 (AI revs disappoint at $75B, software flat) × 25× = $313.<br>
+      <strong>EV/EBITDA method:</strong> FY2027 EBITDA ~$70B ($105B revenue × 67% margin) × 22× = $1,540B EV; minus $50B net debt ÷ 4.1B shares ≈ $363. Blend ≈ $310–$350.<br>
+      <em>Triggers: Hyperscaler AI capex pullback, Google/Meta in-sources ASIC design significantly, macro slowdown hits enterprise software; multiple de-rates toward historical norms.</em>
+    </div>
+  </div>
+</section>
+
+<!-- ── 12. KEY RISKS ──────────────────────────────────────── -->
+<section class="panel">
+  <h2>Key Risks</h2>
+  <div class="risk-grid">
+    <div>
+      <h3 style="color:var(--neg);font-size:14px;margin-bottom:12px;">Near-Term (1–2 Quarters)</h3>
+      <div class="risk-item">
+        <div class="rtag" style="color:var(--neg);">High</div>
+        <h3>Whisper-number treadmill</h3>
+        <p>AVGO has re-entered a regime where it must beat elevated expectations every quarter. Any sequential softness in AI revenue below the $16B Q3 guide would trigger another sharp de-rating. The bar only goes up.</p>
+      </div>
+      <div class="risk-item" style="margin-top:10px;">
+        <div class="rtag" style="color:var(--neutral);">Medium</div>
+        <h3>Infrastructure software deceleration</h3>
+        <p>Two consecutive quarters of below-consensus software revenue would signal VMware migration is stalling — a risk to the 17% ARR growth story and the predictability of the non-semis leg.</p>
+      </div>
+      <div class="risk-item" style="margin-top:10px;">
+        <div class="rtag" style="color:var(--neutral);">Medium</div>
+        <h3>Macro + enterprise IT spend</h3>
+        <p>Softness in broadband and enterprise networking (non-AI semis) could deepen if macro deteriorates, weighing on the $4.2B non-AI semiconductor segment and further reducing gross mix benefit.</p>
+      </div>
+    </div>
+    <div>
+      <h3 style="color:var(--neg);font-size:14px;margin-bottom:12px;">Long-Term (Structural)</h3>
+      <div class="risk-item">
+        <div class="rtag" style="color:var(--neg);">High</div>
+        <h3>Hyperscaler in-sourcing of ASIC</h3>
+        <p>Google's TPUv5, Amazon's Trainium 2, and Microsoft's Maia 100 all represent efforts to reduce dependence on third-party AI silicon. Accelerating in-house design capability could shrink Broadcom's addressable share over a 3–5 year horizon.</p>
+      </div>
+      <div class="risk-item" style="margin-top:10px;">
+        <div class="rtag" style="color:var(--neg);">High</div>
+        <h3>NVIDIA networking displacement</h3>
+        <p>NVIDIA's Spectrum-X ecosystem integrates GPU, NIC, and switch functions, potentially making standalone AI networking ASICs (Broadcom's Tomahawk/Jericho) redundant for GPU-centric clusters. This is a structural threat to a high-margin business unit.</p>
+      </div>
+      <div class="risk-item" style="margin-top:10px;">
+        <div class="rtag" style="color:var(--neutral);">Medium</div>
+        <h3>Geopolitical / export controls</h3>
+        <p>U.S. chip export restrictions to China could limit Broadcom's non-AI semiconductor revenue in networking and broadband end-markets. Any expansion of AI chip controls to allied-country partners would also create compliance complexity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 13. THESIS & VERDICT ──────────────────────────────── -->
+<section class="panel">
+  <h2>Investment Thesis &amp; Verdict</h2>
+
+  <p><strong>The core case for owning AVGO:</strong> Broadcom is one of the few companies in the world with the engineering depth to design competitive custom AI ASICs at hyperscaler scale, combined with a 93% gross margin software business compounding in the background. The AI revenue trajectory — $10.8B this quarter, $16.0B guided next quarter, $56B for the full year, $100B targeted for FY2027 — is among the most visible large-cap revenue ramps in technology history, supported by multi-year contractual commitments. FCF of $10.26B in a single quarter funds aggressive capital return and leaves room for continued R&amp;D investment. The post-AH pullback of ~14% on what is objectively a strong quarter (record revenue, record EBITDA, above-consensus Q3 guide) is a whisper-number overreaction, not a fundamental deterioration.</p>
+
+  <p><strong>What would change the thesis:</strong> A reduction in hyperscaler AI capex commitments, confirmed acceleration of in-house ASIC development by Google or Meta, two-or-more consecutive software misses that call VMware ARR growth into question, or macro-driven multiple compression across the broader semiconductor complex. None of these are imminent, but all are real risks worth monitoring each quarter.</p>
+
+  <p><strong>Catalysts to watch:</strong> (1) FQ3 2026 earnings in September — confirmation of the $29.4B revenue guide and any upward revision to full-year targets. (2) Hyperscaler earnings calls (Google I/O, Meta Connect, AWS re:Invent) for AI capex commentary. (3) Any announcement of a new custom ASIC design partnership. (4) NVIDIA's next-gen networking product roadmap for competitive read-through.</p>
+
+  <hr class="divider">
+
+  <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:8px;">
+    <div class="verdict" style="background:var(--bull);color:#06281d;">BUY</div>
+    <div>
+      <div style="font-size:18px;font-weight:700;">Base PT: $550 &nbsp;·&nbsp; <span style="color:var(--muted);font-size:15px;">+32% from ~$415</span></div>
+      <div style="font-size:13px;color:var(--muted);margin-top:4px;">Conviction: High · Time horizon: 12 months · Primary risk: whisper-bar treadmill + hyperscaler concentration</div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> This report is informational research generated from publicly available data and licensed sources. It is not personalized investment advice, a solicitation to buy or sell securities, or a recommendation tailored to any individual's financial circumstances, risk tolerance, or investment objectives. Past performance and forward-looking statements do not guarantee future results. All figures should be independently verified before making any investment decision. Always consult a qualified financial advisor.
+  </div>
+</section>
+
+</div><!-- .wrap -->
+
+<script>
+Chart.defaults.color = '#8b98a9';
+Chart.defaults.borderColor = '#243042';
+
+// Revenue trend chart
+(function(){
+  const ctx = document.getElementById('revenueChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['FQ3 2025*', 'FQ4 2025*', 'FQ1 2026', 'FQ2 2026'],
+      datasets: [
+        {
+          label: 'AI Semiconductor',
+          data: [5.8, 7.2, 8.4, 10.8],
+          backgroundColor: 'rgba(77,163,255,0.85)',
+          stack: 'rev'
+        },
+        {
+          label: 'Non-AI Semiconductor',
+          data: [4.0, 3.9, 3.9, 4.2],
+          backgroundColor: 'rgba(77,163,255,0.3)',
+          stack: 'rev'
+        },
+        {
+          label: 'Infrastructure Software',
+          data: [6.8, 6.9, 6.9, 7.18],
+          backgroundColor: 'rgba(58,210,159,0.55)',
+          stack: 'rev'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { boxWidth: 12, padding: 14 } },
+        title: { display: true, text: 'Quarterly Revenue by Segment ($B) — * FQ3/FQ4 FY2025 approximate', color: '#8b98a9', font: { size: 12 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y.toFixed(2)}B`
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true, grid: { color: '#243042' } },
+        y: {
+          stacked: true,
+          grid: { color: '#243042' },
+          ticks: { callback: v => '$' + v + 'B' }
+        }
+      }
+    }
+  });
+})();
+
+// Segment donut chart for FQ2 2026
+(function(){
+  const ctx = document.getElementById('segmentChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['AI Semiconductor ($10.8B)', 'Non-AI Semiconductor ($4.2B)', 'Infrastructure Software ($7.18B)'],
+      datasets: [{
+        data: [10.8, 4.2, 7.18],
+        backgroundColor: ['rgba(77,163,255,0.85)', 'rgba(77,163,255,0.3)', 'rgba(58,210,159,0.55)'],
+        borderColor: '#243042',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '60%',
+      plugins: {
+        legend: { position: 'right', labels: { boxWidth: 12, padding: 14, font: { size: 12 } } },
+        title: { display: true, text: 'FQ2 2026 Revenue Mix — $22.19B Total', color: '#8b98a9', font: { size: 12 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${(ctx.parsed / 22.19 * 100).toFixed(1)}% of revenue`
+          }
+        }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
