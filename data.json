@@ -1,6 +1,22 @@
 {
   "earnings": [
     {
+  "id": "art-avgo-2026-06-04",
+  "ticker": "AVGO",
+  "emoji": "🔷",
+  "cat": "EARNINGS ANALYSIS",
+  "tag": "NEW",
+  "title": "Broadcom (AVGO) FQ2 2026 — Record AI Revenue $10.8B, Software Miss Sparks -14% Sell-Off",
+  "excerpt": "Broadcom delivered record FQ2 2026 revenue of $22.19B (+48% YoY) with AI semiconductor revenue surging 143% to $10.8B. Despite an EPS beat and strong Q3 guide of $29.4B, shares fell ~14% after-hours as software missed and Hock Tan held the $56B FY2026 AI target.",
+  "date": "June 4, 2026",
+  "read_time": "15 min",
+  "author": "Balaji N, CFP",
+  "report_file": "earnings-AVGO-FQ2-2026.html",
+  "rating": "Buy",
+  "pt": "$550",
+  "tags": ["AVGO", "Broadcom", "AI Semiconductors", "Custom ASIC", "Earnings"]
+},
+    {
       "id": "ups-q1-2026",
       "ticker": "UPS",
       "co": "United Parcel Service",
